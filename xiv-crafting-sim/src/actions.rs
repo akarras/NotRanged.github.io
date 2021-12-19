@@ -4,9 +4,15 @@ use serde::{Deserialize, Serialize};
 pub enum ActionType {
     Immediate,
     CountUp,
-    Countdown{
-        active_turns: i32 // number of turns this countdown is active for
+    Countdown {
+        active_turns: i32, // number of turns this countdown is active for
     },
+}
+
+impl Default for ActionType {
+    fn default() -> Self {
+        ActionType::Immediate
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -14,7 +20,7 @@ pub struct Combo {
     actions: Vec<Action>,
 }
 
-#[derive(Debug, Deserialize, Serialize, Clone)]
+#[derive(Debug, Deserialize, Serialize, Clone, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct ActionDetails<'a> {
     pub short_name: &'a str,
@@ -78,21 +84,60 @@ pub enum Action {
 impl Action {
     pub const fn details(&self) -> ActionDetails {
         match self {
-            Action::Observe => ActionDetails {
-                short_name: "observe",
-                full_name: "",
-                durability_cost: 0,
-                cp_cost: 0,
-                success_probability: 0.0,
-                quality_increase_multiplier: 0.0,
-                progress_increase_multiplier: 0.0,
-                action_type: ActionType::Immediate,
-                class: "",
-                level: 0,
-                on_good: false,
-                on_excellent: false,
-                combo: None,
+            Action::BasicSynth => {
+                ActionDetails {
+                    //             shortName	              fullName	        dur	cp	Prob	 QIM	 PIM	 Type	          t	  cls	           lvl
+                    //          'basicSynth'	           'Basic Synthesis'	10	0	1	0	1	 'immediate'	1	  'All'	           1)
+                    short_name: "basicSynth",
+                    full_name: "Basic Synthesis",
+                    durability_cost: 10,
+                    cp_cost: 0,
+                    success_probability: 1.0,
+                    quality_increase_multiplier: 0.0,
+                    progress_increase_multiplier: 1.0,
+                    action_type: ActionType::Immediate,
+                    class: "All",
+                    level: 1,
+
+                    on_good: false,
+                    on_excellent: false,
+                    combo: None
+                }
             },
+            Action::CarefulSynthesis => {
+                ActionDetails {
+                    short_name: "carefulSynthesis",
+                    full_name: "Careful Synthesis",
+                    durability_cost: 10,
+                    cp_cost: 7,
+                    success_probability: 1.0,
+                    quality_increase_multiplier: 0.0,
+                    progress_increase_multiplier: 1.2,
+                    action_type: ActionType::Immediate,
+                    class: "All",
+                    level: 62,
+                    on_good: false,
+                    on_excellent: false,
+                    combo: None
+                }
+            },
+            Action::BasicTouch => {
+                ActionDetails {
+                    short_name: "basicTouch",
+                    full_name: "Basic Touch",
+                    durability_cost: 10,
+                    cp_cost: 18,
+                    success_probability: 1.0,
+                    quality_increase_multiplier: 1.0,
+                    progress_increase_multiplier: 0.0,
+                    action_type: ActionType::Immediate,
+                    class: "All",
+                    level: 18,
+                    on_good: false,
+                    on_excellent: false,
+                    combo: None
+                }
+            }
             _ => ActionDetails {
                 short_name: "",
                 full_name: "",

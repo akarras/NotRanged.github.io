@@ -429,5 +429,6 @@ version = "0.1.0"
 dependencies = [
  "genevo",
  "serde",
+ "smallvec",
  "wasm-bindgen",
 ]
