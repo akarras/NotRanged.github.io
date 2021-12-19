@@ -1,3 +1,8 @@
+// NEW TEST
+
+//import init, {CraftSimulator} from "../../lib/pkg/xiv_crafting_sim";
+
+importScripts("../../lib/pkg/xiv_crafting_sim.js");
 importScripts('../../lib/string/String.js');
 
 importScripts('../../lib/yagal/creator.js');
@@ -6,28 +11,41 @@ importScripts('../../lib/yagal/fitness.js');
 importScripts('../../lib/yagal/toolbox.js');
 importScripts('../../lib/yagal/algorithms.js');
 
+
 importScripts('../seededrandom.js');
 importScripts('../actions.js');
 importScripts('../ffxivcraftmodel.js');
 
 importScripts('easimple.js');
 importScripts('eacomplex.js');
-
 var state;
+const { CraftSimulator } = wasm_bindgen;
+var sim;
+async function start_simulator(start) {
+  console.log('WASM module start:');
+  await wasm_bindgen("../../lib/pkg/xiv_crafting_sim_bg.wasm");
+  console.log(start);
+  sim = CraftSimulator.new_wasm(start);
+  state = {startTime: Date.now()};
+  runWasmGen();
+}
 
 self.onmessage = function(e) {
   try {
     if (e.data.start) {
-      start(e.data.start);
+      start_simulator(e.data.start).then(r => r)
+      //start(e.data.start);
     }
     else if (e.data == 'resume') {
       if (state.gen >= state.maxGen) {
         state.maxGen += state.settings.solver.generations;
       }
-      runOneGen();
+      runWasmGen();
+      //runOneGen();
     }
     else if (e.data == 'rungen') {
-      runOneGen();
+      runWasmGen();
+      // runOneGen();
     }
     else if (e.data == 'finish') {
       finish();
@@ -42,6 +60,16 @@ self.onmessage = function(e) {
     })
   }
 };
+
+function runWasmGen() {
+  let result = sim.next_wasm();
+  console.log(result);
+  postWasmMessage(result);
+}
+
+function postWasmMessage(result) {
+  self.postMessage(result)
+}
 
 function start(settings) {
   var logOutput = new LogOutput();

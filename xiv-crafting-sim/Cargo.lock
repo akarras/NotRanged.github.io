@@ -26,11 +26,23 @@ version = "0.4.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "670ad68c9088c2a963aaa298cb369688cf3f9465ce5e2d4ca10e6e0098a1ce73"
 dependencies = [
+ "js-sys",
  "libc",
  "num-integer",
  "num-traits",
  "time",
+ "wasm-bindgen",
  "winapi",
+]
+
+[[package]]
+name = "console_error_panic_hook"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a06aeb73f470f66dcdbf7223caeebb85984942f22f1adb2a088cf9668146bbbc"
+dependencies = [
+ "cfg-if",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -95,6 +107,7 @@ dependencies = [
  "rand_xoshiro",
  "rayon",
  "smallvec",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -427,8 +440,10 @@ checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 name = "xiv-crafting-sim"
 version = "0.1.0"
 dependencies = [
+ "console_error_panic_hook",
  "genevo",
  "serde",
+ "serde_json",
  "smallvec",
  "wasm-bindgen",
 ]

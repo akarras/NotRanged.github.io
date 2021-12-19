@@ -6,12 +6,14 @@ use std::collections::BTreeMap;
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Crafter {
-    pub(crate) cls: u32,
+    // pub(crate) cls: String,
     pub(crate) craftsmanship: u32,
     pub(crate) control: u32,
+    #[serde(rename = "cp")]
     pub(crate) craft_points: u32,
     pub(crate) level: u32,
-    pub(crate) specialist: u32,
+    #[serde(default)]
+    pub(crate) specialist: bool,
     pub actions: Vec<Action>,
 }
 
@@ -30,16 +32,19 @@ pub struct Recipe {
     pub(crate) progress_modifier: Option<u32>,
     pub(crate) quality_divider: f64,
     pub(crate) quality_modifier: Option<u32>,
-    pub(crate) stars: bool,
+    pub(crate) stars: Option<u32>,
 }
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct SolverVars {
-    solve_for_completion: bool,
+    pub(crate) solve_for_completion: bool,
     #[serde(rename = "remainderCPFitnessValue")]
-    remainder_cp_fitness_value: bool,
-    remainder_dur_fitness_value: bool,
+    pub(crate) remainder_cp_fitness_value: i32,
+    pub(crate) remainder_dur_fitness_value: i32,
+    pub(crate) max_stagnation_counter: i32,
+    pub(crate) population: i32,
+    pub(crate) generations: i32
 }
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
@@ -47,9 +52,11 @@ pub struct SolverVars {
 pub struct Synth {
     pub(crate) crafter: Crafter,
     pub(crate) recipe: Recipe,
+    #[serde(default)]
     pub(crate) max_trick_uses: i32,
-    pub(crate) reliability_index: u32,
+    pub(crate) reliability_percent: u32,
     pub(crate) max_length: u32,
+    #[serde(rename = "solver")]
     pub(crate) solver_vars: SolverVars,
 }
 
@@ -66,7 +73,8 @@ impl Synth {
     fn calculate_base_quality_increase(&self, eff_crafter_level: u32, control: u32) -> u32 {
         let base_value: f64 = (control as f64 * 10.0) / self.recipe.quality_divider + 35.0;
         if eff_crafter_level <= self.recipe.base_level {
-            (base_value * (self.recipe.quality_modifier.unwrap_or(100) as f64) / 100.0).floor() as u32
+            (base_value * (self.recipe.quality_modifier.unwrap_or(100) as f64) / 100.0).floor()
+                as u32
         } else {
             base_value as u32
         }
@@ -98,6 +106,7 @@ impl Condition {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]
+#[serde(rename_all = "camelCase")]
 pub struct Effects {
     count_downs: BTreeMap<Action, i32>,
     count_ups: BTreeMap<Action, i32>,
@@ -106,6 +115,7 @@ pub struct Effects {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]
+#[serde(rename_all = "camelCase")]
 pub struct State {
     pub synth: Synth,
     pub step: u32,
@@ -138,42 +148,41 @@ pub struct State {
 #[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Violations {
-    progress_ok: bool,
-    cp_ok: bool,
-    durability_ok: bool,
-    trick_ok: bool,
-    reliability_ok: bool,
+    pub progress_ok: bool,
+    pub cp_ok: bool,
+    pub durability_ok: bool,
+    pub trick_ok: bool,
+    pub reliability_ok: bool,
 }
 
 impl Violations {
     pub fn is_okay(&self) -> bool {
-        self.durability_ok && self.cp_ok && self.progress_ok && self.reliability_ok && self.trick_ok
+        self.durability_ok && self.cp_ok && self.reliability_ok && self.trick_ok && self.progress_ok
     }
 }
 
 impl State {
-    pub fn check_violations(&self) -> Violations {
-
+    pub(crate) fn check_violations(&self) -> Violations {
         let progress_ok = self.progress_state >= self.synth.recipe.difficulty as i32;
         let cp_ok = self.cp_state >= 0;
-        let durability_ok = if self.durability_state >= -5
+        let mut durability_ok = false;
+        if self.durability_state >= -5
             && self.progress_state >= self.synth.recipe.difficulty as i32
         {
             if let Some(action) = self.action {
-                if action.details().durability_cost == 10 || self.durability_state >= 0 {
-                    true
-                } else {
-                    false
+                let details = action.details();
+                if details.durability_cost == 10 || self.durability_state >= 0 {
+                    durability_ok = true
                 }
-            } else {
-                self.durability_state >= 0
             }
-        } else {
-            false
-        };
+
+            if self.durability_state >= 0 {
+                durability_ok = true;
+            }
+        }
 
         let trick_ok = self.trick_uses <= self.synth.max_trick_uses;
-        let reliability_ok = self.reliability > self.synth.reliability_index as i32;
+        let reliability_ok = self.reliability > self.synth.reliability_percent as i32 / 100;
         Violations {
             progress_ok,
             cp_ok,
@@ -181,6 +190,34 @@ impl State {
             trick_ok,
             reliability_ok,
         }
+    }
+
+    /// Returns an int with a penality
+    pub fn calculate_penalties(&self, penality_weight: f64) -> f64 {
+        let violations = self.check_violations();
+        let mut penalties = self.wasted_actions / 20.0;
+
+        if !violations.durability_ok {
+            penalties += self.durability_state.abs() as f64;
+        }
+
+        if !violations.progress_ok {
+            penalties += (self.synth.recipe.difficulty as i32 - self.progress_state.min(self.synth.recipe.difficulty as i32)).abs() as f64
+        }
+
+        if !violations.cp_ok {
+            penalties += self.cp_state.abs() as f64
+        }
+
+        if self.trick_uses > self.synth.max_trick_uses {
+            penalties += (self.trick_uses - self.synth.max_trick_uses).abs() as f64
+        }
+
+        if self.reliability < (self.synth.reliability_percent / 100) as i32 {
+            penalties += ((self.synth.reliability_percent / 100) as i32 - self.reliability) as f64
+        }
+
+        penalties
     }
 }
 
@@ -266,7 +303,7 @@ struct ModifierResult {
     control: u32,
     eff_crafter_level: u32,
     eff_recipe_level: u32,
-    level_difference: u32,
+    level_difference: i32,
     success_probability: f64,
     quality_increase_multiplier: f64,
     progress_gain: f64,
@@ -275,9 +312,13 @@ struct ModifierResult {
     cp_cost: i32,
 }
 
-/// I could just do the functions that the JS uses, but I did it this way and I'm too lazy to change it now.
+/// I could just do the functions that the JS uses, but I have lifetimes to worry about.
 enum SimulationCondition {
     MonteCarlo { ignore_condition_req: bool },
+    Simulation { pp_normal: f64,
+        pp_good: f64,
+        pp_excellent: f64
+    }
 }
 
 impl SimulationCondition {
@@ -291,6 +332,9 @@ impl SimulationCondition {
                 } else {
                     state.condition.check_good_or_excellent()
                 }
+            },
+            SimulationCondition::Simulation {..} => {
+                false
             }
         }
     }
@@ -298,12 +342,19 @@ impl SimulationCondition {
     fn p_good_or_excellent(&self, state: &State) -> f64 {
         match self {
             SimulationCondition::MonteCarlo { .. } => 1.0,
+            SimulationCondition::Simulation { .. } => {
+                0.0
+            }
         }
     }
 }
 
 impl State {
-    fn apply_modifiers(&mut self, action: Action, condition: &SimulationCondition) -> ModifierResult {
+    fn apply_modifiers(
+        &mut self,
+        action: Action,
+        condition: &SimulationCondition,
+    ) -> ModifierResult {
         let craftsmanship = self.synth.crafter.craftsmanship;
         let mut control = self.synth.crafter.control;
         let mut cp_cost = action.details().cp_cost;
@@ -311,11 +362,10 @@ impl State {
         // Effects modifying level difference
         let eff_crafter_level = get_effective_crafter_level(&self.synth);
         let eff_recipe_level = self.synth.recipe.level;
-        let level_difference = eff_crafter_level - eff_recipe_level;
-        let original_level_difference = eff_crafter_level - eff_recipe_level;
-        let pure_level_difference = self.synth.crafter.level - self.synth.recipe.base_level;
-        let recipe_level = eff_recipe_level;
-        let stars = self.synth.recipe.stars;
+        let level_difference = eff_crafter_level as i32 - eff_recipe_level as i32;
+        // let original_level_difference = eff_crafter_level - eff_recipe_level;
+        let pure_level_difference = self.synth.crafter.level as i32 - self.synth.recipe.base_level as i32;
+        // let recipe_level = eff_recipe_level;
 
         // Effects modifying probability
         let action_details = action.details();
@@ -377,7 +427,7 @@ impl State {
 
         if action.eq(&Action::MuscleMemory) {
             if self.step != 1 {
-                self.wasted_actions += 1.0;
+                self.wasted_actions += 10.0;
                 progress_increase_multiplier = 0.0;
                 cp_cost = 0;
             }
@@ -480,7 +530,7 @@ impl State {
 
         // Effects modifying quality gain directly
         if action.eq(&Action::TrainedEye) {
-            if self.step == 1 && pure_level_difference >= 10 && !self.synth.recipe.stars {
+            if self.step == 1 && pure_level_difference >= 10 && self.synth.recipe.stars.is_none() {
                 quality_gain = self.synth.recipe.max_quality;
             } else {
                 self.wasted_actions += 1.0;
@@ -727,153 +777,22 @@ impl State {
             .cp_state
             .min(self.synth.crafter.craft_points as i32 + self.bonus_max_cp);
     }
-    pub fn add_action(&mut self, action: Action) -> State {
+    pub fn add_action(&self, action: Action) -> State {
         let mut state = self.clone();
+        state.step += 1;
         // TODO figure out how to handle simulation condition *better*
-        let result = self.apply_modifiers(action, &SimulationCondition::MonteCarlo {
-            ignore_condition_req: false
-        });
+        let result = state.apply_modifiers(
+            action,
+            &SimulationCondition::Simulation {
+                pp_normal: 0.0,
+                pp_good: 0.0,
+                //ignore_condition_req: false,
+                pp_excellent: 0.0
+            },
+        );
         // add progress, TODO the js version had two different versions of this. I will ignore this for now. :)
-        state.cp_state -= result.cp_cost;
-        state.progress_state += result.progress_gain as i32;
-        if result.progress_gain > 0.0 {
-            state.reliability += 1;
-        }
-        state.durability_state -= result.durability_cost as i32;
-        state.quality_state += result.quality_gain as i32;
+
+        state.update_state(action, result.progress_gain as i32, result.quality_gain as i32, result.durability_cost as i32, result.cp_cost, &SimulationCondition::MonteCarlo { ignore_condition_req: false }, result.success_probability);
         state
     }
 }
-
-/*fn sim_synth(individual: String, start_state: State, assume_success: bool, verbose: bool, debug: bool, log_output: Option<String>) -> State {
-
-    let logger = Logger(logOutput);
-
-    // Clone startState to keep startState immutable
-    let state = start_state.clone();
-
-    // Conditions
-    let pGood = prob_good_for_synth(&state.synth);
-    let pExcellent = prob_excellent_for_synth(&state.synth);
-    let ignoreConditionReq = !state.synth.useConditions;
-
-    // Step 1 is always normal
-    let mut ppGood = 0;
-    let mut ppExcellent = 0;
-    let mut ppPoor = 0;
-    let mut ppNormal = 1 - (ppGood + ppExcellent + ppPoor);
-
-
-
-    // Check for null or empty individuals
-    if individual.empty() {
-        return State::from(&state.synth)
-    }
-
-    if debug {
-      //logger.log('%-2s %30s %-5s %-5s %-8s %-8s %-5s %-8s %-8s %-5s %-5s %-5s', '#', 'Action', 'DUR', 'CP', 'EQUA', 'EPRG', 'IQ', 'CTL', 'QINC', 'BPRG', 'BQUA', 'WAC');
-      //logger.log('%2d %30s %5.0f %5.0f %8.1f %8.1f %5.1f %8.1f %8.1f %5.0f %5.0f %5.0f', s.step, '', s.durabilityState, s.cpState, s.qualityState, s.progressState, 0, s.synth.crafter.control, 0, 0, 0, 0);
-    }
-    else if verbose {
-      // logger.log('%-2s %30s %-5s %-5s %-8s %-8s %-5s', '#', 'Action', 'DUR', 'CP', 'EQUA', 'EPRG', 'IQ');
-      // logger.log('%2d %30s %5.0f %5.0f %8.1f %8.1f %5.1f', s.step, '', s.durabilityState, s.cpState, s.qualityState, s.progressState, 0);
-
-    }
-    for (let i = 0; i < individual.length; i++) {
-    // var action = individual[i];
-
-    // Ranged edit -- Combo actions. Basically do everything twice over if there's a combo action. Woo.
-    let actionsArray = vec![];
-
-    if (individual[i].isCombo){
-    actionsArray[0] = getComboAction(individual[i].comboName1);
-    actionsArray[1] = getComboAction(individual[i].comboName2);
-    } else {
-    actionsArray[0] = individual[i];
-    }
-    for (var j = 0; j < actionsArray.length; j++) {
-    var action = actionsArray[j];
-
-
-    // Occur regardless of dummy actions
-    //==================================
-    state.step += 1;
-
-    // Condition Calculation
-    var condQualityIncreaseMultiplier = 1;
-    if (!ignoreConditionReq) {
-    condQualityIncreaseMultiplier *= (ppNormal + 1.5 * ppGood * Math.pow(1 - (ppGood + pGood) / 2, state.synth.maxTrickUses) + 4 * ppExcellent + 0.5 * ppPoor);
-    }
-
-    // Calculate Progress, Quality and Durability gains and losses under effect of modifiers
-    var r = ApplyModifiers(state, action, SimCondition);
-
-    // Calculate final gains / losses
-    var successProbability = r.successProbability;
-    if (assume_success) {
-    successProbability = 1;
-    }
-    var progressGain = r.bProgressGain;
-    if (progressGain > 0) {
-    state.reliability = state.reliability * successProbability;
-    }
-
-    var qualityGain = condQualityIncreaseMultiplier * r.bQualityGain;
-
-    // Floor gains at final stage before calculating expected value
-    progressGain = successProbability * Math.floor(progressGain);
-    qualityGain = successProbability * Math.floor(qualityGain);
-
-    // Occur if a wasted action
-    //==================================
-    if (((state.progressState >= state.synth.recipe.difficulty) || (state.durabilityState <= 0) || (state.cpState < 0)) && (action != AllActions.dummyAction)) {
-    state.wastedActions += 1;
-    }
-
-    // Occur if not a wasted action
-    //==================================
-    else {
-
-    UpdateState(state, action, progressGain, qualityGain, r.durabilityCost, r.cpCost, SimCondition, successProbability);
-
-    // Ending condition update
-    if (!ignoreConditionReq) {
-    ppPoor = ppExcellent;
-    ppGood = pGood * ppNormal;
-    ppExcellent = pExcellent * ppNormal;
-    ppNormal = 1 - (ppGood + ppExcellent + ppPoor);
-    }
-
-    }
-
-    var iqCnt = 0;
-    if (AllActions.innerQuiet.shortName in state.effects.countUps) {
-    iqCnt = state.effects.countUps[AllActions.innerQuiet.shortName];
-    }
-    if (debug) {
-    logger.log('%2d %30s %5.0f %5.0f %8.1f %8.1f %5.1f %8.1f %8.1f %5.0f %5.0f %5.0f', state.step, action.name, state.durabilityState, state.cpState, state.qualityState, state.progressState, iqCnt, r.control, qualityGain, Math.floor(r.bProgressGain), Math.floor(r.bQualityGain), state.wastedActions);
-    }
-    else if (verbose) {
-    logger.log('%2d %30s %5.0f %5.0f %8.1f %8.1f %5.1f', state.step, action.name, state.durabilityState, state.cpState, state.qualityState, state.progressState, iqCnt);
-    }
-
-    state.action = action.shortName
-    }
-
-    }
-
-    // Check for feasibility violations
-    var chk = state.checkViolations();
-
-    if (debug) {
-    logger.log('Progress Check: %state, Durability Check: %state, CP Check: %state, Tricks Check: %state, Reliability Check: %state, Wasted Actions: %d', chk.progressOk, chk.durabilityOk, chk.cpOk, chk.trickOk, chk.reliabilityOk, state.wastedActions);
-    }
-    else if (verbose) {
-    logger.log('Progress Check: %state, Durability Check: %state, CP Check: %state, Tricks Check: %state, Reliability Check: %state, Wasted Actions: %d', chk.progressOk, chk.durabilityOk, chk.cpOk, chk.trickOk, chk.reliabilityOk, state.wastedActions);
-    }
-
-    // Return final state
-    state.action = individual[individual.length-1].shortName;
-    return state;
-
-}*/
