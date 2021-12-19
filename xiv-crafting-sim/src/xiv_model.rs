@@ -167,7 +167,7 @@ impl State {
         let cp_ok = self.cp_state >= 0;
         let mut durability_ok = false;
         if self.durability_state >= -5
-            && self.progress_state >= self.synth.recipe.difficulty as i32
+            // self.progress_state >= self.synth.recipe.difficulty as i32 why tho?
         {
             if let Some(action) = self.action {
                 let details = action.details();
@@ -202,7 +202,7 @@ impl State {
         }
 
         if !violations.progress_ok {
-            penalties += (self.synth.recipe.difficulty as i32 - self.progress_state.min(self.synth.recipe.difficulty as i32)).abs() as f64
+            penalties += (self.synth.recipe.difficulty as i32 - self.progress_state).abs() as f64
         }
 
         if !violations.cp_ok {
@@ -217,7 +217,7 @@ impl State {
             penalties += ((self.synth.reliability_percent / 100) as i32 - self.reliability) as f64
         }
 
-        penalties
+        penalties * penality_weight
     }
 }
 
