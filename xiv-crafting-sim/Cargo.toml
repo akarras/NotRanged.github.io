@@ -9,7 +9,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [profile.release]
-opt-level = 3
+opt-level = "s"
 codegen-units = 1
 lto = true
 

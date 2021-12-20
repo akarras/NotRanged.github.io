@@ -44,7 +44,7 @@ pub struct SolverVars {
     pub(crate) remainder_dur_fitness_value: i32,
     pub(crate) max_stagnation_counter: i32,
     pub(crate) population: i32,
-    pub(crate) generations: i32
+    pub(crate) generations: i32,
 }
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
@@ -167,7 +167,7 @@ impl State {
         let cp_ok = self.cp_state >= 0;
         let mut durability_ok = false;
         if self.durability_state >= -5
-            // self.progress_state >= self.synth.recipe.difficulty as i32 why tho?
+        // self.progress_state >= self.synth.recipe.difficulty as i32 why tho?
         {
             if let Some(action) = self.action {
                 let details = action.details();
@@ -314,14 +314,39 @@ struct ModifierResult {
 
 /// I could just do the functions that the JS uses, but I have lifetimes to worry about.
 enum SimulationCondition {
-    MonteCarlo { ignore_condition_req: bool },
-    Simulation { pp_normal: f64,
+    MonteCarlo {
+        ignore_condition_req: bool,
+    },
+    Simulation {
+        ignore_condition: bool,
+        pp_poor: f64,
+        pp_normal: f64,
         pp_good: f64,
-        pp_excellent: f64
-    }
+        pp_excellent: f64,
+    },
 }
 
 impl SimulationCondition {
+    fn update(&mut self, p_good: f64, p_excellent: f64) {
+        match self {
+            SimulationCondition::MonteCarlo { .. } => {}
+            SimulationCondition::Simulation {
+                ignore_condition,
+                pp_poor,
+                pp_normal,
+                pp_good,
+                pp_excellent,
+            } => {
+                if !*ignore_condition {
+                    *pp_poor = *pp_excellent;
+                    *pp_good = p_good * *pp_normal;
+                    *pp_excellent = p_excellent * *pp_normal;
+                    *pp_normal = 1.0 - (*pp_good + *pp_excellent + *pp_poor);
+                }
+            }
+        }
+    }
+
     fn check_good_or_excellent(&self, state: &State) -> bool {
         match self {
             SimulationCondition::MonteCarlo {
@@ -332,18 +357,25 @@ impl SimulationCondition {
                 } else {
                     state.condition.check_good_or_excellent()
                 }
-            },
-            SimulationCondition::Simulation {..} => {
-                false
             }
+            SimulationCondition::Simulation { .. } => true,
         }
     }
 
     fn p_good_or_excellent(&self, state: &State) -> f64 {
         match self {
             SimulationCondition::MonteCarlo { .. } => 1.0,
-            SimulationCondition::Simulation { .. } => {
-                0.0
+            SimulationCondition::Simulation {
+                ignore_condition,
+                pp_excellent,
+                pp_good,
+                ..
+            } => {
+                if *ignore_condition {
+                    1.0
+                } else {
+                    pp_excellent + pp_good
+                }
             }
         }
     }
@@ -364,7 +396,8 @@ impl State {
         let eff_recipe_level = self.synth.recipe.level;
         let level_difference = eff_crafter_level as i32 - eff_recipe_level as i32;
         // let original_level_difference = eff_crafter_level - eff_recipe_level;
-        let pure_level_difference = self.synth.crafter.level as i32 - self.synth.recipe.base_level as i32;
+        let pure_level_difference =
+            self.synth.crafter.level as i32 - self.synth.recipe.base_level as i32;
         // let recipe_level = eff_recipe_level;
 
         // Effects modifying probability
@@ -781,18 +814,29 @@ impl State {
         let mut state = self.clone();
         state.step += 1;
         // TODO figure out how to handle simulation condition *better*
+        let condition = SimulationCondition::Simulation {
+            ignore_condition: false,
+            pp_poor: 0.0,
+            pp_normal: 1.0,
+            pp_good: 0.0,
+            //ignore_condition_req: false,
+            pp_excellent: 0.0,
+        };
         let result = state.apply_modifiers(
             action,
-            &SimulationCondition::Simulation {
-                pp_normal: 0.0,
-                pp_good: 0.0,
-                //ignore_condition_req: false,
-                pp_excellent: 0.0
-            },
+            &condition,
         );
         // add progress, TODO the js version had two different versions of this. I will ignore this for now. :)
 
-        state.update_state(action, result.progress_gain as i32, result.quality_gain as i32, result.durability_cost as i32, result.cp_cost, &SimulationCondition::MonteCarlo { ignore_condition_req: false }, result.success_probability);
+        state.update_state(
+            action,
+            result.progress_gain as i32,
+            result.quality_gain as i32,
+            result.durability_cost as i32,
+            result.cp_cost,
+            &condition,
+            result.success_probability,
+        );
         state
     }
 }

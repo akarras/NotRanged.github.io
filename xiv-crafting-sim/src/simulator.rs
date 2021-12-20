@@ -1,5 +1,5 @@
 use crate::actions::Action;
-use crate::xiv_model::{State, Synth, Violations, Condition};
+use crate::xiv_model::{Condition, State, Synth, Violations};
 use genevo::ga::genetic_algorithm;
 use genevo::operator::prelude::*;
 use genevo::population::ValueEncodedGenomeBuilder;
@@ -7,10 +7,10 @@ use genevo::prelude::*;
 use genevo::prelude::{simulate, FitnessFunction, GenerationLimit, Simulation, SimulationBuilder};
 use genevo::simulation::simulator::Simulator;
 use serde::{Deserialize, Serialize};
+use serde_json::value::Value;
 use std::fmt::{Display, Formatter};
 use wasm_bindgen::prelude::wasm_bindgen;
-use wasm_bindgen::{JsValue};
-use serde_json::value::Value;
+use wasm_bindgen::JsValue;
 
 // genotype, usize where index matches available action
 type CrafterActions = Vec<usize>;
@@ -49,7 +49,7 @@ trait CalcState {
 
     fn get_actions_list(&self, synth: &Synth) -> Vec<Action>;
 
-    fn get_final_actions_list(&self, synth: &Synth) ->(State, Vec<Action>);
+    fn get_final_actions_list(&self, synth: &Synth) -> (State, Vec<Action>);
 }
 
 impl CalcState for CrafterActions {
@@ -61,13 +61,13 @@ impl CalcState for CrafterActions {
             let tmp_state = state.add_action(action);
             let violations = tmp_state.check_violations();
             if violations.progress_ok {
-                return tmp_state
+                return tmp_state;
             }
             if !violations.durability_ok {
-                return tmp_state // bad durability, no point proceeding
+                return tmp_state; // bad durability, no point proceeding
             }
             if !violations.cp_ok {
-                return state
+                return state;
             }
             state = tmp_state;
         }
@@ -77,7 +77,10 @@ impl CalcState for CrafterActions {
     /// Gives all actions
     fn get_actions_list(&self, synth: &Synth) -> Vec<Action> {
         let actions = &synth.crafter.actions;
-        self.iter().take_while(|m| **m > 0).flat_map(|m| actions.get(*m - 1).map(|m| *m)).collect()
+        self.iter()
+            .take_while(|m| **m > 0)
+            .flat_map(|m| actions.get(*m - 1).map(|m| *m))
+            .collect()
     }
 
     /// Gives all actions up until the state went invalid
@@ -95,12 +98,15 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
         let violations = state.check_violations();
         let penalties = state.calculate_penalties(10000.0) as i32;
         let mut fitness = if self.solver_vars.solve_for_completion {
-            (state.cp_state * self.solver_vars.remainder_cp_fitness_value) + (state.durability_state * self.solver_vars.remainder_dur_fitness_value)
+            (state.cp_state * self.solver_vars.remainder_cp_fitness_value)
+                + (state.durability_state * self.solver_vars.remainder_dur_fitness_value)
         } else {
             state.quality_state.min(self.recipe.max_quality as i32)
         };
         fitness -= penalties;
-        if violations.progress_ok && state.quality_state as f64 >= self.recipe.max_quality as f64 * 1.1 {
+        if violations.progress_ok
+            && state.quality_state as f64 >= self.recipe.max_quality as f64 * 1.1
+        {
             fitness = (fitness as f64 * (1 as f64 + 4 as f64 / state.step as f64)) as i32;
         }
 
@@ -115,7 +121,6 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
         // I believe this helps the solver- worth figuring out math to help this.
 
         (self.recipe.difficulty + self.recipe.max_quality * 5) as i32
-
     }
 
     fn lowest_possible_fitness(&self) -> i32 {
@@ -151,8 +156,7 @@ impl CraftSimulator {
         let number_of_generations = synth.solver_vars.generations;
         let population_size = synth.solver_vars.population;
         let initial_population: Population<CrafterActions> = build_population()
-            .with_genome_builder(
-                ValueEncodedGenomeBuilder::new(
+            .with_genome_builder(ValueEncodedGenomeBuilder::new(
                 50,
                 0,                               // define 0 as no operation, end of sequence
                 number_of_available_actions + 1, // 1 is our real first ability
@@ -172,7 +176,11 @@ impl CraftSimulator {
         .until(GenerationLimit::new(number_of_generations as u64))
         .build();
 
-        Self { generations: 0, synth, sim }
+        Self {
+            generations: 0,
+            synth,
+            sim,
+        }
     }
 
     pub fn next(&mut self) -> SimStep {
@@ -183,7 +191,13 @@ impl CraftSimulator {
                     eprintln!("{:?}", a.result.best_solution.solution);
                     let genome = &a.result.best_solution.solution.genome;
                     let (state, best_sequence) = genome.get_final_actions_list(&self.synth);
-                    log(&format!("gen: {} processing time {}, best fitness {} actions {:?}", self.generations, a.processing_time, a.result.best_solution.solution.fitness, best_sequence));
+                    log(&format!(
+                        "gen: {} processing time {}, best fitness {} actions {:?}",
+                        self.generations,
+                        a.processing_time,
+                        a.result.best_solution.solution.fitness,
+                        best_sequence
+                    ));
                     SimStep::Progress {
                         generations_completed: self.generations,
                         max_generations: self.synth.solver_vars.generations as u32,
@@ -194,10 +208,10 @@ impl CraftSimulator {
                 SimResult::Final(a, b, c, d) => {
                     let genome = &a.result.best_solution.solution.genome;
                     let (state, steps) = genome.get_final_actions_list(&self.synth);
-                    SimStep::Complete {
+                    SimStep::Success {
                         best_sequence: steps,
                         execution_log: "blah".to_string(),
-                        elapsed_time: None
+                        elapsed_time: None,
                     }
                 }
             },
@@ -218,9 +232,8 @@ pub struct StatusState {
     feasible: bool,
     violations: Violations,
     condition: Condition,
-    bonus_max_cp: i32
+    bonus_max_cp: i32,
 }
-
 
 impl From<State> for StatusState {
     fn from(state: State) -> Self {
@@ -234,7 +247,7 @@ impl From<State> for StatusState {
             feasible: violations.is_okay() && violations.progress_ok,
             violations,
             condition: state.condition,
-            bonus_max_cp: state.bonus_max_cp
+            bonus_max_cp: state.bonus_max_cp,
         }
     }
 }
@@ -243,9 +256,18 @@ impl From<State> for StatusState {
 #[serde(rename_all = "camelCase")]
 pub enum SimStep {
     #[serde(rename_all = "camelCase")]
-    Complete{best_sequence: Vec<Action>, execution_log: String, elapsed_time: Option<i64>},
+    Success {
+        best_sequence: Vec<Action>,
+        execution_log: String,
+        elapsed_time: Option<i64>,
+    },
     #[serde(rename_all = "camelCase")]
-    Progress {generations_completed: u32, max_generations: u32, best_sequence: Vec<Action>, state: StatusState},
+    Progress {
+        generations_completed: u32,
+        max_generations: u32,
+        best_sequence: Vec<Action>,
+        state: StatusState,
+    },
     Error(String),
 }
 
@@ -261,7 +283,10 @@ extern "C" {
 impl CraftSimulator {
     pub fn new_wasm(synth: &JsValue, max_length: usize, population_size: usize) -> Self {
         console_error_panic_hook::set_once();
-        log(&format!("RUST SEES OBJECT {:?} {} {}", synth, max_length, population_size));
+        log(&format!(
+            "RUST SEES OBJECT {:?} {} {}",
+            synth, max_length, population_size
+        ));
         let synth = synth.into_serde().unwrap();
         log(&format!("Loaded synth {:?}", &synth));
         Self::new(synth)
@@ -275,17 +300,17 @@ impl CraftSimulator {
 #[cfg(test)]
 mod tests {
     use crate::actions::Action;
-    use crate::simulator::{CraftSimulator, SimStep, CrafterActions, CalcState};
-    use crate::xiv_model::{Crafter, Recipe, Synth, SolverVars};
-    use serde::Serialize;
+    use crate::simulator::{CalcState, CraftSimulator, CrafterActions, SimStep};
+    use crate::xiv_model::{Crafter, Recipe, SolverVars, Synth};
     use genevo::genetic::FitnessFunction;
+    use serde::Serialize;
 
-    const TEST_STR:&str  = r#"{"crafter":{"level":90,"craftsmanship":5000,"control":5000,"cp":800,"actions":["muscleMemory","reflect","trainedEye","basicSynth2","carefulSynthesis2","groundwork2","intensiveSynthesis","prudentSynthesis","delicateSynthesis","focusedSynthesisCombo","focusedTouchCombo","basicTouch","standardTouch","advancedTouch","byregotsBlessing","preciseTouch","prudentTouch","preparatoryTouch","trainedFinesse","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","manipulation","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Alchemist","level":560,"difficulty":2625,"durability":80,"startQuality":0,"maxQuality":4320,"baseLevel":90,"progressDivider":130,"progressModifier":90,"qualityDivider":115,"qualityModifier":80,"suggestedControl":2635,"suggestedCraftsmanship":2805,"name":"Sharlayan Fishcake Ingredient"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
+    const TEST_STR: &str = r#"{"crafter":{"level":90,"craftsmanship":5000,"control":5000,"cp":800,"actions":["muscleMemory","reflect","trainedEye","basicSynth2","carefulSynthesis2","groundwork2","intensiveSynthesis","prudentSynthesis","delicateSynthesis","focusedSynthesisCombo","focusedTouchCombo","basicTouch","standardTouch","advancedTouch","byregotsBlessing","preciseTouch","prudentTouch","preparatoryTouch","trainedFinesse","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","manipulation","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Alchemist","level":560,"difficulty":2625,"durability":80,"startQuality":0,"maxQuality":4320,"baseLevel":90,"progressDivider":130,"progressModifier":90,"qualityDivider":115,"qualityModifier":80,"suggestedControl":2635,"suggestedCraftsmanship":2805,"name":"Sharlayan Fishcake Ingredient"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
     const SMOL_ABILITY: &str = r#"{"crafter":{"level":9,"craftsmanship":100,"control":100,"cp":180,"actions":["basicSynth","basicTouch","mastersMend"]},"recipe":{"baseLevel":10,"difficulty":45,"durability":60,"level":10,"maxQuality":250,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":29,"suggestedCraftsmanship":59,"name":"Heat Vent Component","cls":"Culinarian","startQuality":0},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
     #[test]
     fn test_json_synth() {
         let json_str = TEST_STR;
-        let synth : Synth = serde_json::from_str(json_str).unwrap();
+        let synth: Synth = serde_json::from_str(json_str).unwrap();
         let mut sim = CraftSimulator::new(synth);
         let value = sim.next();
         let value = sim.next();
@@ -293,12 +318,10 @@ mod tests {
         let step = sim.next();
 
         match step {
-            SimStep::Complete { .. } => {
+            SimStep::Success { .. } => {
                 assert!(false);
             }
-            SimStep::Progress { state, .. } => {
-
-            }
+            SimStep::Progress { state, .. } => {}
             SimStep::Error(_) => {
                 assert!(false);
             }
@@ -307,9 +330,14 @@ mod tests {
 
     #[test]
     fn valid_crafter_actions() {
-        let valid_rotation : CrafterActions = vec![1, 1, 2, 2, 0, 1, 2, 3, 1];
-        let synth : Synth = serde_json::from_str(&SMOL_ABILITY).unwrap();
-        let expected_actions = vec![Action::BasicSynth, Action::BasicSynth, Action::BasicTouch, Action::BasicTouch];
+        let valid_rotation: CrafterActions = vec![1, 1, 2, 2, 0, 1, 2, 3, 1];
+        let synth: Synth = serde_json::from_str(&SMOL_ABILITY).unwrap();
+        let expected_actions = vec![
+            Action::BasicSynth,
+            Action::BasicSynth,
+            Action::BasicTouch,
+            Action::BasicTouch,
+        ];
         let actions = valid_rotation.get_actions_list(&synth);
         assert_eq!(actions, expected_actions);
 
@@ -320,8 +348,8 @@ mod tests {
 
     #[test]
     fn empty_action_list() {
-        let numbers : CrafterActions = vec![0,0,25,26,7,3,10,1];
-        let synth : Synth = serde_json::from_str(TEST_STR).unwrap();
+        let numbers: CrafterActions = vec![0, 0, 25, 26, 7, 3, 10, 1];
+        let synth: Synth = serde_json::from_str(TEST_STR).unwrap();
         assert_eq!(numbers.get_actions_list(&synth), vec![]);
         let fitness = synth.fitness_of(&numbers);
         assert!(fitness < 0);
@@ -330,12 +358,9 @@ mod tests {
     #[test]
     fn test_real_actions() {
         let crafter_data = r#"{"crafter":{"level":82,"craftsmanship":2606,"control":2457,"cp":507,"actions":["muscleMemory","reflect","trainedEye","basicSynth2","carefulSynthesis2","groundwork","intensiveSynthesis","delicateSynthesis","focusedSynthesisCombo","focusedTouchCombo","basicTouch","standardTouch","byregotsBlessing","preciseTouch","prudentTouch","preparatoryTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Alchemist","level":430,"difficulty":1780,"durability":80,"startQuality":0,"maxQuality":4600,"baseLevel":80,"progressDivider":110,"progressModifier":100,"qualityDivider":90,"qualityModifier":100,"suggestedControl":1733,"suggestedCraftsmanship":1866,"name":"Tincture of Strength"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
-        let synth : Synth = serde_json::from_str(crafter_data).unwrap();
+        let synth: Synth = serde_json::from_str(crafter_data).unwrap();
         let mut sim = CraftSimulator::new(synth);
-        while let SimStep::Progress { .. } = sim.next() {
-
-        }
-
+        while let SimStep::Progress { .. } = sim.next() {}
     }
 
     #[test]
@@ -344,7 +369,7 @@ mod tests {
         let mut sim = CraftSimulator::new(synth);
         let next = sim.next();
         match next {
-            SimStep::Complete { .. } => {
+            SimStep::Success { .. } => {
                 assert!(false);
             }
             SimStep::Progress { best_sequence, .. } => {
@@ -399,14 +424,21 @@ mod tests {
         let mut sim = CraftSimulator::new(synth);
         let sim_result = sim.next();
         match sim_result {
-            SimStep::Complete { .. } => {assert!(false)}
-            SimStep::Progress { generations_completed, max_generations, best_sequence, state } => {
+            SimStep::Success { .. } => {
+                assert!(false)
+            }
+            SimStep::Progress {
+                generations_completed,
+                max_generations,
+                best_sequence,
+                state,
+            } => {
                 assert_ne!(best_sequence.len(), 0);
                 //assert_ne!(state.step, 0);
             }
-            SimStep::Error(_) => {assert!(false)}
+            SimStep::Error(_) => {
+                assert!(false)
+            }
         }
-
-
     }
 }
