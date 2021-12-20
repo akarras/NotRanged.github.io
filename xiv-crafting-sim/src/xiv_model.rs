@@ -2,6 +2,7 @@ use crate::actions::{Action, ActionType};
 use crate::level_table;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
+use std::fmt::{Display, Formatter};
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
 #[serde(rename_all = "camelCase")]
@@ -81,30 +82,6 @@ impl Synth {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub enum Condition {
-    Good,
-    Normal,
-    Excellent,
-    Poor,
-}
-
-impl Default for Condition {
-    fn default() -> Self {
-        Condition::Good
-    }
-}
-
-impl Condition {
-    fn check_good_or_excellent(&self) -> bool {
-        match self {
-            Condition::Good => true,
-            Condition::Excellent => true,
-            _ => false,
-        }
-    }
-}
-
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Effects {
@@ -114,9 +91,54 @@ pub struct Effects {
     indefinites: BTreeMap<Action, i32>,
 }
 
+
+
+impl Display for Effects {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "[ ");
+        if self.count_downs.len() > 0 {
+            write!(f, " CDS:");
+            for (action, count) in &self.count_downs {
+                write!(f, "{:?}:{},", action, count);
+            }
+        }
+        if self.count_ups.len() > 0 {
+            write!(f, " CUS:");
+            for (action, count) in &self.count_ups {
+                write!(f, "{:?}:{},", action, count);
+            }
+        }
+        if self.indefinites.len() > 0 {
+            write!(f, " IDS:");
+            for (action, count) in &self.indefinites {
+                write!(f, "{:?}:{},", action, count);
+            }
+        }
+        write!(f, "]")
+    }
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone, Copy)]
+pub(crate) enum Condition {
+    Poor,
+    Normal,
+    Good,
+    Excellent
+}
+
+impl Condition {
+    fn check_good_or_excellent(&self) -> bool {
+        match self {
+            Condition::Good => true,
+            Condition::Excellent => true,
+            _ => false
+        }
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]
 #[serde(rename_all = "camelCase")]
-pub struct State {
+pub(crate) struct State {
     pub synth: Synth,
     pub step: u32,
     pub last_step: u32,
@@ -143,6 +165,21 @@ pub struct State {
     pub progress_gain: bool,
     pub b_quality_gain: bool, // Rustversion: for some reason these are almost the same name?
     pub success: bool,
+}
+
+impl Default for Condition {
+    fn default() -> Self {
+        Self::Normal
+    }
+}
+
+impl Display for State {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "#{} pro: {}/{} qual: {}/{} dur: {}/{} cp: {}/{} action: {:?} effects: {}", self.step,
+               self.progress_state, self.synth.recipe.difficulty,
+               self.quality_state, self.synth.recipe.max_quality,
+               self.durability_state, self.synth.recipe.durability, self.cp_state, self.synth.crafter.craft_points, self.action, self.effects)
+    }
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -229,7 +266,7 @@ impl From<&Synth> for State {
             last_step: 0,
             action: None,
             effects: Effects {
-                count_ups: [(Action::InnerQuiet, 1)].into_iter().collect(),
+                count_ups: [(Action::InnerQuiet, -1)].into_iter().collect(),
                 ..Default::default()
             },
             reliability: 1,
@@ -241,60 +278,62 @@ impl From<&Synth> for State {
     }
 }
 
-fn prob_good_for_synth(synth: &Synth) -> f64 {
-    let recipe_level = synth.recipe.level;
-    let quality_assurance = synth.crafter.level >= 63;
-    if recipe_level >= 300 {
-        // 70+
-        match quality_assurance {
-            true => 0.11,
-            false => 0.10,
-        }
-    } else if recipe_level >= 276 {
-        // 65+
-        match quality_assurance {
-            true => 0.17,
-            false => 0.15,
-        }
-    } else if recipe_level >= 255 {
-        // 61+
-        match quality_assurance {
-            true => 0.22,
-            false => 0.20,
-        }
-    } else if recipe_level >= 150 {
-        // 55+
-        match quality_assurance {
-            true => 0.17,
-            false => 0.15,
-        }
-    } else {
-        match quality_assurance {
-            true => 0.27,
-            false => 0.25,
+impl Synth {
+    fn prob_good_for_synth(&self) -> f64 {
+        let recipe_level = self.recipe.level;
+        let quality_assurance = self.crafter.level >= 63;
+        if recipe_level >= 300 {
+            // 70+
+            match quality_assurance {
+                true => 0.11,
+                false => 0.10,
+            }
+        } else if recipe_level >= 276 {
+            // 65+
+            match quality_assurance {
+                true => 0.17,
+                false => 0.15,
+            }
+        } else if recipe_level >= 255 {
+            // 61+
+            match quality_assurance {
+                true => 0.22,
+                false => 0.20,
+            }
+        } else if recipe_level >= 150 {
+            // 55+
+            match quality_assurance {
+                true => 0.17,
+                false => 0.15,
+            }
+        } else {
+            match quality_assurance {
+                true => 0.27,
+                false => 0.25,
+            }
         }
     }
-}
 
-fn prob_excellent_for_synth(synth: &Synth) -> f64 {
-    let recipe_level = synth.recipe.level;
-    if recipe_level >= 300 {
-        // 70*+
-        0.01
-    } else if recipe_level >= 255 {
-        // 65+
-        0.02
-    } else if recipe_level >= 150 {
-        // 60+
-        0.01
-    } else {
-        0.02
+    fn prob_excellent_for_synth(&self) -> f64 {
+        let recipe_level = self.recipe.level;
+        if recipe_level >= 300 {
+            // 70*+
+            0.01
+        } else if recipe_level >= 255 {
+            // 65+
+            0.02
+        } else if recipe_level >= 150 {
+            // 60+
+            0.01
+        } else {
+            0.02
+        }
     }
-}
 
-fn get_effective_crafter_level(synth: &Synth) -> u32 {
-    let eff_crafter_level = synth.crafter.level;
-    level_table::level_table_lookup(eff_crafter_level)
+    fn get_effective_crafter_level(&self) -> u32 {
+        let eff_crafter_level = self.crafter.level;
+        level_table::level_table_lookup(eff_crafter_level)
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -313,7 +352,7 @@ struct ModifierResult {
 }
 
 /// I could just do the functions that the JS uses, but I have lifetimes to worry about.
-enum SimulationCondition {
+pub(crate) enum SimulationCondition {
     MonteCarlo {
         ignore_condition_req: bool,
     },
@@ -327,6 +366,17 @@ enum SimulationCondition {
 }
 
 impl SimulationCondition {
+    pub(crate) fn new_sim_condition() -> SimulationCondition {
+        SimulationCondition::Simulation {
+            ignore_condition: false,
+            pp_poor: 0.0,
+            pp_normal: 1.0,
+            pp_good: 0.0,
+            //ignore_condition_req: false,
+            pp_excellent: 0.0,
+        }
+    }
+
     fn update(&mut self, p_good: f64, p_excellent: f64) {
         match self {
             SimulationCondition::MonteCarlo { .. } => {}
@@ -392,7 +442,7 @@ impl State {
         let mut cp_cost = action.details().cp_cost;
 
         // Effects modifying level difference
-        let eff_crafter_level = get_effective_crafter_level(&self.synth);
+        let eff_crafter_level = self.synth.get_effective_crafter_level();
         let eff_recipe_level = self.synth.recipe.level;
         let level_difference = eff_crafter_level as i32 - eff_recipe_level as i32;
         // let original_level_difference = eff_crafter_level - eff_recipe_level;
@@ -810,33 +860,67 @@ impl State {
             .cp_state
             .min(self.synth.crafter.craft_points as i32 + self.bonus_max_cp);
     }
-    pub fn add_action(&self, action: Action) -> State {
+    pub(crate) fn add_action(&self, action: Action, sim_condition: &mut SimulationCondition) -> State {
         let mut state = self.clone();
         state.step += 1;
+        state.action = Some(action);
         // TODO figure out how to handle simulation condition *better*
-        let condition = SimulationCondition::Simulation {
-            ignore_condition: false,
-            pp_poor: 0.0,
-            pp_normal: 1.0,
-            pp_good: 0.0,
-            //ignore_condition_req: false,
-            pp_excellent: 0.0,
-        };
+        let p_good = self.synth.prob_good_for_synth();
+        let p_excellent = self.synth.prob_excellent_for_synth();
+
+///             // Condition Calculation
+//             var condQualityIncreaseMultiplier = 1;
+//             if (!ignoreConditionReq) {
+//                 condQualityIncreaseMultiplier *= (ppNormal + 1.5 * ppGood * Math.pow(1 - (ppGood + pGood) / 2, s.synth.maxTrickUses) + 4 * ppExcellent + 0.5 * ppPoor);
+//             }
+//
+        let mut condition_quality_increase_multiplier = 1.0;
+        match sim_condition {
+            SimulationCondition::MonteCarlo { .. } => {}
+            SimulationCondition::Simulation { ignore_condition, pp_poor, pp_normal, pp_good, pp_excellent } => {
+                condition_quality_increase_multiplier *= (*pp_normal + 1.5 * *pp_good * (1.0 - (*pp_good + p_good) / 2.0).powf(state.synth.max_trick_uses as f64) + 4.0 * *pp_excellent + 0.5 * *pp_poor);
+            }
+        }
+//             // Calculate Progress, Quality and Durability gains and losses under effect of modifiers
+//             var r = ApplyModifiers(s, action, SimCondition);
+
         let result = state.apply_modifiers(
             action,
-            &condition,
+            sim_condition,
         );
-        // add progress, TODO the js version had two different versions of this. I will ignore this for now. :)
+        // Calculate final gains / losses
+        let mut success_probability = result.success_probability;
+        // no assume success for now
+        let mut progress_gain = result.progress_gain;
+        if progress_gain > 0.0 {
+            state.reliability = (state.reliability as f64 * success_probability) as i32;
+        }
+
+        progress_gain = success_probability * progress_gain.floor();
+//
+//             var progressGain = r.bProgressGain;
+//             if (progressGain > 0) {
+//                 s.reliability = s.reliability * successProbability;
+//             }
+//
+        let mut quality_gain = condition_quality_increase_multiplier * result.quality_gain as f64;
+        quality_gain = success_probability * quality_gain.floor();
+//// Floor gains at final stage before calculating expected value
+//             progressGain = successProbability * Math.floor(progressGain);
+//             qualityGain = successProbability * Math.floor(qualityGain);
 
         state.update_state(
             action,
-            result.progress_gain as i32,
-            result.quality_gain as i32,
+            progress_gain as i32,
+            quality_gain as i32,
             result.durability_cost as i32,
             result.cp_cost,
-            &condition,
+            sim_condition,
             result.success_probability,
         );
+
+        sim_condition.update(p_good, p_excellent);
+
         state
     }
 }

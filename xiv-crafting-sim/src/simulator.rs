@@ -1,5 +1,5 @@
 use crate::actions::Action;
-use crate::xiv_model::{Condition, State, Synth, Violations};
+use crate::xiv_model::{Condition, State, Synth, Violations, SimulationCondition};
 use genevo::ga::genetic_algorithm;
 use genevo::operator::prelude::*;
 use genevo::population::ValueEncodedGenomeBuilder;
@@ -8,7 +8,7 @@ use genevo::prelude::{simulate, FitnessFunction, GenerationLimit, Simulation, Si
 use genevo::simulation::simulator::Simulator;
 use serde::{Deserialize, Serialize};
 use serde_json::value::Value;
-use std::fmt::{Display, Formatter};
+use std::fmt::{Display, Formatter, Write};
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
 
@@ -45,21 +45,32 @@ impl Display for SynthResult {
 }
 
 trait CalcState {
-    fn calculate_final_state(&self, synth: &Synth) -> State;
+    fn calculate_final_state(&self, synth: &Synth, log: &mut Option<String>) -> State;
 
     fn get_actions_list(&self, synth: &Synth) -> Vec<Action>;
 
-    fn get_final_actions_list(&self, synth: &Synth) -> (State, Vec<Action>);
+    fn get_final_actions_list(&self, synth: &Synth, log: &mut Option<String>) -> (State, Vec<Action>);
 }
 
 impl CalcState for CrafterActions {
-    fn calculate_final_state(&self, synth: &Synth) -> State {
+    fn calculate_final_state(&self, synth: &Synth, log: &mut Option<String>) -> State {
         let mut state: State = synth.into();
         let actions: Vec<Action> = self.get_actions_list(synth);
 
+        let mut condition = SimulationCondition::new_sim_condition();
+        if let Some(log) = log {
+            write!(log, "{}\n", state);
+        }
         for action in actions {
-            let tmp_state = state.add_action(action);
+            let tmp_state = state.add_action(action, &mut condition);
             let violations = tmp_state.check_violations();
+            if let Some(log) = log {
+                if !violations.is_okay() {
+                    write!(log, "{}\n", tmp_state);
+                } else {
+                    write!(log, "INVALID: {}\n", tmp_state);
+                }
+            }
             if violations.progress_ok {
                 return tmp_state;
             }
@@ -84,9 +95,9 @@ impl CalcState for CrafterActions {
     }
 
     /// Gives all actions up until the state went invalid
-    fn get_final_actions_list(&self, synth: &Synth) -> (State, Vec<Action>) {
+    fn get_final_actions_list(&self, synth: &Synth, log: &mut Option<String>) -> (State, Vec<Action>) {
         let actions = self.get_actions_list(synth);
-        let state = self.calculate_final_state(&synth);
+        let state = self.calculate_final_state(&synth, log);
         let (first, _) = actions.split_at(state.step as usize);
         (state, first.iter().map(|m| *m).collect())
     }
@@ -94,7 +105,7 @@ impl CalcState for CrafterActions {
 
 impl FitnessFunction<CrafterActions, i32> for Synth {
     fn fitness_of(&self, actions: &CrafterActions) -> i32 {
-        let state = actions.calculate_final_state(self);
+        let state = actions.calculate_final_state(self, &mut None);
         let violations = state.check_violations();
         let penalties = state.calculate_penalties(10000.0) as i32;
         let mut fitness = if self.solver_vars.solve_for_completion {
@@ -190,13 +201,15 @@ impl CraftSimulator {
                 SimResult::Intermediate(a) => {
                     eprintln!("{:?}", a.result.best_solution.solution);
                     let genome = &a.result.best_solution.solution.genome;
-                    let (state, best_sequence) = genome.get_final_actions_list(&self.synth);
+                    let mut work_log = Some(String::new());
+                    let (state, best_sequence) = genome.get_final_actions_list(&self.synth, &mut work_log);
                     log(&format!(
-                        "gen: {} processing time {}, best fitness {} actions {:?}",
+                        "gen: {} {}, best fitness {} actions {:?}\n worklog:\n{}",
                         self.generations,
                         a.processing_time,
                         a.result.best_solution.solution.fitness,
-                        best_sequence
+                        best_sequence,
+                        work_log.unwrap()
                     ));
                     SimStep::Progress {
                         generations_completed: self.generations,
@@ -207,11 +220,12 @@ impl CraftSimulator {
                 }
                 SimResult::Final(a, b, c, d) => {
                     let genome = &a.result.best_solution.solution.genome;
-                    let (state, steps) = genome.get_final_actions_list(&self.synth);
+                    let mut log = Some("Final State Log\n".to_string());
+                    let (state, steps) = genome.get_final_actions_list(&self.synth, &mut log);
                     SimStep::Success {
                         best_sequence: steps,
-                        execution_log: "blah".to_string(),
-                        elapsed_time: None,
+                        execution_log: log.unwrap(),
+                        elapsed_time: Some(b.duration().num_seconds()),
                     }
                 }
             },
@@ -341,7 +355,7 @@ mod tests {
         let actions = valid_rotation.get_actions_list(&synth);
         assert_eq!(actions, expected_actions);
 
-        let (state, action) = valid_rotation.get_final_actions_list(&synth);
+        let (state, action) = valid_rotation.get_final_actions_list(&synth, &mut None);
         assert_eq!(action, expected_actions);
         assert_ne!(state.step, 0);
     }
