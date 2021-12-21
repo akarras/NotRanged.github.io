@@ -95,23 +95,23 @@ pub struct Effects {
 
 impl Display for Effects {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "[ ");
+        write!(f, "[ ")?;
         if self.count_downs.len() > 0 {
-            write!(f, " CDS:");
+            write!(f, " CDS:")?;
             for (action, count) in &self.count_downs {
-                write!(f, "{:?}:{},", action, count);
+                write!(f, "{:?}:{},", action, count)?;
             }
         }
         if self.count_ups.len() > 0 {
-            write!(f, " CUS:");
+            write!(f, " CUS:")?;
             for (action, count) in &self.count_ups {
-                write!(f, "{:?}:{},", action, count);
+                write!(f, "{:?}:{},", action, count)?;
             }
         }
         if self.indefinites.len() > 0 {
-            write!(f, " IDS:");
+            write!(f, " IDS:")?;
             for (action, count) in &self.indefinites {
-                write!(f, "{:?}:{},", action, count);
+                write!(f, "{:?}:{},", action, count)?;
             }
         }
         write!(f, "]")
@@ -124,6 +124,17 @@ pub(crate) enum Condition {
     Normal,
     Good,
     Excellent
+}
+
+impl Display for Condition {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Condition::Poor => write!(f, "Poor"),
+            Condition::Normal => write!(f, "Normal"),
+            Condition::Good => write!(f, "Good"),
+            Condition::Excellent => write!(f, "Excellent")
+        }
+    }
 }
 
 impl Condition {
@@ -162,8 +173,8 @@ pub(crate) struct State {
     pub iq_cnt: i32,
     pub control: i32,
     pub quality_gain: i32,
-    pub progress_gain: bool,
-    pub b_quality_gain: bool, // Rustversion: for some reason these are almost the same name?
+    pub base_progress_gain: u32,
+    pub base_quality_gain: u32, // Rustversion: for some reason these are almost the same name?
     pub success: bool,
 }
 
@@ -175,10 +186,10 @@ impl Default for Condition {
 
 impl Display for State {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "#{} pro: {}/{} qual: {}/{} dur: {}/{} cp: {}/{} action: {:?} effects: {}", self.step,
+        write!(f, "#{} pro: {}/{} qual: {}/{} dur: {}/{} cp: {}/{} action: {:?} effects: {} cond: {}", self.step,
                self.progress_state, self.synth.recipe.difficulty,
                self.quality_state, self.synth.recipe.max_quality,
-               self.durability_state, self.synth.recipe.durability, self.cp_state, self.synth.crafter.craft_points, self.action, self.effects)
+               self.durability_state, self.synth.recipe.durability, self.cp_state, self.synth.crafter.craft_points, self.action, self.effects, self.condition)
     }
 }
 
@@ -261,7 +272,7 @@ impl State {
 impl From<&Synth> for State {
     fn from(synth: &Synth) -> Self {
         State {
-            synth: synth.clone(),
+            synth: synth.clone(), // TODO this could be a parent ref, PhantomData stuff.
             step: 0,
             last_step: 0,
             action: None,
@@ -368,7 +379,7 @@ pub(crate) enum SimulationCondition {
 impl SimulationCondition {
     pub(crate) fn new_sim_condition() -> SimulationCondition {
         SimulationCondition::Simulation {
-            ignore_condition: false,
+            ignore_condition: true,
             pp_poor: 0.0,
             pp_normal: 1.0,
             pp_good: 0.0,
@@ -548,12 +559,7 @@ impl State {
                 .count_ups
                 .get(&Action::InnerQuiet)
                 .unwrap_or(&0);
-            if self
-                .effects
-                .count_ups
-                .get(&Action::InnerQuiet)
-                .map(|c| c >= &1)
-                .unwrap_or_default()
+            if num_inner_quiets >= 1
             {
                 quality_increase_multiplier *= 1.0 + (0.2 * (num_inner_quiets + 1) as f64).min(3.0);
             } else {
@@ -699,7 +705,7 @@ impl State {
 
         if action == Action::Reflect {
             if self.step == 1 {
-                if let Some(mut count) = self.effects.count_ups.get_mut(&Action::InnerQuiet) {
+                if let Some(count) = self.effects.count_ups.get_mut(&Action::InnerQuiet) {
                     *count += 1;
                 } else {
                     self.effects.count_ups.insert(Action::InnerQuiet, 0); // what does this even get inserted as?
@@ -868,28 +874,22 @@ impl State {
         let p_good = self.synth.prob_good_for_synth();
         let p_excellent = self.synth.prob_excellent_for_synth();
 
-///             // Condition Calculation
-//             var condQualityIncreaseMultiplier = 1;
-//             if (!ignoreConditionReq) {
-//                 condQualityIncreaseMultiplier *= (ppNormal + 1.5 * ppGood * Math.pow(1 - (ppGood + pGood) / 2, s.synth.maxTrickUses) + 4 * ppExcellent + 0.5 * ppPoor);
-//             }
-//
         let mut condition_quality_increase_multiplier = 1.0;
         match sim_condition {
             SimulationCondition::MonteCarlo { .. } => {}
             SimulationCondition::Simulation { ignore_condition, pp_poor, pp_normal, pp_good, pp_excellent } => {
-                condition_quality_increase_multiplier *= (*pp_normal + 1.5 * *pp_good * (1.0 - (*pp_good + p_good) / 2.0).powf(state.synth.max_trick_uses as f64) + 4.0 * *pp_excellent + 0.5 * *pp_poor);
+                if !*ignore_condition {
+                    condition_quality_increase_multiplier *= *pp_normal + 1.5 * *pp_good * (1.0 - (*pp_good + p_good) / 2.0).powf(state.synth.max_trick_uses as f64) + 4.0 * *pp_excellent + 0.5 * *pp_poor;
+                }
             }
         }
-//             // Calculate Progress, Quality and Durability gains and losses under effect of modifiers
-//             var r = ApplyModifiers(s, action, SimCondition);
 
         let result = state.apply_modifiers(
             action,
             sim_condition,
         );
         // Calculate final gains / losses
-        let mut success_probability = result.success_probability;
+        let success_probability = result.success_probability;
         // no assume success for now
         let mut progress_gain = result.progress_gain;
         if progress_gain > 0.0 {
@@ -924,3 +924,30 @@ impl State {
         state
     }
 }
+
+#[cfg(test)]
+mod test {
+    use crate::xiv_model::{Synth, State, SimulationCondition};
+    use crate::actions::Action;
+
+    #[test]
+    fn basic_action_sim() {
+        let synth : Synth = serde_json::from_str(r#"{"crafter":{"level":54,"craftsmanship":285,"control":249,"cp":283,"actions":["muscleMemory","basicSynth2","basicTouch","standardTouch","byregotsBlessing","preciseTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Culinarian","level":40,"difficulty":138,"durability":60,"startQuality":0,"maxQuality":3500,"baseLevel":40,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":68,"suggestedCraftsmanship":136,"name":"Grade 4 Skybuilders' Sesame Cookie"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":50},"debug":true}"#).unwrap();
+        let mut state : State = (&synth).into();
+        let mut simulation_condition = SimulationCondition::Simulation {
+            ignore_condition: true,
+            pp_poor: 0.0,
+            pp_normal: 1.0,
+            pp_good: 0.0,
+            pp_excellent: 0.0
+        };
+        state = state.add_action(Action::MuscleMemory, &mut simulation_condition);
+        let quality_touch = state.add_action(Action::StandardTouch, &mut simulation_condition);
+        println!("q touch state {}", quality_touch);
+        //assert_eq!(quality_touch.quality_gain, 140);
+        assert_eq!(quality_touch.quality_state, 147);
+        let progress_touch = state.add_action(Action::BasicSynth, &mut simulation_condition);
+        assert_eq!(progress_touch.progress_state, 177);
+    }
+}
+

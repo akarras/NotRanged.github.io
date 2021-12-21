@@ -7,42 +7,12 @@ use genevo::prelude::*;
 use genevo::prelude::{simulate, FitnessFunction, GenerationLimit, Simulation, SimulationBuilder};
 use genevo::simulation::simulator::Simulator;
 use serde::{Deserialize, Serialize};
-use serde_json::value::Value;
-use std::fmt::{Display, Formatter, Write};
+use std::fmt::{Write};
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
 
 // genotype, usize where index matches available action
 type CrafterActions = Vec<usize>;
-
-#[derive(Debug)]
-struct SynthResult {
-    // progress, (actual, recipe required)
-    progress: (u32, u32),
-    // quality, (actual, recipe required)
-    quality: (u32, u32),
-    // cp, (actual, cp required)
-    cp: (u32, u32), // possibly add some time duration step?
-}
-
-impl SynthResult {
-    fn new(synth: &Synth, state: &State) -> Self {
-        Self {
-            progress: (state.progress_state as u32, synth.recipe.difficulty),
-            quality: (state.quality_gain as u32, synth.recipe.max_quality),
-            cp: (state.cp_state as u32, synth.crafter.craft_points),
-        }
-    }
-}
-
-impl Display for SynthResult {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        let (p1, p2) = self.progress;
-        let (q1, q2) = self.quality;
-        let (cp1, cp2) = self.cp;
-        write!(f, "p: {}/{}\nq: {}/{}\ncp: {}/{}", p1, p2, q1, q2, cp1, cp2)
-    }
-}
 
 trait CalcState {
     fn calculate_final_state(&self, synth: &Synth, log: &mut Option<String>) -> State;
@@ -59,16 +29,16 @@ impl CalcState for CrafterActions {
 
         let mut condition = SimulationCondition::new_sim_condition();
         if let Some(log) = log {
-            write!(log, "{}\n", state);
+            let _ = write!(log, "{}\n", state);
         }
         for action in actions {
             let tmp_state = state.add_action(action, &mut condition);
             let violations = tmp_state.check_violations();
             if let Some(log) = log {
                 if !violations.is_okay() {
-                    write!(log, "{}\n", tmp_state);
+                    let _ = write!(log, "{}\n", tmp_state);
                 } else {
-                    write!(log, "INVALID: {}\n", tmp_state);
+                    let _ = write!(log, "INVALID: {}\n", tmp_state);
                 }
             }
             if violations.progress_ok {
@@ -138,8 +108,6 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
         i32::MIN
     }
 }
-
-struct CrafterFitness;
 
 #[wasm_bindgen]
 pub struct CraftSimulator {
@@ -222,9 +190,11 @@ impl CraftSimulator {
                     let genome = &a.result.best_solution.solution.genome;
                     let mut log = Some("Final State Log\n".to_string());
                     let (state, steps) = genome.get_final_actions_list(&self.synth, &mut log);
+                    let mut log = log.unwrap();
+                    let _ = write!(log, "\nFinal State: \n{:#?}\nDuration {}\n Stop Reason: {}", state, c, d);
                     SimStep::Success {
                         best_sequence: steps,
-                        execution_log: log.unwrap(),
+                        execution_log: log,
                         elapsed_time: Some(b.duration().num_seconds()),
                     }
                 }
@@ -317,30 +287,9 @@ mod tests {
     use crate::simulator::{CalcState, CraftSimulator, CrafterActions, SimStep};
     use crate::xiv_model::{Crafter, Recipe, SolverVars, Synth};
     use genevo::genetic::FitnessFunction;
-    use serde::Serialize;
 
     const TEST_STR: &str = r#"{"crafter":{"level":90,"craftsmanship":5000,"control":5000,"cp":800,"actions":["muscleMemory","reflect","trainedEye","basicSynth2","carefulSynthesis2","groundwork2","intensiveSynthesis","prudentSynthesis","delicateSynthesis","focusedSynthesisCombo","focusedTouchCombo","basicTouch","standardTouch","advancedTouch","byregotsBlessing","preciseTouch","prudentTouch","preparatoryTouch","trainedFinesse","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","manipulation","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Alchemist","level":560,"difficulty":2625,"durability":80,"startQuality":0,"maxQuality":4320,"baseLevel":90,"progressDivider":130,"progressModifier":90,"qualityDivider":115,"qualityModifier":80,"suggestedControl":2635,"suggestedCraftsmanship":2805,"name":"Sharlayan Fishcake Ingredient"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
     const SMOL_ABILITY: &str = r#"{"crafter":{"level":9,"craftsmanship":100,"control":100,"cp":180,"actions":["basicSynth","basicTouch","mastersMend"]},"recipe":{"baseLevel":10,"difficulty":45,"durability":60,"level":10,"maxQuality":250,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":29,"suggestedCraftsmanship":59,"name":"Heat Vent Component","cls":"Culinarian","startQuality":0},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
-    #[test]
-    fn test_json_synth() {
-        let json_str = TEST_STR;
-        let synth: Synth = serde_json::from_str(json_str).unwrap();
-        let mut sim = CraftSimulator::new(synth);
-        let value = sim.next();
-        let value = sim.next();
-        let value = sim.next();
-        let step = sim.next();
-
-        match step {
-            SimStep::Success { .. } => {
-                assert!(false);
-            }
-            SimStep::Progress { state, .. } => {}
-            SimStep::Error(_) => {
-                assert!(false);
-            }
-        }
-    }
 
     #[test]
     fn valid_crafter_actions() {
