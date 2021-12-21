@@ -147,10 +147,10 @@ impl Condition {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+#[derive(Debug, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct State {
-    pub synth: Synth,
+pub(crate) struct State<'a> {
+    pub synth: &'a Synth,
     pub step: u32,
     pub last_step: u32,
     pub action: Option<Action>, // Action leading to this state
@@ -184,7 +184,7 @@ impl Default for Condition {
     }
 }
 
-impl Display for State {
+impl Display for State<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "#{} pro: {}/{} qual: {}/{} dur: {}/{} cp: {}/{} BP: {} BQ: {} action: {:?} effects: {} cond: {}", self.step,
                self.progress_state, self.synth.recipe.difficulty,
@@ -209,7 +209,7 @@ impl Violations {
     }
 }
 
-impl State {
+impl State<'_> {
     pub(crate) fn check_violations(&self) -> Violations {
         let progress_ok = self.progress_state >= self.synth.recipe.difficulty as i32;
         let cp_ok = self.cp_state >= 0;
@@ -269,10 +269,10 @@ impl State {
     }
 }
 
-impl From<&Synth> for State {
-    fn from(synth: &Synth) -> Self {
+impl<'a> From<&'a Synth> for State<'a> {
+    fn from(synth: &'a Synth) -> Self {
         State {
-            synth: synth.clone(), // TODO this could be a parent ref, PhantomData stuff.
+            synth, // TODO this could be a parent ref, PhantomData stuff.
             step: 0,
             last_step: 0,
             action: None,
@@ -282,9 +282,21 @@ impl From<&Synth> for State {
             },
             reliability: 1,
             cp_state: synth.crafter.craft_points as i32,
+            bonus_max_cp: 0,
+            quality_state: 0,
+            progress_state: 0,
+            wasted_actions: 0.0,
+            trick_uses: 0,
             condition: Condition::Normal,
+            touch_combo_step: 0,
+            iq_cnt: 0,
+            control: 0,
+            quality_gain: 0,
+            base_progress_gain: 0,
+            base_quality_gain: 0,
             durability_state: synth.recipe.durability as i32,
-            ..Default::default()
+            name_of_element_uses: 0,
+            success: false
         }
     }
 }
@@ -423,7 +435,7 @@ impl SimulationCondition {
         }
     }
 
-    fn p_good_or_excellent(&self, state: &State) -> f64 {
+    fn p_good_or_excellent(&self) -> f64 {
         match self {
             SimulationCondition::MonteCarlo { .. } => 1.0,
             SimulationCondition::Simulation {
@@ -442,7 +454,7 @@ impl SimulationCondition {
     }
 }
 
-impl State {
+impl<'a> State<'a> {
     fn apply_modifiers(
         &mut self,
         action: Action,
@@ -631,7 +643,7 @@ impl State {
         // We can only use Precise Touch when state material condition is Good or Excellent. Default is true for probabilistic method.
         if action.eq(&Action::PreciseTouch) {
             if condition.check_good_or_excellent(self) {
-                quality_gain *= condition.p_good_or_excellent(self) as u32;
+                quality_gain *= condition.p_good_or_excellent() as u32;
             } else {
                 self.wasted_actions += 1.0;
                 quality_gain = 0;
@@ -725,7 +737,7 @@ impl State {
         if action_details.on_excellent || action_details.on_good {
             if self.use_conditional_action(condition) {
                 if action == Action::TricksOfTheTrade {
-                    self.cp_state += (20.0 * condition.p_good_or_excellent(self)) as i32;
+                    self.cp_state += (20.0 * condition.p_good_or_excellent()) as i32;
                 }
             }
         }
@@ -774,7 +786,7 @@ impl State {
             // Increment inner quiet countups that have conditional requirements
             else if action == Action::PreciseTouch && condition.check_good_or_excellent(self) {
                 let quiet_increment =
-                    (2.0 * success_probability * condition.p_good_or_excellent(self)) as i32;
+                    (2.0 * success_probability * condition.p_good_or_excellent()) as i32;
                 if let Some(quiet) = self.effects.count_ups.get_mut(&Action::InnerQuiet) {
                     *quiet += quiet_increment;
                 }
@@ -866,7 +878,7 @@ impl State {
             .cp_state
             .min(self.synth.crafter.craft_points as i32 + self.bonus_max_cp);
     }
-    pub(crate) fn add_action(&self, action: Action, sim_condition: &mut SimulationCondition) -> State {
+    pub(crate) fn add_action(&self, action: Action, sim_condition: &mut SimulationCondition) -> State<'a> {
         let mut state = self.clone();
         state.step += 1;
         state.action = Some(action);

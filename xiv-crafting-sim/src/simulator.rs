@@ -15,15 +15,15 @@ use wasm_bindgen::JsValue;
 pub type CrafterActions = Vec<usize>;
 
 trait CalcState {
-    fn calculate_final_state(&self, synth: &Synth, log: &mut Option<String>) -> State;
+    fn calculate_final_state<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> State<'a>;
 
     fn get_actions_list(&self, synth: &Synth) -> Vec<Action>;
 
-    fn get_final_actions_list(&self, synth: &Synth, log: &mut Option<String>) -> (State, Vec<Action>);
+    fn get_final_actions_list<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> (State<'a>, Vec<Action>);
 }
 
 impl CalcState for CrafterActions {
-    fn calculate_final_state(&self, synth: &Synth, log: &mut Option<String>) -> State {
+    fn calculate_final_state<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> State<'a> {
         let mut state: State = synth.into();
         let mut condition = SimulationCondition::new_sim_condition();
         if let Some(log) = log {
@@ -64,7 +64,7 @@ impl CalcState for CrafterActions {
     }
 
     /// Gives all actions up until the state went invalid
-    fn get_final_actions_list(&self, synth: &Synth, log: &mut Option<String>) -> (State, Vec<Action>) {
+    fn get_final_actions_list<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> (State<'a>, Vec<Action>) {
 
         let actions = self.get_actions_list(synth);
         let state = self.calculate_final_state(&synth, log);
@@ -219,8 +219,8 @@ pub struct StatusState {
     bonus_max_cp: i32,
 }
 
-impl From<State> for StatusState {
-    fn from(state: State) -> Self {
+impl From<State<'_>> for StatusState {
+    fn from(state: State<'_>) -> Self {
         let violations = state.check_violations();
         Self {
             quality: state.quality_state,
@@ -342,23 +342,6 @@ mod tests {
                 assert!(false);
             }
         }
-    }
-
-    #[test]
-    fn beat_site() {
-        let synth : &str = r#"{"crafter":{"level":54,"craftsmanship":285,"control":249,"cp":309,"actions":["muscleMemory","basicSynth2","basicTouch","standardTouch","byregotsBlessing","preciseTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Culinarian","level":40,"difficulty":138,"durability":60,"startQuality":0,"maxQuality":3500,"baseLevel":40,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":68,"suggestedCraftsmanship":136,"name":"Grade 4 Skybuilders' Sesame Cookie"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
-        let s : Synth = serde_json::from_str(&synth).unwrap();
-        let mut sim = CraftSimulator::new(s);
-        let mut step = sim.next();
-        while let SimStep::Progress {..} = step {
-            step = sim.next();
-        }
-        if let SimStep::Success { best_sequence, execution_log, elapsed_time } = &step {
-
-        } else {
-            assert!(false);
-        }
-        println!("result {:?}", step);
     }
 
     #[test]
