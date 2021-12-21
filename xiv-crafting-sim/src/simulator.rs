@@ -12,7 +12,7 @@ use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
 
 // genotype, usize where index matches available action
-type CrafterActions = Vec<usize>;
+pub type CrafterActions = Vec<usize>;
 
 trait CalcState {
     fn calculate_final_state(&self, synth: &Synth, log: &mut Option<String>) -> State;
@@ -25,13 +25,13 @@ trait CalcState {
 impl CalcState for CrafterActions {
     fn calculate_final_state(&self, synth: &Synth, log: &mut Option<String>) -> State {
         let mut state: State = synth.into();
-        let actions: Vec<Action> = self.get_actions_list(synth);
-
         let mut condition = SimulationCondition::new_sim_condition();
         if let Some(log) = log {
             let _ = write!(log, "{}\n", state);
         }
-        for action in actions {
+        for action in self.iter()
+            .take_while(|m| **m > 0)
+            .flat_map(|m| synth.crafter.actions.get(*m - 1).map(|m| *m)) {
             let tmp_state = state.add_action(action, &mut condition);
             let violations = tmp_state.check_violations();
             if let Some(log) = log {
@@ -60,12 +60,12 @@ impl CalcState for CrafterActions {
         let actions = &synth.crafter.actions;
         self.iter()
             .take_while(|m| **m > 0)
-            .flat_map(|m| actions.get(*m - 1).map(|m| *m))
-            .collect()
+            .flat_map(|m| actions.get(*m - 1).map(|m| *m)).collect()
     }
 
     /// Gives all actions up until the state went invalid
     fn get_final_actions_list(&self, synth: &Synth, log: &mut Option<String>) -> (State, Vec<Action>) {
+
         let actions = self.get_actions_list(synth);
         let state = self.calculate_final_state(&synth, log);
         let (first, _) = actions.split_at(state.step as usize);
@@ -95,7 +95,7 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
     }
 
     fn average(&self, a: &[i32]) -> i32 {
-        a.iter().sum::<i32>() / a.len() as i32
+        (a.iter().map(|m| *m as i64).sum::<i64>() / a.len() as i64) as i32
     }
 
     fn highest_possible_fitness(&self) -> i32 {
@@ -137,8 +137,8 @@ impl CraftSimulator {
         let initial_population: Population<CrafterActions> = build_population()
             .with_genome_builder(ValueEncodedGenomeBuilder::new(
                 50,
-                0,                               // define 0 as no operation, end of sequence
-                number_of_available_actions + 1, // 1 is our real first ability
+                1,                            // define 0 as no operation, end of sequence
+                number_of_available_actions, // 1 is our real first ability
             ))
             .of_size(population_size as usize)
             .uniform_at_random();
@@ -147,7 +147,7 @@ impl CraftSimulator {
                 .with_evaluation(synth.clone())
                 .with_selection(MaximizeSelector::new(0.85, 12))
                 .with_crossover(SinglePointCrossBreeder::new())
-                .with_mutation(RandomValueMutator::new(0.2, 0, number_of_available_actions))
+                .with_mutation(RandomValueMutator::new(0.2, 1, number_of_available_actions))
                 .with_reinsertion(ElitistReinserter::new(synth.clone(), false, 0.85))
                 .with_initial_population(initial_population)
                 .build(),
@@ -167,10 +167,10 @@ impl CraftSimulator {
         match self.sim.step() {
             Ok(ok) => match ok {
                 SimResult::Intermediate(a) => {
-                    eprintln!("{:?}", a.result.best_solution.solution);
                     let genome = &a.result.best_solution.solution.genome;
                     let mut work_log = Some(String::new());
                     let (state, best_sequence) = genome.get_final_actions_list(&self.synth, &mut work_log);
+                    #[cfg(target_arch = "wasm32")]
                     log(&format!(
                         "gen: {} {}, best fitness {} actions {:?}\n worklog:\n{}",
                         self.generations,
@@ -342,6 +342,23 @@ mod tests {
                 assert!(false);
             }
         }
+    }
+
+    #[test]
+    fn beat_site() {
+        let synth : &str = r#"{"crafter":{"level":54,"craftsmanship":285,"control":249,"cp":309,"actions":["muscleMemory","basicSynth2","basicTouch","standardTouch","byregotsBlessing","preciseTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Culinarian","level":40,"difficulty":138,"durability":60,"startQuality":0,"maxQuality":3500,"baseLevel":40,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":68,"suggestedCraftsmanship":136,"name":"Grade 4 Skybuilders' Sesame Cookie"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
+        let s : Synth = serde_json::from_str(&synth).unwrap();
+        let mut sim = CraftSimulator::new(s);
+        let mut step = sim.next();
+        while let SimStep::Progress {..} = step {
+            step = sim.next();
+        }
+        if let SimStep::Success { best_sequence, execution_log, elapsed_time } = &step {
+
+        } else {
+            assert!(false);
+        }
+        println!("result {:?}", step);
     }
 
     #[test]
