@@ -137,17 +137,17 @@ impl CraftSimulator {
         let initial_population: Population<CrafterActions> = build_population()
             .with_genome_builder(ValueEncodedGenomeBuilder::new(
                 50,
-                1,                            // define 0 as no operation, end of sequence
-                number_of_available_actions, // 1 is our real first ability
+                0,                            // define 0 as no operation, end of sequence
+                number_of_available_actions + 1, // 1 is our real first ability
             ))
             .of_size(population_size as usize)
             .uniform_at_random();
         let sim = simulate(
             genetic_algorithm()
                 .with_evaluation(synth.clone())
-                .with_selection(MaximizeSelector::new(0.85, 12))
+                .with_selection(MaximizeSelector::new(0.85, 18))
                 .with_crossover(SinglePointCrossBreeder::new())
-                .with_mutation(RandomValueMutator::new(0.2, 1, number_of_available_actions))
+                .with_mutation(RandomValueMutator::new(0.1, 0, number_of_available_actions + 1))
                 .with_reinsertion(ElitistReinserter::new(synth.clone(), false, 0.85))
                 .with_initial_population(initial_population)
                 .build(),

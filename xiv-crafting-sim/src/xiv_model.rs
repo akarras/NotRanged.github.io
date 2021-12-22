@@ -1,8 +1,8 @@
 use crate::actions::{Action, ActionType};
 use crate::level_table;
 use serde::{Deserialize, Serialize};
-use std::collections::BTreeMap;
 use std::fmt::{Display, Formatter};
+use std::collections::{HashMap, BTreeMap};
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
 #[serde(rename_all = "camelCase")]
@@ -82,16 +82,16 @@ impl Synth {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+pub type AbilityMap = BTreeMap<Action, i32>;
+
+#[derive(Debug, Serialize, Clone, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Effects {
-    count_downs: BTreeMap<Action, i32>,
-    count_ups: BTreeMap<Action, i32>,
+    count_downs: AbilityMap,
+    count_ups: AbilityMap,
     // still used?
-    indefinites: BTreeMap<Action, i32>,
+    // indefinites: AbilityMap,
 }
-
-
 
 impl Display for Effects {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -108,12 +108,12 @@ impl Display for Effects {
                 write!(f, "{:?}:{},", action, count)?;
             }
         }
-        if self.indefinites.len() > 0 {
+        /*if self.indefinites.len() > 0 {
             write!(f, " IDS:")?;
             for (action, count) in &self.indefinites {
                 write!(f, "{:?}:{},", action, count)?;
             }
-        }
+        }*/
         write!(f, "]")
     }
 }
@@ -511,8 +511,8 @@ impl<'a> State<'a> {
 
         // Penalize use of WasteNot during solveforcompletion runs
 
-        if action == Action::WasteNot
-            || action == Action::WasteNot2 && self.synth.solver_vars.solve_for_completion
+        if (action == Action::WasteNot
+            || action == Action::WasteNot2) && self.synth.solver_vars.solve_for_completion
         {
             self.wasted_actions += 50.0;
         }

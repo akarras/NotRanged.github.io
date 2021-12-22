@@ -26,7 +26,7 @@ fn fitness(c: &mut Criterion) {
 
 criterion_group!{
     name = fitness_bench;
-    config = Criterion::default().significance_level(0.1).sample_size(1000);
+    config = Criterion::default().significance_level(0.1).sample_size(10000);
     targets = fitness
 }
 criterion_main!(fitness_bench);

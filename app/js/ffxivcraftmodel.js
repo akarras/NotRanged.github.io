@@ -370,6 +370,23 @@ function ApplyModifiers(s, action, condition) {
             cpCost = 0;
         }
     }
+
+    // Effects modifying durability cost
+    var durabilityCost = action.durabilityCost;
+    if ((AllActions.wasteNot.shortName in s.effects.countDowns) || (AllActions.wasteNot2.shortName in s.effects.countDowns)) {
+        if (isActionEq(action, AllActions.prudentTouch)) {
+            bQualityGain = 0;
+            s.wastedActions += 1;
+        }
+        else if (isActionEq(action, AllActions.prudentSynthesis)) {
+            bProgressGain = 0;
+            s.wastedActions += 1;
+        }
+        else {
+            durabilityCost *= 0.5;
+        }
+    }
+
 	if (s.durabilityState < durabilityCost) {
         if (isActionEq(action, AllActions.groundwork) || isActionEq(action, AllActions.groundwork2)) {
             progressIncreaseMultiplier *= 0.5;
@@ -416,22 +433,6 @@ function ApplyModifiers(s, action, condition) {
         if (!(AllActions.innerQuiet.shortName in s.effects.countUps) || s.effects.countUps[AllActions.innerQuiet.shortName] != 9) {
             s.wastedActions += 1;
             bQualityGain = 0;
-        }
-    }
-
-    // Effects modifying durability cost
-    var durabilityCost = action.durabilityCost;
-    if ((AllActions.wasteNot.shortName in s.effects.countDowns) || (AllActions.wasteNot2.shortName in s.effects.countDowns)) {
-        if (isActionEq(action, AllActions.prudentTouch)) {
-            bQualityGain = 0;
-            s.wastedActions += 1;
-        }
-        else if (isActionEq(action, AllActions.prudentSynthesis)) {
-            bProgressGain = 0;
-            s.wastedActions += 1;
-        }
-        else {
-            durabilityCost *= 0.5;
         }
     }
 
