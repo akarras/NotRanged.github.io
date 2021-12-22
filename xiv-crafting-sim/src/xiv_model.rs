@@ -376,9 +376,6 @@ struct ModifierResult {
 
 /// I could just do the functions that the JS uses, but I have lifetimes to worry about.
 pub(crate) enum SimulationCondition {
-    MonteCarlo {
-        ignore_condition_req: bool,
-    },
     Simulation {
         ignore_condition: bool,
         pp_poor: f64,
@@ -402,7 +399,6 @@ impl SimulationCondition {
 
     fn update(&mut self, p_good: f64, p_excellent: f64) {
         match self {
-            SimulationCondition::MonteCarlo { .. } => {}
             SimulationCondition::Simulation {
                 ignore_condition,
                 pp_poor,
@@ -422,22 +418,12 @@ impl SimulationCondition {
 
     fn check_good_or_excellent(&self, state: &State) -> bool {
         match self {
-            SimulationCondition::MonteCarlo {
-                ignore_condition_req,
-            } => {
-                if *ignore_condition_req {
-                    true
-                } else {
-                    state.condition.check_good_or_excellent()
-                }
-            }
             SimulationCondition::Simulation { .. } => true,
         }
     }
 
     fn p_good_or_excellent(&self) -> f64 {
         match self {
-            SimulationCondition::MonteCarlo { .. } => 1.0,
             SimulationCondition::Simulation {
                 ignore_condition,
                 pp_excellent,
@@ -524,7 +510,7 @@ impl<'a> State<'a> {
             && (self.effects.count_downs.contains_key(&Action::MuscleMemory))
         {
             progress_increase_multiplier += 1.0;
-            //delete state.effects.count_downs[AllActions.muscleMemory.shortName];
+            self.effects.count_downs.remove(&Action::MuscleMemory);
         }
 
         if self.effects.count_downs.contains_key(&Action::Veneration) {
@@ -888,7 +874,6 @@ impl<'a> State<'a> {
 
         let mut condition_quality_increase_multiplier = 1.0;
         match sim_condition {
-            SimulationCondition::MonteCarlo { .. } => {}
             SimulationCondition::Simulation { ignore_condition, pp_poor, pp_normal, pp_good, pp_excellent } => {
                 if !*ignore_condition {
                     condition_quality_increase_multiplier *= *pp_normal + 1.5 * *pp_good * (1.0 - (*pp_good + p_good) / 2.0).powf(state.synth.max_trick_uses as f64) + 4.0 * *pp_excellent + 0.5 * *pp_poor;
