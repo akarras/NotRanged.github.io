@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "files": [
     "xiv_crafting_sim_bg.wasm",
-    "xiv_crafting_sim.js",
-    "xiv_crafting_sim.d.ts"
+    "xiv_crafting_sim.js"
   ],
-  "browser": "xiv_crafting_sim.js",
-  "types": "xiv_crafting_sim.d.ts"
+  "browser": "xiv_crafting_sim.js"
 }
