@@ -33,21 +33,13 @@ impl CalcState for CrafterActions {
             .take_while(|m| **m > 0)
             .flat_map(|m| synth.crafter.actions.get(*m - 1).map(|m| *m)) {
             let tmp_state = state.add_action(action, &mut condition);
-            let violations = tmp_state.check_violations();
-            if let Some(log) = log {
-                if !violations.is_okay() {
-                    let _ = write!(log, "{}\n", tmp_state);
-                } else {
-                    let _ = write!(log, "INVALID: {}\n", tmp_state);
-                }
-            }
-            if violations.progress_ok {
+            if tmp_state.progress_state >= synth.recipe.difficulty as i32 {
                 return tmp_state;
             }
-            if !violations.durability_ok {
+            if tmp_state.durability_state <= 0 {
                 return tmp_state; // bad durability, no point proceeding
             }
-            if !violations.cp_ok {
+            if tmp_state.cp_state <= 0 {
                 return state;
             }
             state = tmp_state;

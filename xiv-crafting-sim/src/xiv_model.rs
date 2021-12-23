@@ -400,14 +400,12 @@ impl SimulationCondition {
         }
     }
 
-    #[inline]
     fn check_good_or_excellent(&self, state: &State) -> bool {
         match self {
             SimulationCondition::Simulation { .. } => true,
         }
     }
 
-    #[inline]
     fn p_good_or_excellent(&self) -> f64 {
         match self {
             SimulationCondition::Simulation {
@@ -427,7 +425,6 @@ impl SimulationCondition {
 }
 
 impl<'a> State<'a> {
-    #[inline]
     fn apply_modifiers(
         &mut self,
         action: Action,
@@ -509,12 +506,6 @@ impl<'a> State<'a> {
                 self.wasted_actions += 10.0;
                 progress_increase_multiplier = 0.0;
                 cp_cost = 0;
-            }
-        }
-        // TODO do we need to be applying the durability cost from waste not to this?
-        if self.durability_state < action_details.durability_cost {
-            if action == Action::Groundwork || action == Action::Groundwork2 {
-                progress_increase_multiplier *= 0.5;
             }
         }
 
@@ -604,6 +595,12 @@ impl<'a> State<'a> {
             }
         }
 
+        if self.durability_state < durability_cost as i32 {
+            if action == Action::Groundwork || action == Action::Groundwork2 {
+                progress_increase_multiplier *= 0.5;
+            }
+        }
+
         // Effects modifying quality gain directly
         if action.eq(&Action::TrainedEye) {
             if self.step == 1 && pure_level_difference >= 10 && self.synth.recipe.stars.is_none() {
@@ -649,7 +646,7 @@ impl<'a> State<'a> {
             cp_cost,
         }
     }
-    #[inline]
+
     fn use_conditional_action(&mut self, condition: &SimulationCondition) -> bool {
         if self.cp_state > 0 && condition.check_good_or_excellent(self) {
             self.trick_uses += 1;
@@ -659,7 +656,7 @@ impl<'a> State<'a> {
             return false;
         }
     }
-    #[inline]
+
     fn apply_special_action_effects(&mut self, action: Action, condition: &SimulationCondition) {
         // STEP_02
         // Effect management
@@ -717,7 +714,7 @@ impl<'a> State<'a> {
             }
         }
 
-        if action == Action::Veneration
+        /*if action == Action::Veneration
             && self.effects.count_downs.get(Action::Veneration).is_some()
         {
             self.wasted_actions += 1.0
@@ -726,7 +723,7 @@ impl<'a> State<'a> {
             && self.effects.count_downs.get(Action::Innovation).is_some()
         {
             self.wasted_actions += 1.0
-        }
+        }*/
     }
 
     fn update_effects_counters(
@@ -748,7 +745,9 @@ impl<'a> State<'a> {
                     is_valid = false;
                 }
             }
-            *value = None;
+            if !is_valid {
+                *value = None;
+            }
         }
         if self.effects.count_ups.get(Action::InnerQuiet).is_some() {
             // Increment inner quiet countups that have conditional requirements
@@ -787,21 +786,10 @@ impl<'a> State<'a> {
         }
 
         if let ActionType::Countdown { active_turns } = action_details.action_type {
-            /* TODO AGAIN, what??
-            if (action.shortName.indexOf('nameOf') >= 0) {
-                if (s.nameOfElementUses == 0) {
-                    s.effects.countDowns[action.shortName] = action.activeTurns;
-                    s.nameOfElementUses += 1;
-                }
-                else {
-                    s.wastedActions += 1;
-                }
-            }*/
             if action == Action::MuscleMemory && self.step != 1 {
                 self.wasted_actions += 1.0;
             } else {
                 self.effects.count_downs.insert(action, active_turns);
-                //s.effects.countDowns[action.shortName] = action.activeTurns;
             }
         }
     }
