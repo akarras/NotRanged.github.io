@@ -693,7 +693,7 @@ impl<'a> State<'a> {
         if action == Action::Reflect {
             if self.step == 1 {
                 if let Some(count) = self.effects.count_ups.get_mut(Action::InnerQuiet) {
-                    *count += 1;
+                    *count = 1;
                 } else {
                     self.effects.count_ups.insert(Action::InnerQuiet, 0); // what does this even get inserted as?
                 }
