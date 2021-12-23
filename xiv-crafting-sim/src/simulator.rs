@@ -33,6 +33,9 @@ impl CalcState for CrafterActions {
             .take_while(|m| **m > 0)
             .flat_map(|m| synth.crafter.actions.get(*m - 1).map(|m| *m)) {
             let tmp_state = state.add_action(action, &mut condition);
+            if let Some(log) = log {
+                let _ = write!(log, "{}\n", tmp_state);
+            }
             if tmp_state.progress_state >= synth.recipe.difficulty as i32 {
                 return tmp_state;
             }

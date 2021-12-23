@@ -761,7 +761,7 @@ impl<'a> State<'a> {
                 let quiet_increment =
                     (2.0 * success_probability * condition.p_good_or_excellent()) as i32;
                 if let Some(quiet) = self.effects.count_ups.get_mut(Action::InnerQuiet) {
-                    *quiet += quiet_increment;
+                    *quiet += quiet_increment as i8;
                 }
             }
             // Increment all other inner quiet count ups
@@ -770,7 +770,7 @@ impl<'a> State<'a> {
                 && action != Action::TrainedFinesse
             {
                 if let Some(quiet) = self.effects.count_ups.get_mut(Action::InnerQuiet) {
-                    *quiet += (1.0 * success_probability) as i32;
+                    *quiet += (1.0 * success_probability) as i8;
                 }
             }
 
@@ -789,7 +789,7 @@ impl<'a> State<'a> {
             if action == Action::MuscleMemory && self.step != 1 {
                 self.wasted_actions += 1.0;
             } else {
-                self.effects.count_downs.insert(action, active_turns);
+                self.effects.count_downs.insert(action, active_turns as i8);
             }
         }
     }

@@ -233,7 +233,6 @@ dependencies = [
  "rand",
  "rand_xoshiro",
  "rayon",
- "smallvec",
  "wasm-bindgen",
 ]
 
