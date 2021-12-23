@@ -147,7 +147,7 @@ impl CraftSimulator {
                 .with_evaluation(synth.clone())
                 .with_selection(MaximizeSelector::new(0.85, 18))
                 .with_crossover(SinglePointCrossBreeder::new())
-                .with_mutation(RandomValueMutator::new(0.1, 0, number_of_available_actions + 1))
+                .with_mutation(RandomValueMutator::new(0.2, 0, number_of_available_actions + 1))
                 .with_reinsertion(ElitistReinserter::new(synth.clone(), false, 0.85))
                 .with_initial_population(initial_population)
                 .build(),

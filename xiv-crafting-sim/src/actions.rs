@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use std::fmt::{Display, Formatter};
 
 #[derive(Serialize, Deserialize, Copy, Clone, Debug, Ord, PartialOrd, Eq, PartialEq)]
 pub enum ActionType {
@@ -79,6 +80,12 @@ pub enum Action {
     TrainedFinesse,
     FocusedTouchCombo,
     FocusedSynthesisCombo,
+}
+
+impl Display for Action {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.details().full_name)
+    }
 }
 
 impl Action {

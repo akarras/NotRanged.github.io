@@ -2,7 +2,7 @@ use crate::actions::{Action, ActionType};
 use crate::level_table;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
-use std::collections::{HashMap, BTreeMap};
+use crate::effect_tracker::EffectData;
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
 #[serde(rename_all = "camelCase")]
@@ -82,7 +82,7 @@ impl Synth {
     }
 }
 
-pub type AbilityMap = BTreeMap<Action, i32>;
+pub type AbilityMap = EffectData;
 
 #[derive(Debug, Serialize, Clone, Default)]
 #[serde(rename_all = "camelCase")]
@@ -95,26 +95,10 @@ pub struct Effects {
 
 impl Display for Effects {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "[ ")?;
-        if self.count_downs.len() > 0 {
-            write!(f, " CDS:")?;
-            for (action, count) in &self.count_downs {
-                write!(f, "{:?}:{},", action, count)?;
-            }
-        }
-        if self.count_ups.len() > 0 {
-            write!(f, " CUS:")?;
-            for (action, count) in &self.count_ups {
-                write!(f, "{:?}:{},", action, count)?;
-            }
-        }
-        /*if self.indefinites.len() > 0 {
-            write!(f, " IDS:")?;
-            for (action, count) in &self.indefinites {
-                write!(f, "{:?}:{},", action, count)?;
-            }
-        }*/
-        write!(f, "]")
+        write!(f, "effects: ")?;
+        write!(f, "CD's: [{}]", self.count_downs)?;
+        write!(f, "CU's: [{}]", self.count_ups)?;
+        write!(f, "")
     }
 }
 
@@ -507,13 +491,13 @@ impl<'a> State<'a> {
         let mut progress_increase_multiplier = 1.0;
 
         if (action_details.progress_increase_multiplier > 0.0)
-            && (self.effects.count_downs.contains_key(&Action::MuscleMemory))
+            && (self.effects.count_downs.get(Action::MuscleMemory).is_some())
         {
             progress_increase_multiplier += 1.0;
-            self.effects.count_downs.remove(&Action::MuscleMemory);
+            self.effects.count_downs.remove(Action::MuscleMemory);
         }
 
-        if self.effects.count_downs.contains_key(&Action::Veneration) {
+        if self.effects.count_downs.get(Action::Veneration).is_some() {
             progress_increase_multiplier += 0.5;
         }
 
@@ -535,28 +519,29 @@ impl<'a> State<'a> {
         let mut quality_increase_multiplier = 1.0;
         let mut quality_increase_multiplier_iq = 1.0; // This is calculated seperately because it's multiplicative instead of additive! See: how teamcrafting does it
 
-        if self.effects.count_downs.contains_key(&Action::GreatStrides)
+        if self.effects.count_downs.get(Action::GreatStrides).is_some()
             && quality_increase_multiplier > 0.0
         {
             quality_increase_multiplier += 1.0;
         }
 
-        if self.effects.count_downs.contains_key(&Action::Innovation) {
+        if self.effects.count_downs.get(Action::Innovation).is_some() {
             quality_increase_multiplier += 0.5;
         }
 
-        if let Some(inner_quiet_value) = self.effects.count_ups.get(&Action::InnerQuiet) {
-            quality_increase_multiplier_iq += 0.1 * (inner_quiet_value + 1) as f64
+        if let Some((_, inner_quiet_value)) = self.effects.count_ups.get(Action::InnerQuiet) {
+            quality_increase_multiplier_iq += 0.1 * (*inner_quiet_value + 1) as f64
             // +1 because buffs start incrementing from 0
         }
 
         // We can only use Byregot actions when we have at least 1 stacks of inner quiet
         if action == Action::ByregotsBlessing {
-            let num_inner_quiets = *self
+            let num_inner_quiets = self
                 .effects
                 .count_ups
-                .get(&Action::InnerQuiet)
-                .unwrap_or(&0);
+                .get(Action::InnerQuiet)
+                .map(|(_, i)| *i)
+                .unwrap_or(0);
             if num_inner_quiets >= 1
             {
                 quality_increase_multiplier *= 1.0 + (0.2 * (num_inner_quiets + 1) as f64).min(3.0);
@@ -587,11 +572,12 @@ impl<'a> State<'a> {
         // Trained finesse
         if action.eq(&Action::TrainedFinesse) {
             // Not at 10 stacks of IQ -> wasted action
-            if *self
+            if self
                 .effects
                 .count_ups
-                .get(&Action::InnerQuiet)
-                .unwrap_or(&0)
+                .get(Action::InnerQuiet)
+                .map(|(_, m)| *m)
+                .unwrap_or(0)
                 != 9
             {
                 self.wasted_actions += 1.0;
@@ -601,8 +587,8 @@ impl<'a> State<'a> {
 
         // Effects modifying durability cost
         let mut durability_cost = action_details.durability_cost as f64;
-        if self.effects.count_downs.contains_key(&Action::WasteNot)
-            || self.effects.count_downs.contains_key(&Action::WasteNot2)
+        if self.effects.count_downs.get(Action::WasteNot).is_some()
+            || self.effects.count_downs.get(Action::WasteNot2).is_some()
         {
             if action.eq(&Action::PrudentTouch) {
                 quality_gain = 0;
@@ -683,7 +669,7 @@ impl<'a> State<'a> {
             }
         }
 
-        if self.effects.count_downs.contains_key(&Action::Manipulation)
+        if self.effects.count_downs.get(Action::Manipulation).is_some()
             && self.durability_state > 0
             && action != Action::Manipulation
         {
@@ -694,8 +680,8 @@ impl<'a> State<'a> {
         }
 
         if action == Action::ByregotsBlessing {
-            if self.effects.count_ups.contains_key(&Action::InnerQuiet) {
-                self.effects.count_ups.remove(&Action::InnerQuiet);
+            if self.effects.count_ups.get(Action::InnerQuiet).is_some() {
+                self.effects.count_ups.remove(Action::InnerQuiet);
             } else {
                 self.wasted_actions += 1.0;
             }
@@ -703,7 +689,7 @@ impl<'a> State<'a> {
 
         if action == Action::Reflect {
             if self.step == 1 {
-                if let Some(count) = self.effects.count_ups.get_mut(&Action::InnerQuiet) {
+                if let Some(count) = self.effects.count_ups.get_mut(Action::InnerQuiet) {
                     *count += 1;
                 } else {
                     self.effects.count_ups.insert(Action::InnerQuiet, 0); // what does this even get inserted as?
@@ -714,9 +700,9 @@ impl<'a> State<'a> {
         }
         let action_details = action.details();
         if action_details.quality_increase_multiplier > 0.0
-            && self.effects.count_downs.contains_key(&Action::GreatStrides)
+            && self.effects.count_downs.get(Action::GreatStrides).is_some()
         {
-            self.effects.count_downs.remove(&Action::GreatStrides);
+            self.effects.count_downs.remove(Action::GreatStrides);
         }
 
         // Manage effects with conditional requirements
@@ -729,12 +715,12 @@ impl<'a> State<'a> {
         }
 
         if action == Action::Veneration
-            && self.effects.count_downs.contains_key(&Action::Veneration)
+            && self.effects.count_downs.get(Action::Veneration).is_some()
         {
             self.wasted_actions += 1.0
         }
         if action == Action::Innovation
-            && self.effects.count_downs.contains_key(&Action::Innovation)
+            && self.effects.count_downs.get(Action::Innovation).is_some()
         {
             self.wasted_actions += 1.0
         }
@@ -750,22 +736,21 @@ impl<'a> State<'a> {
         // Countdown / Countup Management
         //===============================
         // Decrement countdowns
-        let mut remove_values = vec![];
         let action_details = action.details();
-        for (action, count) in &mut self.effects.count_downs {
-            *count -= 1;
-            if *count <= 0 {
-                remove_values.push(*action);
+        for value in self.effects.count_downs.iter_mut() {
+            let mut is_valid = true;
+            if let Some((_, count)) = value {
+                *count -= 1;
+                if *count <= 0 {
+                    is_valid = false;
+                }
             }
+            *value = None;
         }
-        for value in remove_values {
-            self.effects.count_downs.remove_entry(&value);
-        }
-
-        if self.effects.count_ups.contains_key(&Action::InnerQuiet) {
+        if self.effects.count_ups.get(Action::InnerQuiet).is_some() {
             // Increment inner quiet countups that have conditional requirements
             if action == Action::PreparatoryTouch {
-                if let Some(quiet) = self.effects.count_ups.get_mut(&Action::InnerQuiet) {
+                if let Some(quiet) = self.effects.count_ups.get_mut(Action::InnerQuiet) {
                     *quiet += 2;
                 }
             }
@@ -773,7 +758,7 @@ impl<'a> State<'a> {
             else if action == Action::PreciseTouch && condition.check_good_or_excellent(self) {
                 let quiet_increment =
                     (2.0 * success_probability * condition.p_good_or_excellent()) as i32;
-                if let Some(quiet) = self.effects.count_ups.get_mut(&Action::InnerQuiet) {
+                if let Some(quiet) = self.effects.count_ups.get_mut(Action::InnerQuiet) {
                     *quiet += quiet_increment;
                 }
             }
@@ -782,13 +767,13 @@ impl<'a> State<'a> {
                 && action != Action::Reflect
                 && action != Action::TrainedFinesse
             {
-                if let Some(quiet) = self.effects.count_ups.get_mut(&Action::InnerQuiet) {
+                if let Some(quiet) = self.effects.count_ups.get_mut(Action::InnerQuiet) {
                     *quiet += (1.0 * success_probability) as i32;
                 }
             }
 
             // Cap inner quiet stacks at 9 (10)
-            if let Some(quiet) = self.effects.count_ups.get_mut(&Action::InnerQuiet) {
+            if let Some(quiet) = self.effects.count_ups.get_mut(Action::InnerQuiet) {
                 *quiet = (*quiet).min(9);
             }
         }
@@ -867,7 +852,6 @@ impl<'a> State<'a> {
     pub(crate) fn add_action(&self, action: Action, sim_condition: &mut SimulationCondition) -> State<'a> {
         let mut state = self.clone();
         state.step += 1;
-        state.action = Some(action);
         // TODO figure out how to handle simulation condition *better*
         let p_good = self.synth.prob_good_for_synth();
         let p_excellent = self.synth.prob_excellent_for_synth();
@@ -919,7 +903,7 @@ impl<'a> State<'a> {
         );
 
         sim_condition.update(p_good, p_excellent);
-
+        state.action = Some(action);
         state
     }
 }
