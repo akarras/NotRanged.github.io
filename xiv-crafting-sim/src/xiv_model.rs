@@ -400,12 +400,14 @@ impl SimulationCondition {
         }
     }
 
+    #[inline]
     fn check_good_or_excellent(&self, state: &State) -> bool {
         match self {
             SimulationCondition::Simulation { .. } => true,
         }
     }
 
+    #[inline]
     fn p_good_or_excellent(&self) -> f64 {
         match self {
             SimulationCondition::Simulation {
@@ -425,6 +427,7 @@ impl SimulationCondition {
 }
 
 impl<'a> State<'a> {
+    #[inline]
     fn apply_modifiers(
         &mut self,
         action: Action,
@@ -646,7 +649,7 @@ impl<'a> State<'a> {
             cp_cost,
         }
     }
-
+    #[inline]
     fn use_conditional_action(&mut self, condition: &SimulationCondition) -> bool {
         if self.cp_state > 0 && condition.check_good_or_excellent(self) {
             self.trick_uses += 1;
@@ -656,7 +659,7 @@ impl<'a> State<'a> {
             return false;
         }
     }
-
+    #[inline]
     fn apply_special_action_effects(&mut self, action: Action, condition: &SimulationCondition) {
         // STEP_02
         // Effect management
@@ -783,21 +786,6 @@ impl<'a> State<'a> {
             self.effects.count_ups.insert(action, 0);
         }
 
-        if action_details.action_type == ActionType::Immediate {
-            /* TODO is this action even a thing?
-            if isActionEq(action, AllActions.initialPreparations) {
-                if s.step == 1 {
-                    s.effects.indefinites[action.shortName] = true;
-                }
-                else {
-                    s.wastedActions += 1;
-                }
-            }
-            else {
-                s.effects.indefinites[action.shortName] = true;
-            }*/
-        }
-
         if let ActionType::Countdown { active_turns } = action_details.action_type {
             /* TODO AGAIN, what??
             if (action.shortName.indexOf('nameOf') >= 0) {
@@ -880,17 +868,10 @@ impl<'a> State<'a> {
         }
 
         progress_gain = (success_probability * progress_gain as f64) as u32;
-//
-//             var progressGain = r.bProgressGain;
-//             if (progressGain > 0) {
-//                 s.reliability = s.reliability * successProbability;
-//             }
-//
+        //// Floor gains at final stage before calculating expected value
         let mut quality_gain = condition_quality_increase_multiplier * result.quality_gain as f64;
         quality_gain = success_probability * quality_gain.floor();
-//// Floor gains at final stage before calculating expected value
-//             progressGain = successProbability * Math.floor(progressGain);
-//             qualityGain = successProbability * Math.floor(qualityGain);
+
 
         state.update_state(
             action,
@@ -937,7 +918,7 @@ mod test {
     #[test]
     fn match_site() {
         let synth : Synth = serde_json::from_str(CRAFTER_SYNTH).unwrap();
-        let mut simulation_condition = SimulationCondition::Simulation {
+        let simulation_condition = SimulationCondition::Simulation {
             ignore_condition: true,
             pp_poor: 0.0,
             pp_normal: 1.0,

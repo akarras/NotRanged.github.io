@@ -21,11 +21,9 @@ importScripts('eacomplex.js');
 var state;
 const { CraftSimulator } = wasm_bindgen;
 var sim;
-async function start_simulator(start) {
-  console.log('WASM module start:');
+async function start_simulator(synth) {
   await wasm_bindgen("../../lib/pkg/xiv_crafting_sim_bg.wasm");
-  console.log(start);
-  sim = CraftSimulator.new_wasm(start);
+  sim = CraftSimulator.new_wasm(synth);
   state = {startTime: Date.now()};
   runWasmGen();
 }

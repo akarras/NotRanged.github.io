@@ -38,6 +38,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "btree-slab"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "69ba2a7129af461dc36736fbfcadde75974faba9798ab351d0b63f61859e9307"
+dependencies = [
+ "cc-traits",
+ "slab",
+ "smallvec",
+]
+
+[[package]]
 name = "bumpalo"
 version = "3.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -50,6 +61,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4c24dab4283a142afa2fdca129b80ad2c6284e073930f964c3a1293c225ee39a"
 dependencies = [
  "rustc_version",
+]
+
+[[package]]
+name = "cc-traits"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9b8a007d381c468e7a7a61cea0e47a7f3000b6ab0c8e0eb16a1816859b0c1a6d"
+dependencies = [
+ "slab",
 ]
 
 [[package]]
@@ -571,6 +591,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "slab"
+version = "0.4.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9def91fd1e018fe007022791f865d0ccc9b3a0d5001e01aabb8b40e46000afb5"
+
+[[package]]
 name = "smallvec"
 version = "1.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -764,6 +790,7 @@ checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 name = "xiv-crafting-sim"
 version = "0.1.0"
 dependencies = [
+ "btree-slab",
  "console_error_panic_hook",
  "criterion",
  "genevo",
