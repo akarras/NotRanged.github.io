@@ -1,11 +1,10 @@
-let wasm_bindgen;
-(function() {
-    const __exports = {};
-    let wasm;
+import { startWorkers } from './snippets/wasm-bindgen-rayon-7afa899f36665473/src/workerHelpers.no-bundler.js';
 
-    const heap = new Array(32).fill(undefined);
+let wasm;
 
-    heap.push(undefined, null, true, false);
+const heap = new Array(32).fill(undefined);
+
+heap.push(undefined, null, true, false);
 
 function getObject(idx) { return heap[idx]; }
 
@@ -192,8 +191,24 @@ function getArrayU8FromWasm0(ptr, len) {
     return getUint8Memory0().subarray(ptr / 1, ptr / 1 + len);
 }
 /**
+* @param {number} num_threads
+* @returns {Promise<any>}
 */
-class CraftSimulator {
+export function initThreadPool(num_threads) {
+    var ret = wasm.initThreadPool(num_threads);
+    return takeObject(ret);
+}
+
+/**
+* @param {number} receiver
+*/
+export function wbg_rayon_start_worker(receiver) {
+    wasm.wbg_rayon_start_worker(receiver);
+}
+
+/**
+*/
+export class CraftSimulator {
 
     static __wrap(ptr) {
         const obj = Object.create(CraftSimulator.prototype);
@@ -215,13 +230,11 @@ class CraftSimulator {
     }
     /**
     * @param {any} synth
-    * @param {number} max_length
-    * @param {number} population_size
     * @returns {CraftSimulator}
     */
-    static new_wasm(synth, max_length, population_size) {
+    static new_wasm(synth) {
         try {
-            var ret = wasm.craftsimulator_new_wasm(addBorrowedObject(synth), max_length, population_size);
+            var ret = wasm.craftsimulator_new_wasm(addBorrowedObject(synth));
             return CraftSimulator.__wrap(ret);
         } finally {
             heap[stack_pointer++] = undefined;
@@ -235,7 +248,55 @@ class CraftSimulator {
         return takeObject(ret);
     }
 }
-__exports.CraftSimulator = CraftSimulator;
+/**
+*/
+export class wbg_rayon_PoolBuilder {
+
+    static __wrap(ptr) {
+        const obj = Object.create(wbg_rayon_PoolBuilder.prototype);
+        obj.ptr = ptr;
+
+        return obj;
+    }
+
+    __destroy_into_raw() {
+        const ptr = this.ptr;
+        this.ptr = 0;
+
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_wbg_rayon_poolbuilder_free(ptr);
+    }
+    /**
+    * @returns {string}
+    */
+    mainJS() {
+        var ret = wasm.wbg_rayon_poolbuilder_mainJS(this.ptr);
+        return takeObject(ret);
+    }
+    /**
+    * @returns {number}
+    */
+    numThreads() {
+        var ret = wasm.wbg_rayon_poolbuilder_numThreads(this.ptr);
+        return ret >>> 0;
+    }
+    /**
+    * @returns {number}
+    */
+    receiver() {
+        var ret = wasm.wbg_rayon_poolbuilder_receiver(this.ptr);
+        return ret;
+    }
+    /**
+    */
+    build() {
+        wasm.wbg_rayon_poolbuilder_build(this.ptr);
+    }
+}
 
 async function load(module, imports) {
     if (typeof Response === 'function' && module instanceof Response) {
@@ -270,13 +331,7 @@ async function load(module, imports) {
 
 async function init(input, maybe_memory) {
     if (typeof input === 'undefined') {
-        let src;
-        if (typeof document === 'undefined') {
-            src = location.href;
-        } else {
-            src = document.currentScript.src;
-        }
-        input = src.replace(/\.js$/, '_bg.wasm');
+        input = new URL('xiv_crafting_sim_bg.wasm', import.meta.url);
     }
     const imports = {};
     imports.wbg = {};
@@ -387,18 +442,6 @@ async function init(input, maybe_memory) {
         var ret = getObject(arg0);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbg_getTime_10d33f4f2959e5dd = function(arg0) {
-        var ret = getObject(arg0).getTime();
-        return ret;
-    };
-    imports.wbg.__wbg_getTimezoneOffset_d3e5a22a1b7fb1d8 = function(arg0) {
-        var ret = getObject(arg0).getTimezoneOffset();
-        return ret;
-    };
-    imports.wbg.__wbg_new0_fd3a3a290b25cdac = function() {
-        var ret = new Date();
-        return addHeapObject(ret);
-    };
     imports.wbg.__wbg_buffer_397eaa4d72ee94dd = function(arg0) {
         var ret = getObject(arg0).buffer;
         return addHeapObject(ret);
@@ -432,8 +475,20 @@ async function init(input, maybe_memory) {
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
+    imports.wbg.__wbindgen_module = function() {
+        var ret = init.__wbindgen_wasm_module;
+        return addHeapObject(ret);
+    };
     imports.wbg.__wbindgen_memory = function() {
         var ret = wasm.memory;
+        return addHeapObject(ret);
+    };
+    imports.wbg.__wbg_static_accessor_URL_b24f10c24510da94 = function() {
+        var ret = import.meta.url;
+        return addHeapObject(ret);
+    };
+    imports.wbg.__wbg_startWorkers_3e6644f7fc0ac450 = function(arg0, arg1, arg2) {
+        var ret = startWorkers(takeObject(arg0), takeObject(arg1), wbg_rayon_PoolBuilder.__wrap(arg2));
         return addHeapObject(ret);
     };
 
@@ -451,6 +506,5 @@ async function init(input, maybe_memory) {
     return wasm;
 }
 
-wasm_bindgen = Object.assign(init, __exports);
+export default init;
 
-})();

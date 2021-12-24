@@ -794,6 +794,7 @@ dependencies = [
  "criterion",
  "genevo",
  "rand",
+ "rayon",
  "serde",
  "serde_json",
  "smallvec",

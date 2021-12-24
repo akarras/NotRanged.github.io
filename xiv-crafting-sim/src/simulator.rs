@@ -142,7 +142,7 @@ impl CraftSimulator {
                 .with_evaluation(synth.clone())
                 .with_selection(MaximizeSelector::new(0.85, 18))
                 .with_crossover(SinglePointCrossBreeder::new())
-                .with_mutation(RandomValueMutator::new(0.2, 0, number_of_available_actions + 1))
+                .with_mutation(RandomValueMutator::new(0.1, 0, number_of_available_actions + 1))
                 .with_reinsertion(ElitistReinserter::new(synth.clone(), false, 0.85))
                 .with_initial_population(initial_population)
                 .build(),
@@ -260,11 +260,11 @@ extern "C" {
 
 #[wasm_bindgen]
 impl CraftSimulator {
-    pub fn new_wasm(synth: &JsValue, max_length: usize, population_size: usize) -> Self {
+    pub fn new_wasm(synth: &JsValue) -> Self {
         console_error_panic_hook::set_once();
         log(&format!(
-            "RUST SEES OBJECT {:?} {} {}",
-            synth, max_length, population_size
+            "RUST SEES OBJECT {:?}",
+            synth
         ));
         let synth = synth.into_serde().unwrap();
         log(&format!("Loaded synth {:?}", &synth));

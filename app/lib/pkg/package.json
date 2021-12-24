@@ -6,6 +6,7 @@
     "xiv_crafting_sim.js",
     "xiv_crafting_sim.d.ts"
   ],
-  "browser": "xiv_crafting_sim.js",
-  "types": "xiv_crafting_sim.d.ts"
+  "module": "xiv_crafting_sim.js",
+  "types": "xiv_crafting_sim.d.ts",
+  "sideEffects": false
 }

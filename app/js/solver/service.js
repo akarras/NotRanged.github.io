@@ -8,7 +8,12 @@
   function SolverService($timeout) {
     this.$timeout = $timeout;
 
-    this.worker = new Worker('js/solver/worker.js');
+    //this.worker = new Worker('js/solver/worker.js');
+    try {
+      this.worker = new Worker(new URL('/js/solver/wasmworker.js'), {type: 'module'});
+    } catch (ex) {
+      console.error(ex);
+    }
 
     var self = this,
       worker = this.worker;

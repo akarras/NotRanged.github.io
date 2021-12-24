@@ -10,3 +10,5 @@ Thumbs.db
 package-lock.json
 *.zip
 target
+perfdata*
+.parcel-cache/
