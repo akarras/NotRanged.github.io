@@ -4,6 +4,26 @@
 <head>
   <meta charset="utf-8">
   <title>FFXIV Crafting Optimizer</title>
+  <!--- coi serverworker only needed because github pages doesn't support COEP & COOP --->
+  <!--- if github pages implements COOP&COEP then get rid of coi-service worker --->
+  <script>
+    window.coi = {
+      // // A function that is run to decide whether to register the SW or not.
+      // You could for instance make this return a value based on whether you actually need to be cross origin isolated or not.
+      shouldRegister: () => true,
+      // If this function returns true, any existing service worker will be deregistered (and nothing else will happen).
+      shouldDeregister: () => false,
+      // Override this if you want to prompt the user and do reload at your own leisure. Maybe show the user a message saying:
+      // "Click OK to refresh the page to enable <...>"
+      doReload: () => {
+        window.confirm("restarting to enable COERS");
+        window.location.reload();
+      },
+      // Set to true if you don't want coi to log anything to the console.
+      quiet: false
+    };
+  </script>
+  <script src="js/coi-serviceworker.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"/>
   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css">
@@ -79,8 +99,6 @@
     </div>
   </footer>
 </div>
-<!--- coi serverworker only needed because github pages doesn't support COEP & COOP --->
-<script src="js/coi-serviceworker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.8.0/ui-bootstrap-tpls.min.js"></script>
 <script src="lib/lvl-drag-drop/lvl-uuid.js"></script>
 <script src="lib/lvl-drag-drop/lvl-drag-drop.js"></script>
