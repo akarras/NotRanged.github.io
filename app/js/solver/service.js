@@ -10,7 +10,7 @@
 
     //this.worker = new Worker('js/solver/worker.js');
     try {
-      this.worker = new Worker(new URL('/js/solver/wasmworker.js'), {type: 'module'});
+      this.worker = new Worker('js/solver/wasmworker.js', {type: 'module'});
     } catch (ex) {
       console.error(ex);
     }

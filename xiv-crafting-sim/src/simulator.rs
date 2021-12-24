@@ -142,7 +142,7 @@ impl CraftSimulator {
                 .with_evaluation(synth.clone())
                 .with_selection(MaximizeSelector::new(0.85, 18))
                 .with_crossover(SinglePointCrossBreeder::new())
-                .with_mutation(RandomValueMutator::new(0.1, 0, number_of_available_actions + 1))
+                .with_mutation(RandomValueMutator::new(0.2, 0, number_of_available_actions + 1))
                 .with_reinsertion(ElitistReinserter::new(synth.clone(), false, 0.85))
                 .with_initial_population(initial_population)
                 .build(),
@@ -165,7 +165,7 @@ impl CraftSimulator {
                     let genome = &a.result.best_solution.solution.genome;
                     let mut work_log = Some(String::new());
                     let (state, best_sequence) = genome.get_final_actions_list(&self.synth, &mut work_log);
-                    #[cfg(target_arch = "wasm32")]
+                    /*#[cfg(target_arch = "wasm32")]
                     log(&format!(
                         "gen: {} {}, best fitness {} actions {:?}\n worklog:\n{}",
                         self.generations,
@@ -173,7 +173,7 @@ impl CraftSimulator {
                         a.result.best_solution.solution.fitness,
                         best_sequence,
                         work_log.unwrap()
-                    ));
+                    ));*/
                     SimStep::Progress {
                         generations_completed: self.generations,
                         max_generations: self.synth.solver_vars.generations as u32,

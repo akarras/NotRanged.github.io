@@ -4,7 +4,7 @@ import init, {initThreadPool, CraftSimulator} from "../../lib/pkg/xiv_crafting_s
 
 //importScripts("../../lib/pkg/xiv_crafting_sim.js");
 //importScripts('../../lib/string/String.js');
-
+console.log("loaded wasm worker");
 var state;
 var sim;
 async function start_simulator(synth) {
@@ -31,7 +31,9 @@ self.onmessage = function(e) {
       //runOneGen();
     }
     else if (e.data == 'rungen') {
+      console.log("Started ", Date.now());
       runWasmGen();
+      console.log("Finish ", Date.now());
       // runOneGen();
     }
     else if (e.data == 'finish') {
