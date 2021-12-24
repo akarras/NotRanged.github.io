@@ -11,11 +11,10 @@ var app = connect();
 app.use(morgan('dev'));
 app.use('/', serveStatic(path.join(__dirname, 'app'), {
     setHeaders: (res, path) => {
-
+        // These headers are valid, but I'm now doing this in the client side to test GitHub Pages.
         res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
         res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
         res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-        res.setHeader('Access-Control-Allow-Origin', '*');
     }
 }));
 
