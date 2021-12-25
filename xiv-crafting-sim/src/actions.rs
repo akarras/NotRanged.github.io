@@ -703,7 +703,7 @@ impl Action {
                     full_name: "Final Appraisal",
                     durability_cost: 0,
                     cp_cost: 1,
-                    success_probability: 0.0,
+                    success_probability: 1.0,
                     quality_increase_multiplier: 0.0,
                     progress_increase_multiplier: 0.0,
                     action_type: ActionType::Countdown { active_turns: 5 },
