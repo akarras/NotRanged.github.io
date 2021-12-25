@@ -698,6 +698,11 @@ impl<'a> State<'a> {
                 self.wasted_actions += 1.0;
             }
         }
+
+        if self.effects.count_downs.get(Action::FinalAppraisal).is_some() {
+            self.progress_state.clamp(0, (self.synth.recipe.difficulty - 1) as i32);
+        }
+
         let action_details = action.details();
         if action_details.quality_increase_multiplier > 0.0
             && self.effects.count_downs.get(Action::GreatStrides).is_some()

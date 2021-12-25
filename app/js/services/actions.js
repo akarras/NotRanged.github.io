@@ -30,6 +30,7 @@
     greatStrides: {            common: true, buff: true, skillID: {"Alchemist": 266, "Armorer": 262, "Blacksmith": 261, "Carpenter": 260, "Culinarian": 267, "Goldsmith": 263, "Leatherworker": 265, "Weaver": 264} },
     innovation: {              common: true, buff: true, skillID: {"Goldsmith": 284} },
     veneration: {              common: true, buff: true, skillID: {"Goldsmith": 284} },
+    finalAppraisal: {       common: true, buff: true,     skillID: {"Alchemist": 0, "Armorer": 0, "Blacksmith": 0, "Carpenter": 0, "Culinarian": 0, "Goldsmith": 0, "Leatherworker": 0, "Weaver": 0} },
     tricksOfTheTrade: {        common: true,             skillID: {"Alchemist": 100098} },
 
     // Heavensward
@@ -61,7 +62,6 @@
     focusedSynthesisCombo: {       common: true,         skillID: {"Alchemist": 0, "Armorer": 0, "Blacksmith": 0, "Carpenter": 0, "Culinarian": 0, "Goldsmith": 0, "Leatherworker": 0, "Weaver": 0} },
     standardTouchCombo: {       common: true,             skillID: {"Alchemist": 0, "Armorer": 0, "Blacksmith": 0, "Carpenter": 0, "Culinarian": 0, "Goldsmith": 0, "Leatherworker": 0, "Weaver": 0} },
     advancedTouchCombo: {       common: true,             skillID: {"Alchemist": 0, "Armorer": 0, "Blacksmith": 0, "Carpenter": 0, "Culinarian": 0, "Goldsmith": 0, "Leatherworker": 0, "Weaver": 0} },
-    
     observe: {                 common: true,             skillID: {"Alchemist": 100099, "Armorer": 100040, "Blacksmith": 100023, "Carpenter": 100010, "Culinarian": 100113, "Goldsmith": 100082, "Leatherworker": 100053, "Weaver": 100070} }
   };
 
@@ -174,6 +174,7 @@
 	      "veneration",
         "greatStrides",
         "innovation",
+        "finalAppraisal"
     ]
     },
     {

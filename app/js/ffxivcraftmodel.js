@@ -542,7 +542,11 @@ function ApplySpecialActionEffects(s, action, condition) {
             }
         }
     }
-
+    if (isActionEq(action, AllActions.finalAppraisal.shortName) && (AllActions.finalAppraisal.shortName in s.effects.countDowns)) {
+        if (s.progressState >= s.synth.recipe.difficulty) {
+            s.progressState = s.synth.recipe.difficulty - 1;
+        }
+    }
     if (isActionEq(action, AllActions.veneration.shortName) && (AllActions.veneration.shortName in s.effects.countDowns)) {
         s.wastedActions += 1
     }
