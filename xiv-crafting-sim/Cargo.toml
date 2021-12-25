@@ -26,7 +26,7 @@ wasm-genevo = ["genevo/wasm-bindgen"]
 [dependencies]
 wasm-bindgen = {version = "0.2.78", features = ["serde-serialize"]}
 serde = {version = "1.0.131", features = ["derive"]}
-genevo = {git = "https://github.com/akarras/genevo"}
+genevo = {git = "https://github.com/akarras/genevo", branch = "wasm-threads"}
 wasm-bindgen-rayon = {version = "1.0.3", features = ["no-bundler"], optional = true}
 rayon = {version  = "1.5.1", optional = true}
 smallvec = "1.7.0"

@@ -225,7 +225,7 @@ checksum = "e78d4f1cc4ae33bbfc157ed5d5a5ef3bc29227303d595861deb238fcec4e9457"
 [[package]]
 name = "genevo"
 version = "0.7.0"
-source = "git+https://github.com/akarras/genevo#b79c5558d52cf4d01b137f654353c1f7a1da6dd8"
+source = "git+https://github.com/akarras/genevo?branch=wasm-threads#7745cd09cc198d9e80719c3e1b28f3a3a40f4ae0"
 dependencies = [
  "chrono",
  "getrandom",
