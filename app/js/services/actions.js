@@ -142,14 +142,6 @@
       ]
     },
     {
-      name: "Combo'd Actions", actions: [
-        "focusedSynthesisCombo",
-        "focusedTouchCombo",
-        "standardTouchCombo",
-        "advancedTouchCombo"
-      ]
-    },
-    {
       name: "Quality", actions: [
         "basicTouch",
         "hastyTouch",
