@@ -80,8 +80,9 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
             state.quality_state.min(self.recipe.max_quality as i32)
         };
         fitness -= penalties;
+        let safety_margin_factor = 1.0 + self.recipe.safety_margin as f64 * 0.01;
         if violations.progress_ok
-            && state.quality_state as f64 >= self.recipe.max_quality as f64 * 1.1
+            && state.quality_state as f64 >= self.recipe.max_quality as f64 * safety_margin_factor
         {
             fitness = (fitness as f64 * (1 as f64 + 4 as f64 / state.step as f64)) as i32;
         }
@@ -346,6 +347,7 @@ mod tests {
             level: 1,
             difficulty: 100,
             durability: 60,
+            safety_margin: 0,
             start_quality: 0,
             max_quality: 100,
             suggested_craftsmanship: 1,

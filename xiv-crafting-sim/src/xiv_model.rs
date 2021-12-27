@@ -25,6 +25,7 @@ pub struct Recipe {
     pub(crate) level: u32,
     pub(crate) difficulty: u32,
     pub(crate) durability: u32,
+    pub(crate) safety_margin: u32,
     pub(crate) start_quality: u32,
     pub(crate) max_quality: u32,
     pub(crate) suggested_craftsmanship: u32,
