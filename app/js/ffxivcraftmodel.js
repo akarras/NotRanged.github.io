@@ -51,12 +51,13 @@ function Crafter(cls, level, craftsmanship, control, craftPoints, specialist, ac
     }
 }
 
-function Recipe(baseLevel, level, difficulty, durability, startQuality, maxQuality, suggestedCraftsmanship, suggestedControl, progressDivider, progressModifier, qualityDivider, qualityModifier, stars) {
+function Recipe(baseLevel, level, difficulty, durability, startQuality, safetyMargin, maxQuality, suggestedCraftsmanship, suggestedControl, progressDivider, progressModifier, qualityDivider, qualityModifier, stars) {
     this.baseLevel = baseLevel;
     this.level = level;
     this.difficulty = difficulty;
     this.durability = durability;
     this.startQuality = startQuality;
+    this.safetyMargin = safetyMargin || 0;
     this.maxQuality = maxQuality;
     this.suggestedCraftsmanship = suggestedCraftsmanship || SuggestedCraftsmanship[this.level];
     this.suggestedControl = suggestedControl || SuggestedControl[this.level];
@@ -168,6 +169,7 @@ function State(synth, step, lastStep, action, durabilityState, cpState, bonusMax
     this.bProgressGain = 0;
     this.bQualityGain = 0;
     this.success = 0;
+    this.lastDurabilityCost = 0;
 }
 
 State.prototype.clone = function () {
@@ -198,10 +200,16 @@ State.prototype.checkViolations = function () {
     */
 
     // Ranged edit -- 10 cost actions that bring you to -5 are now valid
-    if ((this.durabilityState >= -5) && (this.progressState >= this.synth.recipe.difficulty)) {
-        if (this.action.durabilityCost === 10) {
+    if ((this.durabilityState >= -15) && (this.progressState >= this.synth.recipe.difficulty)) {
+        // Special allowed cases that bring it to the negatives:
+        // This should really be condensed into a single if statement but lol lmao
+        if (this.lastDurabilityCost === 10 && this.durabilityState === -5) {
             durabilityOk = true;
         }
+        if (this.lastDurabilityCost === 20 && (this.durabilityState === -5 || this.durabilityState === -10 || this.durabilityState === -15)) {
+            durabilityOk = true;
+        }
+        // All other cases:
         if (this.durabilityState >= 0) {
             durabilityOk = true;
         }
@@ -317,6 +325,7 @@ function ApplyModifiers(s, action, condition) {
     var pureLevelDifference = s.synth.crafter.level - s.synth.recipe.baseLevel;
     var recipeLevel = effRecipeLevel;
     var stars = s.synth.recipe.stars;
+    var durabilityCost = action.durabilityCost;
 
     // Effects modfiying probability
     var successProbability = action.successProbability;
@@ -630,6 +639,7 @@ function UpdateState(s, action, progressGain, qualityGain, durabilityCost, cpCos
     s.progressState += progressGain;
     s.qualityState += qualityGain;
     s.durabilityState -= durabilityCost;
+    s.lastDurabilityCost = durabilityCost;
     s.cpState -= cpCost;
     s.lastStep += 1;
     ApplySpecialActionEffects(s, action, condition);
@@ -1384,6 +1394,7 @@ function evalSeq(individual, mySynth, penaltyWeight) {
     var penalties = 0;
     var fitness = 0;
     var fitnessProg = 0;
+    var safetyMarginFactor = 1 + mySynth.recipe.safetyMargin * 0.01;
 
     // Sum the constraint violations
     // experiment: wastedactions change
@@ -1424,11 +1435,11 @@ function evalSeq(individual, mySynth, penaltyWeight) {
         fitness += result.durabilityState * mySynth.solverVars.remainderDurFitnessValue;
     }
     else {
-        fitness += Math.min(mySynth.recipe.maxQuality*1.1, result.qualityState);
+        fitness += Math.min(mySynth.recipe.maxQuality*safetyMarginFactor, result.qualityState);
     }
     
     fitness -= penaltyWeight * penalties;
-    if (chk.progressOk && result.qualityState >= mySynth.recipe.maxQuality*1.1) {
+    if (chk.progressOk && result.qualityState >= mySynth.recipe.maxQuality*safetyMarginFactor) {
         // This if statement rewards a smaller synth length so long as conditions are met
         fitness *= (1 + 4 / result.step);
     }

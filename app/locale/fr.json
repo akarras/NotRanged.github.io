@@ -9,6 +9,7 @@
   "Master's Mend": "Réparation de maître",
   "Basic Touch": "Ouvrage de base",
   "Basic Synthesis": "Travail de base",
+  "Advanced Touch": "Ouvrage avancé",
 
   "Byregot's Blessing": "Bénédiction de Byregot",
   "Groundwork": "Travail préparatoire",
@@ -44,6 +45,8 @@
   "Delicate Synthesis": "Travail minutieux",
   "Intensive Synthesis": "Travail vigilant",
   "Trained Eye": "Main preste",
+  "Prudent Synthesis": "Travail économe",
+  "Trained Finesse": "Main divine",
 
   "Carpenter": "Menuisier",
   "Blacksmith": "Forgeron",
@@ -110,6 +113,7 @@
   "STATS_CONTROL": "Contrôle",
   "STATS_CP": "PS",
   "STATS_START_QUALITY": "Qualité initiale",
+  "STATS_SAFETY_MARGIN": "HQ% Margin",
 
   "NAV_SIMULATOR" : "Simulateur",
   "NAV_SOLVER" : "Solveur",
