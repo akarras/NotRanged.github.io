@@ -1,11 +1,9 @@
-let wasm_bindgen;
-(function() {
-    const __exports = {};
-    let wasm;
 
-    const heap = new Array(32).fill(undefined);
+let wasm;
 
-    heap.push(undefined, null, true, false);
+const heap = new Array(32).fill(undefined);
+
+heap.push(undefined, null, true, false);
 
 function getObject(idx) { return heap[idx]; }
 
@@ -197,7 +195,7 @@ function getArrayU8FromWasm0(ptr, len) {
 }
 /**
 */
-class CraftSimulator {
+export class CraftSimulator {
 
     static __wrap(ptr) {
         const obj = Object.create(CraftSimulator.prototype);
@@ -237,7 +235,6 @@ class CraftSimulator {
         return takeObject(ret);
     }
 }
-__exports.CraftSimulator = CraftSimulator;
 
 async function load(module, imports) {
     if (typeof Response === 'function' && module instanceof Response) {
@@ -272,13 +269,7 @@ async function load(module, imports) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        let src;
-        if (typeof document === 'undefined') {
-            src = location.href;
-        } else {
-            src = document.currentScript.src;
-        }
-        input = src.replace(/\.js$/, '_bg.wasm');
+        input = new URL('xiv_crafting_sim_bg.wasm', import.meta.url);
     }
     const imports = {};
     imports.wbg = {};
@@ -441,6 +432,5 @@ async function init(input) {
     return wasm;
 }
 
-wasm_bindgen = Object.assign(init, __exports);
+export default init;
 
-})();
