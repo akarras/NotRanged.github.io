@@ -701,7 +701,7 @@ impl<'a> State<'a> {
         }
 
         if self.effects.count_downs.get(Action::FinalAppraisal).is_some() {
-            self.progress_state.clamp(0, (self.synth.recipe.difficulty - 1) as i32);
+            self.progress_state = self.progress_state.clamp(0, (self.synth.recipe.difficulty - 1) as i32);
         }
 
         let action_details = action.details();
