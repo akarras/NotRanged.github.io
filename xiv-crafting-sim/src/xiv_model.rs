@@ -122,16 +122,6 @@ impl Display for Condition {
     }
 }
 
-impl Condition {
-    fn check_good_or_excellent(&self) -> bool {
-        match self {
-            Condition::Good => true,
-            Condition::Excellent => true,
-            _ => false
-        }
-    }
-}
-
 #[derive(Debug, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct State<'a> {
@@ -401,7 +391,7 @@ impl SimulationCondition {
         }
     }
 
-    fn check_good_or_excellent(&self, state: &State) -> bool {
+    fn check_good_or_excellent(&self, _: &State) -> bool {
         match self {
             SimulationCondition::Simulation { .. } => true,
         }
@@ -598,7 +588,7 @@ impl<'a> State<'a> {
 
         if self.durability_state < durability_cost as i32 {
             if action == Action::Groundwork || action == Action::Groundwork2 {
-                progress_increase_multiplier *= 0.5;
+                progress_gain /= 2;
             }
         }
 
@@ -912,13 +902,6 @@ mod test {
     #[test]
     fn match_site() {
         let synth : Synth = serde_json::from_str(CRAFTER_SYNTH).unwrap();
-        let simulation_condition = SimulationCondition::Simulation {
-            ignore_condition: true,
-            pp_poor: 0.0,
-            pp_normal: 1.0,
-            pp_good: 0.0,
-            pp_excellent: 0.0
-        };
         let mut state : State = (&synth).into();
         let mut cond = SimulationCondition::new_sim_condition();
         for action in [Action::BasicSynth2, Action::Innovation, Action::BasicTouch, Action::StandardTouch, Action::BasicTouch, Action::StandardTouch, Action::MastersMend, Action::Innovation, Action::BasicTouch, Action::StandardTouch, Action::GreatStrides, Action::ByregotsBlessing, Action::BasicSynth2] {

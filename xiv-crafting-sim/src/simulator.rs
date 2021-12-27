@@ -388,10 +388,8 @@ mod tests {
                 assert!(false)
             }
             SimStep::Progress {
-                generations_completed,
-                max_generations,
                 best_sequence,
-                state,
+                ..
             } => {
                 assert_ne!(best_sequence.len(), 0);
                 //assert_ne!(state.step, 0);
