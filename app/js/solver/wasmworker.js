@@ -1,16 +1,35 @@
-// NEW TEST
+// WASM worker handles running the rust solver. Negotiating peace between the fire and water tribes.
 
-import init, {initThreadPool, CraftSimulator} from "../../lib/pkg/xiv_crafting_sim.js";
+import { threads, simd } from "https://unpkg.com/wasm-feature-detect?module";
 
-//importScripts("../../lib/pkg/xiv_crafting_sim.js");
-//importScripts('../../lib/string/String.js');
+let module;
+
 console.log("loaded wasm worker");
 var state = null;
 var sim = null;
+var is_thread = false;
 async function start_simulator(synth) {
   console.log("init thread");
-  await init();
-  await initThreadPool(navigator.hardwareConcurrency);
+  if (await threads()) {
+    if (await simd()) {
+      console.log("Running SIMD solver")
+      module = await import('../../lib/xiv-thread-simd/xiv_crafting_sim.js');
+      await module.default();
+      await module.initThreadPool(navigator.hardwareConcurrency);
+      is_thread = true;
+    } else {
+      console.log("Running threaded solver")
+      module = await import('../../lib/xiv-thread-simulator/xiv_crafting_sim.js');
+      await module.default();
+      await module.initThreadPool(navigator.hardwareConcurrency);
+      is_thread = true;
+    }
+  }
+  else {
+      module = await import("../../lib/xiv-craft-simulator/xiv_crafting_sim.js")
+      await module.default();
+      console.warn("Your browser does not support threads, performance might be slower");
+  }
 
   //sim = CraftSimulator.new_wasm(synth);
   state = {startTime: Date.now()};
@@ -22,12 +41,12 @@ self.onmessage = function(e) {
     if (e.data.start) {
       if (sim == null) {
         start_simulator(e.data.start).then(r => {
-          sim = CraftSimulator.new_wasm(e.data.start);
+          sim = module.CraftSimulator.new_wasm(e.data.start);
           runWasmGen();
         })
       }
       else {
-        sim = CraftSimulator.new_wasm(e.data.start);
+        sim = module.CraftSimulator.new_wasm(e.data.start);
         runWasmGen();
       }
 
@@ -39,9 +58,9 @@ self.onmessage = function(e) {
       runWasmGen();
     }
     else if (e.data == 'rungen') {
-      console.log("Started ", Date.now());
+      let start = Date.now();
       runWasmGen();
-      console.log("Finish ", Date.now());
+      console.log('took ' + (Date.now() - start) + ' ms to compute');
       // runOneGen();
     }
     else if (e.data == 'finish') {
@@ -69,11 +88,8 @@ function postWasmMessage(result) {
 }
 
 function finish() {
-  var elapsedTime = Date.now() - state.startTime;
-
-  var executionLog = state.logOutput;
-  var best = state.hof.entries[0];
-
+  // "finish" by doing one more generation
+  let result = sim.pause_wasm();
   self.postMessage({
     success: {
       executionLog: executionLog.log,

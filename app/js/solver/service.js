@@ -11,8 +11,8 @@
     //this.worker = new Worker('js/solver/worker.js');
     try {
       this.worker = new Worker('js/solver/wasmworker.js', {type: 'module'});
-      if (this.worker === undefined || this.worker !== null) {
-        console.log("INVALID WORKER ITS ALL FUCKED EVERYTHINGS BROKEN AND IM FUCKIN SAD");
+      if (this.worker === undefined || this.worker === null) {
+        console.error("The worker failed to start");
       }
     } catch (ex) {
       console.error(ex);

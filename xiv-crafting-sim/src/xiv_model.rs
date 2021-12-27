@@ -584,9 +584,9 @@ impl<'a> State<'a> {
         }
 
         if self.durability_state < durability_cost as i32
-            && (action == Action::Groundwork || action == Action::Groundwork2)
-        {
+            && (action == Action::Groundwork || action == Action::Groundwork2) {
             progress_gain /= 2;
+            durability_cost /= 2.0;
         }
 
         // Effects modifying quality gain directly

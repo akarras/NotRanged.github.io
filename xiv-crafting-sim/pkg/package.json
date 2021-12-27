@@ -1,0 +1,12 @@
+{
+  "name": "xiv-crafting-sim",
+  "version": "0.1.0",
+  "files": [
+    "xiv_crafting_sim_bg.wasm",
+    "xiv_crafting_sim.js",
+    "xiv_crafting_sim.d.ts"
+  ],
+  "module": "xiv_crafting_sim.js",
+  "types": "xiv_crafting_sim.d.ts",
+  "sideEffects": false
+}
