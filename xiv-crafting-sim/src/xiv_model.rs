@@ -170,7 +170,7 @@ impl Default for Condition {
 
 impl Display for State<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "#{} pro: {}/{} qual: {}/{} dur: {}/{} cp: {}/{} BP: {} BQ: {} action: {:?} effects: {} cond: {}", self.step,
+        write!(f, "#{:>2} {:>4}/{:>4} qual: {:>4}/{:>4} dur: {:>3}/{:>3} cp: {:>4}/{:>4} BP: {:>4} BQ: {:>4} action: {:?} effects: {} cond: {}", self.step,
                self.progress_state, self.synth.recipe.difficulty,
                self.quality_state, self.synth.recipe.max_quality,
                self.durability_state, self.synth.recipe.durability, self.cp_state, self.synth.crafter.craft_points, self.base_progress_gain, self.base_quality_gain, self.action, self.effects, self.condition)
@@ -267,7 +267,7 @@ impl<'a> From<&'a Synth> for State<'a> {
             reliability: 1,
             cp_state: synth.crafter.craft_points as i32,
             bonus_max_cp: 0,
-            quality_state: 0,
+            quality_state: synth.recipe.start_quality as i32,
             progress_state: 0,
             wasted_actions: 0.0,
             trick_uses: 0,
