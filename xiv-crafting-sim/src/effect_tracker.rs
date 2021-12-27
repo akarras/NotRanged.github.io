@@ -12,11 +12,11 @@ pub struct EffectData([Option<(Action, i8)>; 5]);
 
 impl EffectData {
     pub(crate) fn get_mut(&mut self, action: Action) -> Option<&mut i8> {
-        self.0.iter_mut().flat_map(|m| m).find(|(a, _)| *a==action).map(|(_, i)| i)
+        self.0.iter_mut().flatten().find(|(a, _)| *a==action).map(|(_, i)| i)
     }
 
     pub(crate) fn get(&self, action: Action) -> Option<&(Action, i8)> {
-        self.0.iter().flat_map(|m| m).find(|(a, _)| *a==action)
+        self.0.iter().flatten().find(|(a, _)| *a==action)
     }
 
     pub(crate) fn remove(&mut self, action: Action) {
@@ -43,10 +43,8 @@ impl EffectData {
 
 impl Display for EffectData {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        for value in self.0 {
-            if let Some((action, count)) = value {
-                write!(f, "{:?}:{}", action, count)?; // using debug version of Action can help see BasicSynth2
-            }
+        for (action, count) in self.0.into_iter().flatten() {
+            write!(f, "{:?}:{}", action, count)?; // using debug version of Action can help see BasicSynth2
         }
         Ok(())
     }

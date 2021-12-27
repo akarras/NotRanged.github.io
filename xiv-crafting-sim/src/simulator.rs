@@ -27,14 +27,14 @@ impl CalcState for CrafterActions {
         let mut state: State = synth.into();
         let mut condition = SimulationCondition::new_sim_condition();
         if let Some(log) = log {
-            let _ = write!(log, "{}\n", state);
+            let _ = writeln!(log, "{}", state);
         }
         for action in self.iter()
             .take_while(|m| **m > 0)
-            .flat_map(|m| synth.crafter.actions.get(*m - 1).map(|m| *m)) {
+            .flat_map(|m| synth.crafter.actions.get(*m - 1).copied()) {
             let tmp_state = state.add_action(action, &mut condition);
             if let Some(log) = log {
-                let _ = write!(log, "{}\n", tmp_state);
+                let _ = writeln!(log, "{}", tmp_state);
             }
             if tmp_state.progress_state >= synth.recipe.difficulty as i32 {
                 return tmp_state;
@@ -55,16 +55,16 @@ impl CalcState for CrafterActions {
         let actions = &synth.crafter.actions;
         self.iter()
             .take_while(|m| **m > 0)
-            .flat_map(|m| actions.get(*m - 1).map(|m| *m)).collect()
+            .flat_map(|m| actions.get(*m - 1).copied()).collect()
     }
 
     /// Gives all actions up until the state went invalid
     fn get_final_actions_list<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> (State<'a>, Vec<Action>) {
 
         let actions = self.get_actions_list(synth);
-        let state = self.calculate_final_state(&synth, log);
+        let state = self.calculate_final_state(synth, log);
         let (first, _) = actions.split_at(state.step as usize);
-        (state, first.iter().map(|m| *m).collect())
+        (state, first.to_vec())
     }
 }
 
@@ -84,7 +84,7 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
         if violations.progress_ok
             && state.quality_state as f64 >= self.recipe.max_quality as f64 * safety_margin_factor
         {
-            fitness = (fitness as f64 * (1 as f64 + 4 as f64 / state.step as f64)) as i32;
+            fitness = (fitness as f64 * (1.0 + 4.0 / state.step as f64)) as i32;
         }
 
         fitness
@@ -105,24 +105,26 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
     }
 }
 
+type GeneticSimulator = Simulator<
+    GeneticAlgorithm<
+        CrafterActions,
+        i32,
+        Synth,
+        MaximizeSelector,
+        SinglePointCrossBreeder,
+        RandomValueMutator<CrafterActions>,
+        ElitistReinserter<CrafterActions, i32, Synth>,
+    >,
+    GenerationLimit,
+>;
+
 #[wasm_bindgen]
 pub struct CraftSimulator {
     pub(crate) generations: u32,
     // extra copy of our synth.
     pub(crate) synth: Synth,
     // oh god this type is so long.
-    pub(crate) sim: Simulator<
-        GeneticAlgorithm<
-            CrafterActions,
-            i32,
-            Synth,
-            MaximizeSelector,
-            SinglePointCrossBreeder,
-            RandomValueMutator<CrafterActions>,
-            ElitistReinserter<CrafterActions, i32, Synth>,
-        >,
-        GenerationLimit,
-    >,
+    pub(crate) sim: GeneticSimulator,
 }
 
 impl CraftSimulator {
@@ -158,7 +160,7 @@ impl CraftSimulator {
         }
     }
 
-    pub fn next(&mut self) -> SimStep {
+    pub fn next_generation(&mut self) -> SimStep {
         self.generations += 1;
         match self.sim.step() {
             Ok(ok) => match ok {
@@ -273,7 +275,7 @@ impl CraftSimulator {
     }
 
     pub fn next_wasm(&mut self) -> JsValue {
-        JsValue::from_serde(&self.next()).unwrap()
+        JsValue::from_serde(&self.next_generation()).unwrap()
     }
 }
 
@@ -319,14 +321,14 @@ mod tests {
         let crafter_data = r#"{"crafter":{"level":82,"craftsmanship":2606,"control":2457,"cp":507,"actions":["muscleMemory","reflect","trainedEye","basicSynth2","carefulSynthesis2","groundwork","intensiveSynthesis","delicateSynthesis","focusedSynthesisCombo","focusedTouchCombo","basicTouch","standardTouch","byregotsBlessing","preciseTouch","prudentTouch","preparatoryTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Alchemist","level":430,"difficulty":1780,"durability":80,"startQuality":0,"maxQuality":4600,"baseLevel":80,"progressDivider":110,"progressModifier":100,"qualityDivider":90,"qualityModifier":100,"suggestedControl":1733,"suggestedCraftsmanship":1866,"name":"Tincture of Strength"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
         let synth: Synth = serde_json::from_str(crafter_data).unwrap();
         let mut sim = CraftSimulator::new(synth);
-        while let SimStep::Progress { .. } = sim.next() {}
+        while let SimStep::Progress { .. } = sim.next_generation() {}
     }
 
     #[test]
     fn lvl50_cul_synth() {
         let synth : Synth = serde_json::from_str(r#"{"crafter":{"level":51,"craftsmanship":117,"control":158,"cp":180,"actions":["basicSynth2","basicTouch","standardTouch","byregotsBlessing","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Culinarian","level":40,"difficulty":138,"durability":60,"startQuality":0,"maxQuality":3500,"baseLevel":40,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":68,"suggestedCraftsmanship":136,"name":"Grade 4 Skybuilders' Sesame Cookie"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#).unwrap();
         let mut sim = CraftSimulator::new(synth);
-        let next = sim.next();
+        let next = sim.next_generation();
         match next {
             SimStep::Success { .. } => {
                 assert!(false);
@@ -382,7 +384,7 @@ mod tests {
         };
 
         let mut sim = CraftSimulator::new(synth);
-        let sim_result = sim.next();
+        let sim_result = sim.next_generation();
         match sim_result {
             SimStep::Success { .. } => {
                 assert!(false)

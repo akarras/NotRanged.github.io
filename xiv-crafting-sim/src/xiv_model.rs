@@ -492,12 +492,11 @@ impl<'a> State<'a> {
             progress_increase_multiplier += 0.5;
         }
 
-        if action.eq(&Action::MuscleMemory) {
-            if self.step != 1 {
+        if action.eq(&Action::MuscleMemory) && self.step != 1 {
+
                 self.wasted_actions += 10.0;
                 progress_increase_multiplier = 0.0;
                 cp_cost = 0;
-            }
         }
 
         // Effects modifying quality increase multiplier
@@ -586,10 +585,8 @@ impl<'a> State<'a> {
             }
         }
 
-        if self.durability_state < durability_cost as i32 {
-            if action == Action::Groundwork || action == Action::Groundwork2 {
-                progress_gain /= 2;
-            }
+        if self.durability_state < durability_cost as i32 && (action == Action::Groundwork || action == Action::Groundwork2) {
+            progress_gain /= 2;
         }
 
         // Effects modifying quality gain directly
@@ -614,13 +611,11 @@ impl<'a> State<'a> {
             }
         }
 
-        if action.eq(&Action::Reflect) {
-            if self.step != 1 {
+        if action.eq(&Action::Reflect) && self.step != 1 {
                 self.wasted_actions += 1.0;
                 control = 0;
                 quality_gain = 0;
                 cp_cost = 0;
-            }
         }
 
         ModifierResult {
@@ -641,10 +636,10 @@ impl<'a> State<'a> {
     fn use_conditional_action(&mut self, condition: &SimulationCondition) -> bool {
         if self.cp_state > 0 && condition.check_good_or_excellent(self) {
             self.trick_uses += 1;
-            return true;
+            true
         } else {
             self.wasted_actions += 1.0;
-            return false;
+            false
         }
     }
 
@@ -702,12 +697,8 @@ impl<'a> State<'a> {
         }
 
         // Manage effects with conditional requirements
-        if action_details.on_excellent || action_details.on_good {
-            if self.use_conditional_action(condition) {
-                if action == Action::TricksOfTheTrade {
-                    self.cp_state += (20.0 * condition.p_good_or_excellent()) as i32;
-                }
-            }
+        if (action_details.on_excellent || action_details.on_good) && self.use_conditional_action(condition) && action == Action::TricksOfTheTrade {
+                self.cp_state += (20.0 * condition.p_good_or_excellent()) as i32;
         }
 
         /*if action == Action::Veneration
