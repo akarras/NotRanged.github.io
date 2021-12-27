@@ -1,8 +1,8 @@
 use crate::actions::{Action, ActionType};
+use crate::effect_tracker::EffectData;
 use crate::level_table;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
-use crate::effect_tracker::EffectData;
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
 #[serde(rename_all = "camelCase")]
@@ -108,7 +108,7 @@ pub(crate) enum Condition {
     Poor,
     Normal,
     Good,
-    Excellent
+    Excellent,
 }
 
 impl Display for Condition {
@@ -117,7 +117,7 @@ impl Display for Condition {
             Condition::Poor => write!(f, "Poor"),
             Condition::Normal => write!(f, "Normal"),
             Condition::Good => write!(f, "Good"),
-            Condition::Excellent => write!(f, "Excellent")
+            Condition::Excellent => write!(f, "Excellent"),
         }
     }
 }
@@ -271,7 +271,7 @@ impl<'a> From<&'a Synth> for State<'a> {
             base_quality_gain: 0,
             durability_state: synth.recipe.durability as i32,
             name_of_element_uses: 0,
-            success: false
+            success: false,
         }
     }
 }
@@ -472,8 +472,8 @@ impl<'a> State<'a> {
 
         // Penalize use of WasteNot during solveforcompletion runs
 
-        if (action == Action::WasteNot
-            || action == Action::WasteNot2) && self.synth.solver_vars.solve_for_completion
+        if (action == Action::WasteNot || action == Action::WasteNot2)
+            && self.synth.solver_vars.solve_for_completion
         {
             self.wasted_actions += 50.0;
         }
@@ -493,10 +493,9 @@ impl<'a> State<'a> {
         }
 
         if action.eq(&Action::MuscleMemory) && self.step != 1 {
-
-                self.wasted_actions += 10.0;
-                progress_increase_multiplier = 0.0;
-                cp_cost = 0;
+            self.wasted_actions += 10.0;
+            progress_increase_multiplier = 0.0;
+            cp_cost = 0;
         }
 
         // Effects modifying quality increase multiplier
@@ -526,8 +525,7 @@ impl<'a> State<'a> {
                 .get(Action::InnerQuiet)
                 .map(|(_, i)| *i)
                 .unwrap_or(0);
-            if num_inner_quiets >= 1
-            {
+            if num_inner_quiets >= 1 {
                 quality_increase_multiplier *= 1.0 + (0.2 * (num_inner_quiets + 1) as f64).min(3.0);
             } else {
                 quality_increase_multiplier = 0.0;
@@ -585,7 +583,9 @@ impl<'a> State<'a> {
             }
         }
 
-        if self.durability_state < durability_cost as i32 && (action == Action::Groundwork || action == Action::Groundwork2) {
+        if self.durability_state < durability_cost as i32
+            && (action == Action::Groundwork || action == Action::Groundwork2)
+        {
             progress_gain /= 2;
         }
 
@@ -612,10 +612,10 @@ impl<'a> State<'a> {
         }
 
         if action.eq(&Action::Reflect) && self.step != 1 {
-                self.wasted_actions += 1.0;
-                control = 0;
-                quality_gain = 0;
-                cp_cost = 0;
+            self.wasted_actions += 1.0;
+            control = 0;
+            quality_gain = 0;
+            cp_cost = 0;
         }
 
         ModifierResult {
@@ -685,8 +685,15 @@ impl<'a> State<'a> {
             }
         }
 
-        if self.effects.count_downs.get(Action::FinalAppraisal).is_some() {
-            self.progress_state = self.progress_state.clamp(0, (self.synth.recipe.difficulty - 1) as i32);
+        if self
+            .effects
+            .count_downs
+            .get(Action::FinalAppraisal)
+            .is_some()
+        {
+            self.progress_state = self
+                .progress_state
+                .clamp(0, (self.synth.recipe.difficulty - 1) as i32);
         }
 
         let action_details = action.details();
@@ -697,8 +704,11 @@ impl<'a> State<'a> {
         }
 
         // Manage effects with conditional requirements
-        if (action_details.on_excellent || action_details.on_good) && self.use_conditional_action(condition) && action == Action::TricksOfTheTrade {
-                self.cp_state += (20.0 * condition.p_good_or_excellent()) as i32;
+        if (action_details.on_excellent || action_details.on_good)
+            && self.use_conditional_action(condition)
+            && action == Action::TricksOfTheTrade
+        {
+            self.cp_state += (20.0 * condition.p_good_or_excellent()) as i32;
         }
 
         /*if action == Action::Veneration
@@ -812,7 +822,11 @@ impl<'a> State<'a> {
             .cp_state
             .min(self.synth.crafter.craft_points as i32 + self.bonus_max_cp);
     }
-    pub(crate) fn add_action(&self, action: Action, sim_condition: &mut SimulationCondition) -> State<'a> {
+    pub(crate) fn add_action(
+        &self,
+        action: Action,
+        sim_condition: &mut SimulationCondition,
+    ) -> State<'a> {
         let mut state = self.clone();
         state.step += 1;
         // TODO figure out how to handle simulation condition *better*
@@ -821,17 +835,26 @@ impl<'a> State<'a> {
 
         let mut condition_quality_increase_multiplier = 1.0;
         match sim_condition {
-            SimulationCondition::Simulation { ignore_condition, pp_poor, pp_normal, pp_good, pp_excellent } => {
+            SimulationCondition::Simulation {
+                ignore_condition,
+                pp_poor,
+                pp_normal,
+                pp_good,
+                pp_excellent,
+            } => {
                 if !*ignore_condition {
-                    condition_quality_increase_multiplier *= *pp_normal + 1.5 * *pp_good * (1.0 - (*pp_good + p_good) / 2.0).powf(state.synth.max_trick_uses as f64) + 4.0 * *pp_excellent + 0.5 * *pp_poor;
+                    condition_quality_increase_multiplier *= *pp_normal
+                        + 1.5
+                            * *pp_good
+                            * (1.0 - (*pp_good + p_good) / 2.0)
+                                .powf(state.synth.max_trick_uses as f64)
+                        + 4.0 * *pp_excellent
+                        + 0.5 * *pp_poor;
                 }
             }
         }
 
-        let result = state.apply_modifiers(
-            action,
-            sim_condition,
-        );
+        let result = state.apply_modifiers(action, sim_condition);
         state.base_quality_gain = result.quality_gain;
         state.base_progress_gain = result.progress_gain;
         // Calculate final gains / losses
@@ -846,7 +869,6 @@ impl<'a> State<'a> {
         //// Floor gains at final stage before calculating expected value
         let mut quality_gain = condition_quality_increase_multiplier * result.quality_gain as f64;
         quality_gain = success_probability * quality_gain.floor();
-
 
         state.update_state(
             action,
@@ -866,22 +888,22 @@ impl<'a> State<'a> {
 
 #[cfg(test)]
 mod test {
-    use crate::xiv_model::{Synth, State, SimulationCondition};
     use crate::actions::Action;
+    use crate::xiv_model::{SimulationCondition, State, Synth};
 
-    const CRAFTER_SYNTH : &str = r#"{"crafter":{"level":54,"craftsmanship":285,"control":249,"cp":309,"actions":["muscleMemory","basicSynth2","basicTouch","standardTouch","byregotsBlessing","preciseTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Culinarian","level":40,"difficulty":138,"durability":60,"startQuality":0,"maxQuality":3500,"baseLevel":40,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":68,"suggestedCraftsmanship":136,"name":"Grade 4 Skybuilders' Sesame Cookie"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":50},"debug":true}"#;
+    const CRAFTER_SYNTH: &str = r#"{"crafter":{"level":54,"craftsmanship":285,"control":249,"cp":309,"actions":["muscleMemory","basicSynth2","basicTouch","standardTouch","byregotsBlessing","preciseTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Culinarian","level":40,"difficulty":138,"durability":60,"startQuality":0,"maxQuality":3500,"baseLevel":40,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":68,"suggestedCraftsmanship":136,"name":"Grade 4 Skybuilders' Sesame Cookie"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":50},"debug":true}"#;
 
     #[test]
     fn basic_action_sim() {
-        let synth : Synth = serde_json::from_str(CRAFTER_SYNTH).unwrap();
+        let synth: Synth = serde_json::from_str(CRAFTER_SYNTH).unwrap();
         let mut simulation_condition = SimulationCondition::Simulation {
             ignore_condition: true,
             pp_poor: 0.0,
             pp_normal: 1.0,
             pp_good: 0.0,
-            pp_excellent: 0.0
+            pp_excellent: 0.0,
         };
-        let mut state : State = (&synth).into();
+        let mut state: State = (&synth).into();
         state = state.add_action(Action::MuscleMemory, &mut simulation_condition);
         let quality_touch = state.add_action(Action::StandardTouch, &mut simulation_condition);
         println!("q touch state {}", quality_touch);
@@ -892,17 +914,29 @@ mod test {
     }
     #[test]
     fn match_site() {
-        let synth : Synth = serde_json::from_str(CRAFTER_SYNTH).unwrap();
-        let mut state : State = (&synth).into();
+        let synth: Synth = serde_json::from_str(CRAFTER_SYNTH).unwrap();
+        let mut state: State = (&synth).into();
         let mut cond = SimulationCondition::new_sim_condition();
-        for action in [Action::BasicSynth2, Action::Innovation, Action::BasicTouch, Action::StandardTouch, Action::BasicTouch, Action::StandardTouch, Action::MastersMend, Action::Innovation, Action::BasicTouch, Action::StandardTouch, Action::GreatStrides, Action::ByregotsBlessing, Action::BasicSynth2] {
+        for action in [
+            Action::BasicSynth2,
+            Action::Innovation,
+            Action::BasicTouch,
+            Action::StandardTouch,
+            Action::BasicTouch,
+            Action::StandardTouch,
+            Action::MastersMend,
+            Action::Innovation,
+            Action::BasicTouch,
+            Action::StandardTouch,
+            Action::GreatStrides,
+            Action::ByregotsBlessing,
+            Action::BasicSynth2,
+        ] {
             state = state.add_action(action, &mut cond);
             println!("{}", state);
         }
         println!("FINAL: {}", state);
         assert_eq!(state.progress_state, 140);
         assert_eq!(state.quality_state, 2535);
-
     }
 }
-

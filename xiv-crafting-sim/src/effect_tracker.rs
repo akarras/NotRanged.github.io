@@ -1,27 +1,34 @@
 use crate::actions::Action;
+use serde::Serialize;
 use std::fmt::{Display, Formatter};
-use std::iter::{FromIterator, Filter};
+use std::iter::{Filter, FromIterator};
 use std::slice::IterMut;
-use serde::{Serialize};
 
 /// Effect tracker is a key value store
 /// Data is a contiguous slice of memory, if we somehow have more than abilities than space, please just increase this and don't look back.
 #[derive(Default, Debug, Serialize, Clone)]
 pub struct EffectData([Option<(Action, i8)>; 5]);
 
-
 impl EffectData {
     pub(crate) fn get_mut(&mut self, action: Action) -> Option<&mut i8> {
-        self.0.iter_mut().flatten().find(|(a, _)| *a==action).map(|(_, i)| i)
+        self.0
+            .iter_mut()
+            .flatten()
+            .find(|(a, _)| *a == action)
+            .map(|(_, i)| i)
     }
 
     pub(crate) fn get(&self, action: Action) -> Option<&(Action, i8)> {
-        self.0.iter().flatten().find(|(a, _)| *a==action)
+        self.0.iter().flatten().find(|(a, _)| *a == action)
     }
 
     pub(crate) fn remove(&mut self, action: Action) {
         // there shouldn't be multiple actions, but just in case use filter and clear all of them
-        for value in self.0.iter_mut().filter(|m| m.map(|(a,_)| a.eq(&action)).unwrap_or_default()) {
+        for value in self
+            .0
+            .iter_mut()
+            .filter(|m| m.map(|(a, _)| a.eq(&action)).unwrap_or_default())
+        {
             *value = None;
         }
     }
@@ -36,7 +43,9 @@ impl EffectData {
         }
     }
 
-    pub(crate) fn iter_mut(&mut self) -> Filter<IterMut<Option<(Action, i8)>>, fn(&&mut Option<(Action, i8)>) -> bool> {
+    pub(crate) fn iter_mut(
+        &mut self,
+    ) -> Filter<IterMut<Option<(Action, i8)>>, fn(&&mut Option<(Action, i8)>) -> bool> {
         self.0.iter_mut().filter(|m| m.is_some())
     }
 }
@@ -50,10 +59,8 @@ impl Display for EffectData {
     }
 }
 
-
-
 impl FromIterator<(Action, i32)> for EffectData {
-    fn from_iter<I: IntoIterator<Item=(Action, i32)>>(iter: I) -> Self {
+    fn from_iter<I: IntoIterator<Item = (Action, i32)>>(iter: I) -> Self {
         let mut effects = EffectData::default();
         for (a, v) in iter {
             effects.insert(a, v as i8);

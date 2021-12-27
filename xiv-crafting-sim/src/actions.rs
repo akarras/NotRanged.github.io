@@ -697,23 +697,21 @@ impl Action {
                     action_2: Action::FocusedSynthesis,
                 }),
             },
-            Action::FinalAppraisal => {
-                ActionDetails {
-                    short_name: "finalAppraisal",
-                    full_name: "Final Appraisal",
-                    durability_cost: 0,
-                    cp_cost: 1,
-                    success_probability: 1.0,
-                    quality_increase_multiplier: 0.0,
-                    progress_increase_multiplier: 0.0,
-                    action_type: ActionType::Countdown { active_turns: 5 },
-                    class: "All",
-                    level: 42,
-                    on_good: false,
-                    on_excellent: false,
-                    combo: None
-                }
-            }
+            Action::FinalAppraisal => ActionDetails {
+                short_name: "finalAppraisal",
+                full_name: "Final Appraisal",
+                durability_cost: 0,
+                cp_cost: 1,
+                success_probability: 1.0,
+                quality_increase_multiplier: 0.0,
+                progress_increase_multiplier: 0.0,
+                action_type: ActionType::Countdown { active_turns: 5 },
+                class: "All",
+                level: 42,
+                on_good: false,
+                on_excellent: false,
+                combo: None,
+            },
         }
     }
 }
