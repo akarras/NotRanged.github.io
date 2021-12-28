@@ -83,22 +83,13 @@ self.onmessage = function(e) {
 function runWasmGen() {
   let result = sim.next_wasm();
   console.log(result);
-  postWasmMessage(result);
-}
-
-function postWasmMessage(result) {
   self.postMessage(result)
 }
 
 function finish() {
   // "finish" by doing one more generation
   let result = sim.pause_wasm();
-  self.postMessage({
-    success: {
-      executionLog: executionLog.log,
-      elapsedTime: elapsedTime,
-      bestSequence: actionSequenceToShortNames(best)
-    }
-  });
+  console.log(result);
+  self.postMessage(result)
 }
 

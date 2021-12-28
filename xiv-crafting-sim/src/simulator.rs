@@ -303,7 +303,16 @@ impl CraftSimulator {
     }
 
     pub fn pause_wasm(&mut self) -> JsValue {
-        JsValue::from_serde(&self.next_generation()).unwrap()
+        let mut value = self.next_generation();
+        if let SimStep::Progress { generations_completed, max_generations, best_sequence, state } = value {
+            value = SimStep::Success {
+                best_sequence,
+                execution_log: "".to_string(),
+                elapsed_time: None
+            };
+        }
+
+        JsValue::from_serde(&value).unwrap()
     }
 }
 
