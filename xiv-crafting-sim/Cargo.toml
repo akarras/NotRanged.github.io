@@ -17,7 +17,7 @@ lto = "fat"
 wasm-opt = false
 
 [profile.dev]
-opt-level = 3
+opt-level = 0
 
 [profile.bench]
 debug = true

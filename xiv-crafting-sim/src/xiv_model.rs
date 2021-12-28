@@ -74,7 +74,7 @@ impl Synth {
 
     fn calculate_base_quality_increase(&self, eff_crafter_level: u32, control: u32) -> u32 {
         let base_value: f64 = (control as f64 * 10.0) / self.recipe.quality_divider + 35.0;
-        if eff_crafter_level <= self.recipe.base_level {
+        if eff_crafter_level <= self.recipe.level {
             (base_value * (self.recipe.quality_modifier.unwrap_or(100) as f64) / 100.0).floor()
                 as u32
         } else {
@@ -459,13 +459,9 @@ impl<'a> State<'a> {
         // Add combo bonus following Basic Touch
         if action.eq(&Action::StandardTouch) {
             if let Some(sa) = &self.action {
-                if *sa == Action::BasicTouch {
+                if *sa == Action::BasicTouch && self.touch_combo_step == 0 {
                     cp_cost = 18;
-                    self.wasted_actions -= 0.05;
                     self.touch_combo_step = 1;
-                }
-                if *sa == Action::StandardTouch {
-                    self.wasted_actions += 0.1;
                 }
             }
         }
