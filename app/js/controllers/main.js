@@ -433,7 +433,7 @@
       $scope.solver = {
         algorithm: 'eaComplex',
         penaltyWeight: 10000,
-        population: 1000,
+        population: 12000,
         subPopulations: 10,
         solveForCompletion: false,
         remainderCPFitnessValue: 10,

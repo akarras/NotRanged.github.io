@@ -141,6 +141,13 @@ impl CraftSimulator {
     pub fn new(synth: Synth) -> Self {
         let number_of_available_actions = synth.crafter.actions.len();
         let number_of_generations = synth.solver_vars.generations;
+
+        #[cfg(feature = "wasm-thread")]
+            let population_size = {
+                log(&format!("USING {} cores", rayon::current_num_threads()));
+                synth.solver_vars.population / rayon::current_num_threads() as i32
+            };
+        #[cfg(not(feature = "wasm-thread"))]
         let population_size = synth.solver_vars.population;
         let initial_population: Population<CrafterActions> = build_population()
             .with_genome_builder(ValueEncodedGenomeBuilder::new(
@@ -150,6 +157,7 @@ impl CraftSimulator {
             ))
             .of_size(population_size as usize)
             .uniform_at_random();
+        log(&format!("population_size: {}", population_size));
         let sim = simulate(
             genetic_algorithm()
                 .with_evaluation(synth.clone())
@@ -183,7 +191,7 @@ impl CraftSimulator {
                     let mut work_log = Some(String::new());
                     let (state, best_sequence) =
                         genome.get_final_actions_list(&self.synth, &mut work_log);
-                    /*#[cfg(target_arch = "wasm32")]
+                    #[cfg(target_arch = "wasm32")]
                     log(&format!(
                         "gen: {} {}, best fitness {} actions {:?}\n worklog:\n{}",
                         self.generations,
@@ -191,7 +199,7 @@ impl CraftSimulator {
                         a.result.best_solution.solution.fitness,
                         best_sequence,
                         work_log.unwrap()
-                    ));*/
+                    ));
                     SimStep::Progress {
                         generations_completed: self.generations,
                         max_generations: self.synth.solver_vars.generations as u32,
@@ -291,6 +299,10 @@ impl CraftSimulator {
     }
 
     pub fn next_wasm(&mut self) -> JsValue {
+        JsValue::from_serde(&self.next_generation()).unwrap()
+    }
+
+    pub fn pause_wasm(&mut self) -> JsValue {
         JsValue::from_serde(&self.next_generation()).unwrap()
     }
 }

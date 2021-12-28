@@ -23,13 +23,13 @@ opt-level = 3
 debug = true
 
 [features]
-wasm-thread = ["wasm-bindgen-rayon", "rayon"]
+wasm-thread = ["wasm-bindgen-rayon", "rayon", "genevo/multithread"]
 wasm-genevo = ["genevo/wasm-bindgen"]
 
 [dependencies]
 wasm-bindgen = {version = "0.2.78", features = ["serde-serialize"]}
 serde = {version = "1.0.131", features = ["derive"]}
-genevo = {git = "https://github.com/akarras/genevo", branch = "wasm-threads"}
+genevo = {git = "https://github.com/akarras/genevo", default-features = false, branch = "wasm-threads"}
 wasm-bindgen-rayon = {version = "1.0.3", features = ["no-bundler"], optional = true}
 rayon = {version  = "1.5.1", optional = true}
 smallvec = "1.7.0"

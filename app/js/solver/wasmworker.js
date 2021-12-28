@@ -1,6 +1,7 @@
 // WASM worker handles running the rust solver. Negotiating peace between the fire and water tribes.
 
-import { threads, simd } from "https://unpkg.com/wasm-feature-detect?module";
+// firefox's polyfill worker is going to look for this script in it's local directory, so I just put it in two places so that I can stop figuring this out.
+import { threads, simd } from "./wasm-feature-detect.js";
 
 let module;
 
@@ -8,17 +9,19 @@ console.log("loaded wasm worker");
 var state = null;
 var sim = null;
 var is_thread = false;
-async function start_simulator(synth) {
-  console.log("init thread");
-  if (await threads()) {
+async function start_simulator() {
+  if (threads === undefined) {
+    console.error("Unable to detect platform details");
+  }
+  if (threads !== undefined && await threads()) {
     if (await simd()) {
-      console.log("Running SIMD solver")
+      console.log("Running SIMD solver");
       module = await import('../../lib/xiv-thread-simd/xiv_crafting_sim.js');
       await module.default();
       await module.initThreadPool(navigator.hardwareConcurrency);
       is_thread = true;
     } else {
-      console.log("Running threaded solver")
+      console.log("Running threaded solver");
       module = await import('../../lib/xiv-thread-simulator/xiv_crafting_sim.js');
       await module.default();
       await module.initThreadPool(navigator.hardwareConcurrency);

@@ -22,6 +22,10 @@ export class CraftSimulator {
 * @returns {any}
 */
   next_wasm(): any;
+/**
+* @returns {any}
+*/
+  pause_wasm(): any;
 }
 /**
 */
@@ -50,6 +54,7 @@ export interface InitOutput {
   readonly __wbg_craftsimulator_free: (a: number) => void;
   readonly craftsimulator_new_wasm: (a: number) => number;
   readonly craftsimulator_next_wasm: (a: number) => number;
+  readonly craftsimulator_pause_wasm: (a: number) => number;
   readonly __wbg_wbg_rayon_poolbuilder_free: (a: number) => void;
   readonly wbg_rayon_poolbuilder_mainJS: (a: number) => number;
   readonly wbg_rayon_poolbuilder_numThreads: (a: number) => number;
