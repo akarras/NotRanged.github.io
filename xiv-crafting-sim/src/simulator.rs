@@ -10,6 +10,10 @@ use serde::{Deserialize, Serialize};
 use std::fmt::Write;
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
+#[cfg(feature = "thread")]
+use rayon::iter::IntoParallelIterator;
+#[cfg(feature = "thread")]
+use rayon::iter::ParallelIterator;
 
 // genotype, usize where index matches available action
 pub type CrafterActions = Vec<usize>;
@@ -90,18 +94,24 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
             state.quality_state.min(self.recipe.max_quality as i32)
         };
         fitness -= penalties;
+        // fitness -= penalties; DISABLED TO TEST NON NEGATIVE FITNESS FUNCTIONS
         let safety_margin_factor = 1.0 + self.recipe.safety_margin as f64 * 0.01;
         if violations.progress_ok
             && state.quality_state as f64 >= self.recipe.max_quality as f64 * safety_margin_factor
         {
             fitness = (fitness as f64 * (1.0 + 4.0 / state.step as f64)) as i32;
         }
-
         fitness
     }
 
+    #[cfg(not(feature = "thread"))]
     fn average(&self, a: &[i32]) -> i32 {
         (a.iter().map(|m| *m as i64).sum::<i64>() / a.len() as i64) as i32
+    }
+
+    #[cfg(feature = "thread")]
+    fn average(&self, a: &[i32]) -> i32 {
+        (a.into_par_iter().map(|m| *m as i64).sum::<i64>() / a.len() as i64) as i32
     }
 
     fn highest_possible_fitness(&self) -> i32 {
@@ -157,6 +167,7 @@ impl CraftSimulator {
             ))
             .of_size(population_size as usize)
             .uniform_at_random();
+        #[cfg(target_arch = "wasm32")]
         log(&format!("population_size: {}", population_size));
         let sim = simulate(
             genetic_algorithm()
@@ -323,7 +334,7 @@ mod tests {
     use crate::xiv_model::{Crafter, Recipe, SolverVars, Synth};
     use genevo::genetic::FitnessFunction;
 
-    const TEST_STR: &str = r#"{"crafter":{"level":90,"craftsmanship":5000,"control":5000,"cp":800,"actions":["muscleMemory","reflect","trainedEye","basicSynth2","carefulSynthesis2","groundwork2","intensiveSynthesis","prudentSynthesis","delicateSynthesis","focusedSynthesisCombo","focusedTouchCombo","basicTouch","standardTouch","advancedTouch","byregotsBlessing","preciseTouch","prudentTouch","preparatoryTouch","trainedFinesse","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","manipulation","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Alchemist","level":560,"difficulty":2625,"durability":80,"startQuality":0,"maxQuality":4320,"baseLevel":90,"progressDivider":130,"progressModifier":90,"qualityDivider":115,"qualityModifier":80,"suggestedControl":2635,"suggestedCraftsmanship":2805,"name":"Sharlayan Fishcake Ingredient"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
+    const TEST_STR: &str = r#"{"crafter":{"level":78,"craftsmanship":863,"control":877,"cp":412,"actions":["muscleMemory","reflect","basicSynth2","carefulSynthesis","groundwork","intensiveSynthesis","delicateSynthesis","basicTouch","standardTouch","byregotsBlessing","preciseTouch","prudentTouch","preparatoryTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","finalAppraisal","observe"]},"recipe":{"cls":"Weaver","level":390,"difficulty":1195,"durability":60,"startQuality":0,"safetyMargin":0,"maxQuality":3010,"baseLevel":71,"progressDivider":101,"progressModifier":100,"qualityDivider":81,"qualityModifier":100,"suggestedControl":1220,"suggestedCraftsmanship":1320,"name":"Custom Gathering Tool Components"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":50,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":12000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":2000},"debug":true}"#;
     const SMOL_ABILITY: &str = r#"{"crafter":{"level":9,"craftsmanship":100,"control":100,"cp":180,"actions":["basicSynth","basicTouch","mastersMend"]},"recipe":{"baseLevel":10,"difficulty":45,"durability":60,"level":10,"maxQuality":250,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":29,"suggestedCraftsmanship":59,"name":"Heat Vent Component","cls":"Culinarian","startQuality":0},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
 
     #[test]
@@ -355,8 +366,7 @@ mod tests {
 
     #[test]
     fn test_real_actions() {
-        let crafter_data = r#"{"crafter":{"level":82,"craftsmanship":2606,"control":2457,"cp":507,"actions":["muscleMemory","reflect","trainedEye","basicSynth2","carefulSynthesis2","groundwork","intensiveSynthesis","delicateSynthesis","focusedSynthesisCombo","focusedTouchCombo","basicTouch","standardTouch","byregotsBlessing","preciseTouch","prudentTouch","preparatoryTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","observe"]},"recipe":{"cls":"Alchemist","level":430,"difficulty":1780,"durability":80,"startQuality":0,"maxQuality":4600,"baseLevel":80,"progressDivider":110,"progressModifier":100,"qualityDivider":90,"qualityModifier":100,"suggestedControl":1733,"suggestedCraftsmanship":1866,"name":"Tincture of Strength"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
-        let synth: Synth = serde_json::from_str(crafter_data).unwrap();
+        let synth: Synth = serde_json::from_str(TEST_STR).unwrap();
         let mut sim = CraftSimulator::new(synth);
         while let SimStep::Progress { .. } = sim.next_generation() {}
     }

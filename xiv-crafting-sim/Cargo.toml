@@ -23,7 +23,8 @@ opt-level = 0
 debug = true
 
 [features]
-wasm-thread = ["wasm-bindgen-rayon", "rayon", "genevo/multithread"]
+thread = ["rayon", "genevo/multithread"]
+wasm-thread = ["wasm-bindgen-rayon", "thread"]
 wasm-genevo = ["genevo/wasm-bindgen"]
 
 [dependencies]
