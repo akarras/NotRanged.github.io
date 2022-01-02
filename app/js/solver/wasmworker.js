@@ -1,7 +1,8 @@
 // WASM worker handles running the rust solver. Negotiating peace between the fire and water tribes.
 
 // firefox's polyfill worker is going to look for this script in it's local directory, so I just put it in two places so that I can stop figuring this out.
-import { threads, simd } from "./wasm-feature-detect.js";
+import { threads } from './wasm-feature-detect.js';
+import { simd } from './wasm-feature-detect.js';
 
 let module;
 
