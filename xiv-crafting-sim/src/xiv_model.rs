@@ -63,7 +63,11 @@ pub struct Synth {
 }
 
 impl Synth {
-    fn calculate_base_progress_increase(&self, eff_crafter_level: u32, craftsmanship: u32) -> u32 {
+    pub(crate) fn calculate_base_progress_increase(
+        &self,
+        eff_crafter_level: u32,
+        craftsmanship: u32,
+    ) -> u32 {
         let base_value: f64 = (craftsmanship as f64 * 10.0) / self.recipe.progress_divider + 2.0;
         if eff_crafter_level <= self.recipe.level {
             (base_value * (self.recipe.progress_modifier.unwrap_or(100) as f64) / 100.0) as u32
@@ -72,7 +76,11 @@ impl Synth {
         }
     }
 
-    fn calculate_base_quality_increase(&self, eff_crafter_level: u32, control: u32) -> u32 {
+    pub(crate) fn calculate_base_quality_increase(
+        &self,
+        eff_crafter_level: u32,
+        control: u32,
+    ) -> u32 {
         let base_value: f64 = (control as f64 * 10.0) / self.recipe.quality_divider + 35.0;
         if eff_crafter_level <= self.recipe.level {
             (base_value * (self.recipe.quality_modifier.unwrap_or(100) as f64) / 100.0).floor()
@@ -580,7 +588,8 @@ impl<'a> State<'a> {
         }
 
         if self.durability_state < durability_cost as i32
-            && (action == Action::Groundwork || action == Action::Groundwork2) {
+            && (action == Action::Groundwork || action == Action::Groundwork2)
+        {
             progress_gain /= 2;
         }
 
@@ -680,15 +689,14 @@ impl<'a> State<'a> {
             }
         }
 
-        if self
-            .effects
-            .count_downs
-            .get(Action::FinalAppraisal)
-            .is_some()
-        {
+        if let Some((_, count)) = self.effects.count_downs.get(Action::FinalAppraisal) {
             self.progress_state = self
                 .progress_state
-                .clamp(0, (self.synth.recipe.difficulty - 1) as i32);
+                .min(self.synth.recipe.difficulty as i32 - 1);
+            // If we're on the last turn of final appraisal, and we didn't actually max out the craft, it's a waste
+            if *count <= 1 && self.progress_state != self.synth.recipe.difficulty as i32 - 1 {
+                self.wasted_actions += 10.0;
+            }
         }
 
         let action_details = action.details();

@@ -1,4 +1,6 @@
 use crate::actions::Action;
+use crate::genome::CraftActionGenomeBuilder;
+use crate::mutator::{IndexedSizedContainer, SizeAndValueMutator};
 use crate::xiv_model::{Condition, SimulationCondition, State, Synth, Violations};
 use genevo::ga::genetic_algorithm;
 use genevo::operator::prelude::*;
@@ -6,19 +8,19 @@ use genevo::population::ValueEncodedGenomeBuilder;
 use genevo::prelude::*;
 use genevo::prelude::{simulate, FitnessFunction, GenerationLimit, Simulation, SimulationBuilder};
 use genevo::simulation::simulator::Simulator;
-use serde::{Deserialize, Serialize};
-use std::fmt::Write;
-use wasm_bindgen::prelude::wasm_bindgen;
-use wasm_bindgen::JsValue;
 #[cfg(feature = "thread")]
 use rayon::iter::IntoParallelIterator;
 #[cfg(feature = "thread")]
 use rayon::iter::ParallelIterator;
+use serde::{Deserialize, Serialize};
+use std::fmt::Write;
+use wasm_bindgen::prelude::wasm_bindgen;
+use wasm_bindgen::JsValue;
 
 // genotype, usize where index matches available action
 pub type CrafterActions = Vec<usize>;
 
-trait CalcState {
+pub(crate) trait CalcState {
     fn calculate_final_state<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> State<'a>;
 
     fn get_actions_list(&self, synth: &Synth) -> Vec<Action>;
@@ -30,6 +32,24 @@ trait CalcState {
     ) -> (State<'a>, Vec<Action>);
 }
 
+impl IndexedSizedContainer<usize> for CrafterActions {
+    fn insert(&mut self, index: usize, value: usize) {
+        self.insert(index, value);
+    }
+
+    fn remove(&mut self, index: usize) {
+        self.remove(index);
+    }
+
+    fn replace(&mut self, index: usize, value: usize) {
+        self[index] = value;
+    }
+
+    fn len(&self) -> usize {
+        self.len()
+    }
+}
+
 impl CalcState for CrafterActions {
     fn calculate_final_state<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> State<'a> {
         let mut state: State = synth.into();
@@ -39,8 +59,7 @@ impl CalcState for CrafterActions {
         }
         for action in self
             .iter()
-            .take_while(|m| **m > 0)
-            .flat_map(|m| synth.crafter.actions.get(*m - 1).copied())
+            .flat_map(|m| synth.crafter.actions.get(*m).copied())
         {
             let tmp_state = state.add_action(action, &mut condition);
             if let Some(log) = log {
@@ -63,10 +82,7 @@ impl CalcState for CrafterActions {
     /// Gives all actions
     fn get_actions_list(&self, synth: &Synth) -> Vec<Action> {
         let actions = &synth.crafter.actions;
-        self.iter()
-            .take_while(|m| **m > 0)
-            .flat_map(|m| actions.get(*m - 1).copied())
-            .collect()
+        self.iter().flat_map(|m| actions.get(*m).copied()).collect()
     }
 
     /// Gives all actions up until the state went invalid
@@ -132,7 +148,7 @@ type GeneticSimulator = Simulator<
         Synth,
         MaximizeSelector,
         SinglePointCrossBreeder,
-        RandomValueMutator<CrafterActions>,
+        SizeAndValueMutator<usize>,
         ElitistReinserter<CrafterActions, i32, Synth>,
     >,
     GenerationLimit,
@@ -153,16 +169,16 @@ impl CraftSimulator {
         let number_of_generations = synth.solver_vars.generations;
 
         #[cfg(feature = "wasm-thread")]
-            let population_size = {
-                log(&format!("USING {} cores", rayon::current_num_threads()));
-                synth.solver_vars.population / rayon::current_num_threads() as i32
-            };
+        let population_size = {
+            log(&format!("USING {} cores", rayon::current_num_threads()));
+            synth.solver_vars.population / rayon::current_num_threads() as i32
+        };
         #[cfg(not(feature = "wasm-thread"))]
         let population_size = synth.solver_vars.population;
         let initial_population: Population<CrafterActions> = build_population()
-            .with_genome_builder(ValueEncodedGenomeBuilder::new(
-                50,
-                0,                               // define 0 as no operation, end of sequence
+            .with_genome_builder(CraftActionGenomeBuilder::new(
+                &synth,
+                0,
                 number_of_available_actions + 1, // 1 is our real first ability
             ))
             .of_size(population_size as usize)
@@ -174,10 +190,12 @@ impl CraftSimulator {
                 .with_evaluation(synth.clone())
                 .with_selection(MaximizeSelector::new(0.85, 18))
                 .with_crossover(SinglePointCrossBreeder::new())
-                .with_mutation(RandomValueMutator::new(
-                    0.2,
+                .with_mutation(SizeAndValueMutator::new(
                     0,
-                    number_of_available_actions + 1,
+                    number_of_available_actions,
+                    1,
+                    50,
+                    0.3,
                 ))
                 .with_reinsertion(ElitistReinserter::new(synth.clone(), false, 0.85))
                 .with_initial_population(initial_population)
@@ -315,11 +333,17 @@ impl CraftSimulator {
 
     pub fn pause_wasm(&mut self) -> JsValue {
         let mut value = self.next_generation();
-        if let SimStep::Progress { generations_completed, max_generations, best_sequence, state } = value {
+        if let SimStep::Progress {
+            generations_completed,
+            max_generations,
+            best_sequence,
+            state,
+        } = value
+        {
             value = SimStep::Success {
                 best_sequence,
                 execution_log: "".to_string(),
-                elapsed_time: None
+                elapsed_time: None,
             };
         }
 
@@ -366,9 +390,10 @@ mod tests {
 
     #[test]
     fn test_real_actions() {
-        let synth: Synth = serde_json::from_str(TEST_STR).unwrap();
+        let mut synth: Synth = serde_json::from_str(TEST_STR).unwrap();
+        synth.solver_vars.population = 10;
         let mut sim = CraftSimulator::new(synth);
-        while let SimStep::Progress { .. } = sim.next_generation() {}
+        let _ = sim.next_generation();
     }
 
     #[test]

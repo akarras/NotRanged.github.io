@@ -1,6 +1,8 @@
 pub mod actions;
 mod effect_tracker;
+mod genome;
 mod level_table;
+mod mutator;
 pub mod simulator;
 pub mod xiv_model;
 
