@@ -15727,6 +15727,25 @@
     "suggestedCraftsmanship": 2590
   },
   {
+    "baseLevel": 86,
+    "difficulty": 3100,
+    "durability": 80,
+    "level": 540,
+    "maxQuality": 6800,
+    "name": {
+      "de": "Kissen-Set",
+      "en": "Matching Cushions",
+      "fr": "Lot de deux coussins",
+      "ja": "ツインクッション"
+    },
+    "progressDivider": 126,
+    "progressModifier": 100,
+    "qualityDivider": 110,
+    "qualityModifier": 100,
+    "suggestedControl": 2451,
+    "suggestedCraftsmanship": 2590
+  },
+  {
     "baseLevel": 30,
     "difficulty": 51,
     "durability": 70,
@@ -29020,6 +29039,286 @@
   },
   {
     "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Hoplomachi-Lorica",
+      "en": "Classical Hoplomachus's Lorica",
+      "fr": "Lorica d'hoplomachus classique",
+      "ja": "クラシカルホプロマクス・ロリカ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Hoplomachi-Schurz",
+      "en": "Classical Hoplomachus's Loincloth",
+      "fr": "Pagne d'hoplomachus classique",
+      "ja": "クラシカルホプロマクス・ロインクロス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Laquearii-Chiton",
+      "en": "Classical Eques's Chiton",
+      "fr": "Chiton d'eques classique",
+      "ja": "クラシカルエクエス・キトン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Laquearii-Schurz",
+      "en": "Classical Eques's Loincloth",
+      "fr": "Pagne d'eques classique",
+      "ja": "クラシカルエクエス・ロインクロス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Secutoren-Schurz",
+      "en": "Classical Secutor's Loincloth",
+      "fr": "Pagne de secutor classique",
+      "ja": "クラシカルセクトール・ロインクロス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassisches Sagittarii-Stirnband",
+      "en": "Classical Sagittarius's Headband",
+      "fr": "Bandeau de sagittarius classique",
+      "ja": "クラシカルサジタリウス・ヘッドバンド"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Sagittarii-Torques",
+      "en": "Classical Sagittarius's Wrist Torque",
+      "fr": "Torques de poignets de sagittarius classiques",
+      "ja": "クラシカルサジタリウス・リストトーク"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Sagittarii-Schurz",
+      "en": "Classical Sagittarius's Loincloth",
+      "fr": "Pagne de sagittarius classique",
+      "ja": "クラシカルサジタリウス・ロインクロス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Dimachaeri-Schurz",
+      "en": "Classical Dimachaerius's Loincloth",
+      "fr": "Pagne de dimachaerus classique",
+      "ja": "クラシカルディマカエリ・ロインクロス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Medici-Chiton",
+      "en": "Classical Medicus's Chiton",
+      "fr": "Chiton de medicus classique",
+      "ja": "クラシカルメディクス・キトン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Medici-Schurz",
+      "en": "Classical Medicus's Loincloth",
+      "fr": "Pagne de medicus classique",
+      "ja": "クラシカルメディクス・ロインクロス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Signiferi-Chiton",
+      "en": "Classical Signifer's Chiton",
+      "fr": "Chiton de signifer classique",
+      "ja": "クラシカルシグニフェル・キトン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Signiferi-Pantalons",
+      "en": "Classical Signifer's Culottes",
+      "fr": "Culotte de signifer classique",
+      "ja": "クラシカルシグニフェル・キュロット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 2925,
+    "durability": 35,
+    "level": 580,
+    "maxQuality": 7800,
+    "name": {
+      "de": "Goldseide",
+      "en": "Golden Silk",
+      "fr": "Étoffe de soie dorée",
+      "ja": "ゴールドシルク"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
     "difficulty": 3500,
     "durability": 80,
     "level": 560,
@@ -29048,6 +29347,26 @@
       "en": "Red Ribbon",
       "fr": "Ruban rouge",
       "ja": "レッドリボン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3700,
+    "durability": 80,
+    "level": 570,
+    "maxQuality": 7400,
+    "name": {
+      "de": "Glücksmantel",
+      "en": "Cape of Happiness",
+      "fr": "Manteau à cape du bonheur",
+      "ja": "ハピネスケープマント"
     },
     "progressDivider": 130,
     "progressModifier": 90,

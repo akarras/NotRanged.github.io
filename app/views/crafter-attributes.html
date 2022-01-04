@@ -15,8 +15,7 @@
 -->
     </tabset>
     <center><h1>It is HIGHLY RECOMMENDED you use GUARANTEED actions only.</h1>
-    <br>
-    <p1>And remember to turn off manipulation if you don't have it quest unlocked yet.</p1></center>
+    <p1>And remember to turn off manipulation if you don't have it quest-unlocked yet.</p1></center>
     <div class="row-fluid">
       <div class="span6">
         <form class="form-horizontal" name="crafterForm">
@@ -62,7 +61,9 @@
             <legend>{{ 'AVAILABLE_ACTIONS' | translate }}
               <span class="pull-right btn-group">
                 <button class="btn" ng-click="selectAllActions(currentClass)">{{ 'CRAFTER_ATTRIBUTES_ALL' | translate }}</button>
+                <!-- Notranged edit - UX increase, remove chance-based actions by default.
                 <button class="btn" ng-click="selectActionsByLevel(currentClass)">{{ 'CRAFTER_ATTRIBUTES_BY_LEVEL' | translate }}</button>
+                -->
                 <button class="btn" ng-click="selectActionsGuaranteed(currentClass)">{{ 'CRAFTER_ATTRIBUTES_GUARANTEED' | translate }}</button>
                 <button class="btn" ng-click="selectNoActions(currentClass)">{{ 'CRAFTER_ATTRIBUTES_NONE' | translate }}</button>
               </span>

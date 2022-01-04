@@ -5,87 +5,6 @@
 <div class="modal-body" isolate-scrolling>
   <form name="allOptionsForm">
     <tabset>
-      <tab heading="{{ 'NAV_SIMULATOR' | translate }}" active="pageState.options.tabs.simulator.active">
-        <form name="simulatorOptionsForm">
-
-          <div class="control-group" ng-class="{error: simulatorOptionsForm.maxMontecarloRuns.$invalid}">
-            <label class="control-label">{{ 'OPTIONS_MONTE_CARLO_RUNS' | translate}}</label>
-
-            <div class="controls">
-              <input class="input-small" type="number" name="maxMontecarloRuns"
-                     ng-model="sequenceSettings.maxMontecarloRuns" min="1" max="10000" required
-                     tooltip="{{ 'MONTE_CARLO_RUNS_INFO' | translate }}"
-                     tooltip-placement="right"/>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <div class="controls">
-              <label class="radio"
-                     tooltip="{{ 'MACRO_MODE_INFO' | translate }}"
-                     tooltip-placement="right">
-                <input type="radio" name="monteCarloMode" value="macro" ng-model="sequenceSettings.monteCarloMode" ng-change="onMonteCarloModeChange()"/>
-                {{ 'MACRO_MODE' | translate }}
-              </label>
-              <br/>
-              <label class="radio"
-                     tooltip="{{ 'ADVANCED_MODE_INFO' | translate }}"
-                     tooltip-placement="right">
-                <input type="radio" name="monteCarloMode" value="advanced" ng-model="sequenceSettings.monteCarloMode"/>
-                {{ 'ADVANCED_MODE' | translate }}
-              </label>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <div class="controls">
-              <label class="checkbox" ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}"
-                     tooltip="{{ 'USE_CONDITIONS_INFO' | translate }}"
-                     tooltip-placement="right">
-                <input type="checkbox" name="useConditions" ng-model="sequenceSettings.useConditions" ng-disabled="sequenceSettings.monteCarloMode!=='advanced'"/>
-                {{ 'USE_CONDITIONS' | translate }}
-              </label>
-              <br/>
-              <br/>
-              <label class="control-label"ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}">
-                {{ 'CONDITIONAL_ACTION_HANDLING' | translate }}
-              </label>
-              <br/>
-              <label class="radio" ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}"
-                     tooltip="{{ 'SKIP_CONDITION_INFO' | translate }}"
-                     tooltip-placement="right">
-                <input type="radio" name="conditionalActionHandling"
-                       ng-model="sequenceSettings.conditionalActionHandling"
-                       value="skipUnusable"
-                       ng-disabled="sequenceSettings.monteCarloMode!=='advanced'"/>
-                {{ 'SKIP_CONDITION' | translate }}
-              </label>
-              <br/>
-              <label class="radio" ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}"
-                     tooltip="{{ 'REPOSITION_CONDITION_INFO' | translate }}"
-                     tooltip-placement="right">
-                <input type="radio" name="conditionalActionHandling"
-                       ng-model="sequenceSettings.conditionalActionHandling"
-                       value="reposition"
-                       ng-disabled="sequenceSettings.monteCarloMode!=='advanced'"
-                />
-                {{ 'REPOSITION_CONDITION' | translate }}
-              </label>
-              <br/>
-              <label class="radio" ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}"
-                     tooltip="{{ 'IGNORE_CONDITION_INFO' | translate }}"
-                     tooltip-placement="right">
-                <input type="radio" name="conditionalActionHandling"
-                       ng-model="sequenceSettings.conditionalActionHandling"
-                       value="ignoreUnusable"
-                       ng-disabled="sequenceSettings.monteCarloMode!=='advanced'"
-                />
-                {{ 'IGNORE_CONDITION' | translate }}
-              </label>
-            </div>
-          </div>
-        </form>
-      </tab>
 
       <tab heading="{{ 'NAV_SOLVER' | translate }}" active="pageState.options.tabs.solver.active">
         <form name="solverOptionsForm">
@@ -337,6 +256,89 @@
 
         </form>
       </tab>
+            
+      <tab heading="{{ 'MONTE_CARLO_SIM' | translate }}" active="pageState.options.tabs.simulator.active">
+        <form name="simulatorOptionsForm">
+
+          <div class="control-group" ng-class="{error: simulatorOptionsForm.maxMontecarloRuns.$invalid}">
+            <label class="control-label">{{ 'OPTIONS_MONTE_CARLO_RUNS' | translate}}</label>
+
+            <div class="controls">
+              <input class="input-small" type="number" name="maxMontecarloRuns"
+                     ng-model="sequenceSettings.maxMontecarloRuns" min="1" max="10000" required
+                     tooltip="{{ 'MONTE_CARLO_RUNS_INFO' | translate }}"
+                     tooltip-placement="right"/>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls">
+              <label class="radio"
+                     tooltip="{{ 'MACRO_MODE_INFO' | translate }}"
+                     tooltip-placement="right">
+                <input type="radio" name="monteCarloMode" value="macro" ng-model="sequenceSettings.monteCarloMode" ng-change="onMonteCarloModeChange()"/>
+                {{ 'MACRO_MODE' | translate }}
+              </label>
+              <br/>
+              <label class="radio"
+                     tooltip="{{ 'ADVANCED_MODE_INFO' | translate }}"
+                     tooltip-placement="right">
+                <input type="radio" name="monteCarloMode" value="advanced" ng-model="sequenceSettings.monteCarloMode"/>
+                {{ 'ADVANCED_MODE' | translate }}
+              </label>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls">
+              <label class="checkbox" ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}"
+                     tooltip="{{ 'USE_CONDITIONS_INFO' | translate }}"
+                     tooltip-placement="right">
+                <input type="checkbox" name="useConditions" ng-model="sequenceSettings.useConditions" ng-disabled="sequenceSettings.monteCarloMode!=='advanced'"/>
+                {{ 'USE_CONDITIONS' | translate }}
+              </label>
+              <br/>
+              <br/>
+              <label class="control-label"ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}">
+                {{ 'CONDITIONAL_ACTION_HANDLING' | translate }}
+              </label>
+              <br/>
+              <label class="radio" ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}"
+                     tooltip="{{ 'SKIP_CONDITION_INFO' | translate }}"
+                     tooltip-placement="right">
+                <input type="radio" name="conditionalActionHandling"
+                       ng-model="sequenceSettings.conditionalActionHandling"
+                       value="skipUnusable"
+                       ng-disabled="sequenceSettings.monteCarloMode!=='advanced'"/>
+                {{ 'SKIP_CONDITION' | translate }}
+              </label>
+              <br/>
+              <label class="radio" ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}"
+                     tooltip="{{ 'REPOSITION_CONDITION_INFO' | translate }}"
+                     tooltip-placement="right">
+                <input type="radio" name="conditionalActionHandling"
+                       ng-model="sequenceSettings.conditionalActionHandling"
+                       value="reposition"
+                       ng-disabled="sequenceSettings.monteCarloMode!=='advanced'"
+                />
+                {{ 'REPOSITION_CONDITION' | translate }}
+              </label>
+              <br/>
+              <label class="radio" ng-class="{disabled:sequenceSettings.monteCarloMode!=='advanced'}"
+                     tooltip="{{ 'IGNORE_CONDITION_INFO' | translate }}"
+                     tooltip-placement="right">
+                <input type="radio" name="conditionalActionHandling"
+                       ng-model="sequenceSettings.conditionalActionHandling"
+                       value="ignoreUnusable"
+                       ng-disabled="sequenceSettings.monteCarloMode!=='advanced'"
+                />
+                {{ 'IGNORE_CONDITION' | translate }}
+              </label>
+            </div>
+          </div>
+        </form>
+      </tab>
+      
     </tabset>
   </form>
 </div>

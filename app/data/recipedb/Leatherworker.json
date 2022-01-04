@@ -15166,6 +15166,25 @@
     "suggestedCraftsmanship": 2686
   },
   {
+    "baseLevel": 86,
+    "difficulty": 3100,
+    "durability": 80,
+    "level": 540,
+    "maxQuality": 6800,
+    "name": {
+      "de": "Schuhgestell",
+      "en": "Shoe Rack",
+      "fr": "Meuble à chaussures",
+      "ja": "シューズシェルフ"
+    },
+    "progressDivider": 126,
+    "progressModifier": 100,
+    "qualityDivider": 110,
+    "qualityModifier": 100,
+    "suggestedControl": 2451,
+    "suggestedCraftsmanship": 2590
+  },
+  {
     "baseLevel": 30,
     "difficulty": 51,
     "durability": 70,
@@ -29098,6 +29117,266 @@
   },
   {
     "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Laquearii-Caligae ",
+      "en": "Classical Eques's Caligae",
+      "fr": "Caligae d'eques classiques",
+      "ja": "クラシカルエクエス・カリガ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Secutoren-Beinschienen ",
+      "en": "Classical Secutor's Caligae",
+      "fr": "Caligae de secutor classiques",
+      "ja": "クラシカルセクトール・カリガ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Sagittarii-Chiton",
+      "en": "Classical Sagittarius's Chiton",
+      "fr": "Chiton de sagittarius classique",
+      "ja": "クラシカルサジタリウス・キトン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Sagittarii-Caligae ",
+      "en": "Classical Sagittarius's Caligae",
+      "fr": "Caligae de sagittarius classiques",
+      "ja": "クラシカルサジタリウス・カリガ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Medici-Caligae ",
+      "en": "Classical Medicus's Caligae",
+      "fr": "Caligae de medicus classiques",
+      "ja": "クラシカルメディクス・カリガ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Signiferi-Fingerlinge",
+      "en": "Classical Signifer's Fingerless Gloves",
+      "fr": "Gants sans doigts de signifer classiques",
+      "ja": "クラシカルシグニフェル・フィンガレスグローブ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Signiferi-Caligae ",
+      "en": "Classical Signifer's Caligae",
+      "fr": "Caligae de signifer classiques",
+      "ja": "クラシカルシグニフェル・カリガ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Halsberge der Verteidigung",
+      "en": "Classical Choker of Fending",
+      "fr": "Ras de cou de protecteur classique",
+      "ja": "クラシカル・ディフェンダーチョーカー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Halsberge des Schlachtens",
+      "en": "Classical Choker of Slaying",
+      "fr": "Ras de cou d'attaquant classique",
+      "ja": "クラシカル・アタッカーチョーカー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Halsberge des Zielens",
+      "en": "Classical Choker of Aiming",
+      "fr": "Ras de cou de pisteur classique",
+      "ja": "クラシカル・レンジャーチョーカー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Halsberge der Heilung",
+      "en": "Classical Choker of Healing",
+      "fr": "Ras de cou de soigneur classique",
+      "ja": "クラシカル・ヒーラーチョーカー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Halsberge der Magie",
+      "en": "Classical Choker of Casting",
+      "fr": "Ras de cou d'incantateur classique",
+      "ja": "クラシカル・キャスターチョーカー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 2925,
+    "durability": 35,
+    "level": 580,
+    "maxQuality": 7800,
+    "name": {
+      "de": "Amynodon-Leder",
+      "en": "Amynodon Leather",
+      "fr": "Cuir d'amynodon",
+      "ja": "アミノドンレザー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
     "difficulty": 3500,
     "durability": 80,
     "level": 560,
@@ -29114,5 +29393,65 @@
     "qualityModifier": 80,
     "suggestedControl": 2635,
     "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3700,
+    "durability": 80,
+    "level": 570,
+    "maxQuality": 7400,
+    "name": {
+      "de": "Glücksarmband",
+      "en": "Wristlet of Happiness",
+      "fr": "Gourmettes du bonheur",
+      "ja": "ハピネスリストレット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3700,
+    "durability": 80,
+    "level": 570,
+    "maxQuality": 7400,
+    "name": {
+      "de": "Glücksbeinkleid",
+      "en": "Hose of Happiness",
+      "fr": "Fuseau du bonheur",
+      "ja": "ハピネスホーズ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3700,
+    "durability": 80,
+    "level": 570,
+    "maxQuality": 7400,
+    "name": {
+      "de": "Glücksstiefel",
+      "en": "Boots of Happiness",
+      "fr": "Bottes du bonheur",
+      "ja": "ハピネスブーツ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
   }
 ]

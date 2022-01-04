@@ -5744,7 +5744,7 @@
     "level": 145,
     "maxQuality": 2048,
     "name": {
-      "de": "Adamantium-Nugget",
+      "de": "Adamantit-Nugget",
       "en": "Adamantite Nugget",
       "fr": "Pépite d'adamant",
       "ja": "アダマンナゲット"
@@ -5801,7 +5801,7 @@
     "level": 145,
     "maxQuality": 2048,
     "name": {
-      "de": "Adamantium-Nieten",
+      "de": "Adamantit-Nieten",
       "en": "Adamantite Rivets",
       "fr": "Rivets en adamantium",
       "ja": "アダマンリベット"
@@ -12887,7 +12887,7 @@
     "level": 150,
     "maxQuality": 2700,
     "name": {
-      "de": "Adamantium-Destillierkolben",
+      "de": "Adamantit-Destillierkolben",
       "en": "Adamantite Alembic",
       "fr": "Alambic en adamantium",
       "ja": "アダマンアレンビック"
@@ -12906,7 +12906,7 @@
     "level": 150,
     "maxQuality": 2700,
     "name": {
-      "de": "Adamantium-Bratpfanne",
+      "de": "Adamantit-Bratpfanne",
       "en": "Adamantite Frypan",
       "fr": "Poêle à frire en adamantium",
       "ja": "アダマンフライパン"
@@ -13045,7 +13045,7 @@
     "level": 180,
     "maxQuality": 2900,
     "name": {
-      "de": "Adamantium-Barren",
+      "de": "Adamantit-Barren",
       "en": "Adamantite Ingot",
       "fr": "Lingot d'adamant",
       "ja": "アダマンインゴット"
@@ -19685,7 +19685,7 @@
     "level": 150,
     "maxQuality": 2700,
     "name": {
-      "de": "Adamantium-Turmschild (Sammlerstück)",
+      "de": "Adamantit-Turmschild (Sammlerstück)",
       "en": "Rarefied Adamantite Scutum",
       "fr": "Scutum en adamantium collectionnable",
       "ja": "収集用のアダマンスクトゥム"
@@ -21396,6 +21396,286 @@
     "qualityModifier": 80,
     "suggestedControl": 2635,
     "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassischer Schild",
+      "en": "Classical Shield",
+      "fr": "Bouclier classique",
+      "ja": "クラシカル・シールド"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Hoplomachi-Kopfbedeckung",
+      "en": "Classical Hoplomachus's Headgear",
+      "fr": "Protège-tête d'hoplomachus classique",
+      "ja": "クラシカルホプロマクス・ヘッドギア"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Hoplomachi-Manica",
+      "en": "Classical Hoplomachus's Manicae",
+      "fr": "Manicae d'hoplomachus classiques",
+      "ja": "クラシカルホプロマクス・マニカ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Hoplomachi-Beinschienen",
+      "en": "Classical Hoplomachus's Greaves",
+      "fr": "Jambards d'hoplomachus classiques",
+      "ja": "クラシカルホプロマクス・グリーヴ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Laquearii-Kopfbedeckung",
+      "en": "Classical Eques's Headgear",
+      "fr": "Protège-tête d'eques classique",
+      "ja": "クラシカルエクエス・ヘッドギア"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Laquearii-Manica",
+      "en": "Classical Eques's Manicae",
+      "fr": "Manicae d'eques classiques",
+      "ja": "クラシカルエクエス・マニカ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Secutoren-Maske",
+      "en": "Classical Secutor's Mask",
+      "fr": "Masque de secutor classique",
+      "ja": "クラシカルセクトール・マスク"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Secutoren-Lorica",
+      "en": "Classical Secutor's Lorica",
+      "fr": "Lorica de secutor classique",
+      "ja": "クラシカルセクトール・ロリカ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Secutoren-Manica",
+      "en": "Classical Secutor's Manicae",
+      "fr": "Manicae de secutor classiques",
+      "ja": "クラシカルセクトール・マニカ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Dimachaeri-Maske",
+      "en": "Classical Dimachaerius's Mask",
+      "fr": "Masque de dimachaerus classique",
+      "ja": "クラシカルディマカエリ・マスク"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Dimachaeri-Lorica",
+      "en": "Classical Dimachaerius's Lorica",
+      "fr": "Lorica de dimachaerus classique",
+      "ja": "クラシカルディマカエリ・ロリカ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Dimachaeri-Manica",
+      "en": "Classical Dimachaerius's Manicae",
+      "fr": "Manicae de dimachaerus classiques",
+      "ja": "クラシカルディマカエリ・マニカ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3900,
+    "durability": 70,
+    "level": 580,
+    "maxQuality": 10920,
+    "name": {
+      "de": "Klassische Dimachaeri-Beinschienen ",
+      "en": "Classical Dimachaerius's Caligae",
+      "fr": "Caligae de dimachaerus classiques",
+      "ja": "クラシカルディマカエリ・カリガ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 2925,
+    "durability": 35,
+    "level": 580,
+    "maxQuality": 7800,
+    "name": {
+      "de": "Lunarer Adamantitbarren",
+      "en": "Lunar Adamantite Ingot",
+      "fr": "Lingot d'adamantium sélénien",
+      "ja": "ルナアダマンインゴット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
   },
   {
     "baseLevel": 90,
