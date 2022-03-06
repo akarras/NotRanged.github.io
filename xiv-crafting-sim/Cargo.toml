@@ -12,6 +12,7 @@ crate-type = ["cdylib", "rlib"]
 opt-level = 3
 codegen-units = 1
 lto = "fat"
+panic = "abort"
 
 [package.metadata.wasm-pack.profile.release]
 wasm-opt = false
