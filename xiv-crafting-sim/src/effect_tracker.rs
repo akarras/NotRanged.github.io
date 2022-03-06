@@ -45,7 +45,7 @@ impl EffectData {
 
     pub(crate) fn iter_mut(
         &mut self,
-    ) -> Filter<IterMut<Option<(Action, i8)>>, fn(&&mut Option<(Action, i8)>) -> bool> {
+    ) -> impl Iterator<Item=&mut Option<(Action, i8)>> {
         self.0.iter_mut().filter(|m| m.is_some())
     }
 }
