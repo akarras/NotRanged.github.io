@@ -17958,7 +17958,7 @@
     "name": {
       "de": "Mangan-Syrinxi",
       "en": "Manganese Syrinxi",
-      "fr": "Syringes en manganèse",
+      "fr": "Seringues en manganèse",
       "ja": "マンガンスリンクス"
     },
     "progressDivider": 126,
@@ -19022,7 +19022,7 @@
     "name": {
       "de": "Steingold-Syrinxi",
       "en": "Stonegold Syrinxi",
-      "fr": "Syringes en or pétré",
+      "fr": "Seringues en or pétré",
       "ja": "ストーンゴールドスリンクス"
     },
     "progressDivider": 102,
@@ -19164,6 +19164,196 @@
     "qualityModifier": 100,
     "suggestedControl": 2451,
     "suggestedCraftsmanship": 2590
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Steinschornstein",
+      "en": "Highland Stone Chimney",
+      "fr": "Cheminée en pierre coerthienne",
+      "ja": "クルザン・ストーンチムニー"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Steinmauer",
+      "en": "Highland Stone Wall",
+      "fr": "Muret en pierre coerthien",
+      "ja": "クルザン・ストーンウォール"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Steinbogenmauer",
+      "en": "Highland Fence",
+      "fr": "Muret arqué coerthien",
+      "ja": "クルザン・アーチウォール"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Gartenmauer",
+      "en": "Highland Potting Fence",
+      "fr": "Muret de jardinage coerthien",
+      "ja": "クルザン・ガーデニングウォール"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Amaurot-Innenwand",
+      "en": "Amaurotine Interior Wall",
+      "fr": "Revêtement mural amaurotain",
+      "ja": "アーモロート・インナーウォール"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Amaurot-Boden",
+      "en": "Amaurotine Flooring",
+      "fr": "Parquet amaurotain",
+      "ja": "アーモロート・フローリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Marmorzimmerbrunnen",
+      "en": "Indoor Marble Fountain",
+      "fr": "Fontaine d'intérieur en marbre",
+      "ja": "マーブル・インドアファウンテン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Riviera-Schwingtürtheke",
+      "en": "Riviera Swinging-door Counter",
+      "fr": "Comptoir à porte battante noscéen",
+      "ja": "スイングドアカウンター"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Ishgarder Badehaus",
+      "en": "Alpine Open-air Bath",
+      "fr": "Bain extérieur ishgardais",
+      "ja": "イシュガルディアン・バスハウス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Efeubehangene Zierbrücke",
+      "en": "Ivy-covered Bridge",
+      "fr": "Pont blanc couvert de lierre",
+      "ja": "アイビー・ホワイトブリッジ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
   },
   {
     "baseLevel": 30,
@@ -32256,5 +32446,125 @@
     "qualityModifier": 80,
     "suggestedControl": 2635,
     "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 12800,
+    "name": {
+      "de": "Paktschließer-Nadel",
+      "en": "Pactmaker's Needle",
+      "fr": "Aiguille des associés",
+      "ja": "パクトメーカー・ニードル"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 880,
+    "durability": 70,
+    "level": 210,
+    "maxQuality": 3300,
+    "name": {
+      "de": "Hascherlite der Runde",
+      "en": "Milpreves of the Round",
+      "fr": "Quadruplet de mein gwrac'h de la Table ronde",
+      "ja": "ミルプレーヴェ・オブ・ラウンド"
+    },
+    "progressDivider": 70,
+    "progressModifier": 80,
+    "qualityDivider": 50,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 820,
+    "suggestedCraftsmanship": 850
+  },
+  {
+    "baseLevel": 70,
+    "difficulty": 1200,
+    "durability": 70,
+    "level": 320,
+    "maxQuality": 4800,
+    "name": {
+      "de": "Stab des Meeresgottes",
+      "en": "Susano's Rapturous Rod",
+      "fr": "Bâton de Susano flamboyant",
+      "ja": "須佐之男呪杖【輝】"
+    },
+    "progressDivider": 90,
+    "progressModifier": 80,
+    "qualityDivider": 70,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1220,
+    "suggestedCraftsmanship": 1320
+  },
+  {
+    "baseLevel": 70,
+    "difficulty": 1200,
+    "durability": 70,
+    "level": 320,
+    "maxQuality": 4800,
+    "name": {
+      "de": "Astrometer des Meeresgottes",
+      "en": "Susano's Rapturous Ephemeris",
+      "fr": "Éphéméridosphère de Susano flamboyante",
+      "ja": "須佐之男干支【輝】"
+    },
+    "progressDivider": 90,
+    "progressModifier": 80,
+    "qualityDivider": 70,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1220,
+    "suggestedCraftsmanship": 1320
+  },
+  {
+    "baseLevel": 70,
+    "difficulty": 1200,
+    "durability": 70,
+    "level": 320,
+    "maxQuality": 4800,
+    "name": {
+      "de": "Rapier des Meeresgottes",
+      "en": "Susano's Rapturous Rapier",
+      "fr": "Rapière de Susano flamboyante",
+      "ja": "須佐之男細剣【輝】"
+    },
+    "progressDivider": 90,
+    "progressModifier": 80,
+    "qualityDivider": 70,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1220,
+    "suggestedCraftsmanship": 1320
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3010,
+    "durability": 35,
+    "level": 590,
+    "maxQuality": 8400,
+    "name": {
+      "de": "Eblan-Danburit",
+      "en": "Eblan Danburite",
+      "fr": "Danburite d'Éblana",
+      "ja": "エブラーナダンビュライト"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
   }
 ]

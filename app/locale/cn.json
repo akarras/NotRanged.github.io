@@ -135,6 +135,7 @@
   "MACRO_CROSS_ACTION_SETUP": "额外技能激活宏",
   "MACRO_INCLUDE_CLASS": "生成“额外技能激活宏”时包含当前职业的“共通技能”",
   "MACRO_INCLUDE_LOCK": "在每个宏指令的开头包含“锁定宏指令（/macrolock）”，以保护该宏在执行完毕前不会被其他操作打断。",
+  "MACRO_NEXTMACRO": "Replace intermediate finish message with '/nextmacro'",
 
   "INITIAL_GUESS": "初步猜测",
   "WORKING_IN_PROGRESS": "运行中...",
@@ -198,6 +199,7 @@
   "CROSS_CLASS_INFO": "生成一个单独的宏指令来激活必要的“额外技能”。",
   "CURRENT_CLASS_INFO": "生成“额外技能激活宏”时包括当前职业的“共通技能”",
   "MACRO_LOCK_INFO": "在每个宏指令的开头包含“锁定宏指令（/macrolock）”，以保护该宏指令在执行完毕前不会被其他操作打断。",
+  "NEXT_MACRO_INFO": "When enabled, this will replace the macro end soundeffect with '/nextmacro'. This command requires the Dalamud plugin 'Macro Chain' to work.",
   "SPECIFY_SEED": "指定种子",
   "SEED_INFO": "指定编号的种子在每次蒙特卡罗模拟中都将以相同的条件重现结果。",
   "SPECIFY_SEED_INFO": "启用将允许自定义“蒙特·卡洛模拟”的随机种子。",

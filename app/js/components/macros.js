@@ -131,8 +131,15 @@
 
         if (macroLineCount === MAX_LINES - 1) {
           if (lines.length - (j + 1) > 1) {
-            macroString += '/echo Macro #' + macroIndex + ' complete ' + soundEffect(options.stepSoundEffect, options.stepSoundEnabled) + '\n';
-            macroList.push({text: macroString, time: macroTime});
+
+            if(options.useNextMacro) {
+              macroString += '/nextmacro';
+              macroList.push({text: macroString, time: macroTime});
+            }
+            else {
+              macroString += '/echo Macro #' + macroIndex + ' complete ' + soundEffect(options.stepSoundEffect, options.stepSoundEnabled) + '\n';
+              macroList.push({text: macroString, time: macroTime});
+            }
 
             macroString = '';
             macroLineCount = 0;
@@ -153,7 +160,7 @@
         }
         macroList.push({text: macroString, time: macroTime});
       }
-
+      console.log(options);
       return macroList;
     }
   }

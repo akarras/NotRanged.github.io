@@ -1109,7 +1109,7 @@
     "maxQuality": 450,
     "name": {
       "de": "Leder-Caesti",
-      "en": "Hard Leather Cesti",
+      "en": "Goatskin Cesti",
       "fr": "Cestes",
       "ja": "セスタス"
     },
@@ -29122,7 +29122,7 @@
     "level": 580,
     "maxQuality": 10920,
     "name": {
-      "de": "Klassische Laquearii-Caligae ",
+      "de": "Klassische Laquearii-Caligae",
       "en": "Classical Eques's Caligae",
       "fr": "Caligae d'eques classiques",
       "ja": "クラシカルエクエス・カリガ"
@@ -29445,6 +29445,126 @@
       "en": "Boots of Happiness",
       "fr": "Bottes du bonheur",
       "ja": "ハピネスブーツ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 12800,
+    "name": {
+      "de": "Paktschließer-Kurzfingerhandschuhe des Handwerks",
+      "en": "Pactmaker's Halfgloves of Crafting",
+      "fr": "Mitaines des créations des associés",
+      "ja": "パクトメーカー・クラフターハーフグローブ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 12800,
+    "name": {
+      "de": "Paktschließer-Pumps des Handwerks",
+      "en": "Pactmaker's Pumps of Crafting",
+      "fr": "Escarpins des créations des associés",
+      "ja": "パクトメーカー・クラフターパンプス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 12800,
+    "name": {
+      "de": "Paktschließer-Kurzfingerhandschuhe des Eifers",
+      "en": "Pactmaker's Gloves of Gathering",
+      "fr": "Gants des ressources des associés",
+      "ja": "パクトメーカー・ギャザラーグローブ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 12800,
+    "name": {
+      "de": "Paktschließer-Reiterhose des Eifers",
+      "en": "Pactmaker's Breeches of Gathering",
+      "fr": "Braies des ressources des associés",
+      "ja": "パクトメーカー・ギャザラーブリーチ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 12800,
+    "name": {
+      "de": "Paktschließer-Stiefel des Eifers",
+      "en": "Pactmaker's Boots of Gathering",
+      "fr": "Bottes des ressources des associés",
+      "ja": "パクトメーカー・ギャザラーブーツ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3700,
+    "durability": 80,
+    "level": 570,
+    "maxQuality": 7400,
+    "name": {
+      "de": "Universitäts-Schuhe",
+      "en": "Varsity Shoes",
+      "fr": "Chaussures universitaire",
+      "ja": "ヴァーシティ・シューズ"
     },
     "progressDivider": 130,
     "progressModifier": 90,

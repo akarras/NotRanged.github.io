@@ -10222,6 +10222,386 @@
     "suggestedCraftsmanship": 2590
   },
   {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Komposithüttendach",
+      "en": "Highland Cottage Roof (Composite)",
+      "fr": "Toit de maisonnette composite coerthienne",
+      "ja": "クルザン・コンポジットコテージ・ルーフ"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Komposithausdach",
+      "en": "Highland House Roof (Composite)",
+      "fr": "Toit de pavillon composite coerthien",
+      "ja": "クルザン・コンポジットハウス・ルーフ"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Kompositresidenzdach",
+      "en": "Highland Mansion Roof (Composite)",
+      "fr": "Toit de villa composite coerthienne",
+      "ja": "クルザン・コンポジットレジデンス・ルーフ"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Komposithüttenmauer",
+      "en": "Highland Cottage Wall (Composite)",
+      "fr": "Mur de maisonnette composite coerthienne",
+      "ja": "クルザン・コンポジットコテージ・ウォール"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Komposithausmauer",
+      "en": "Highland House Wall (Composite)",
+      "fr": "Mur de pavillon composite coerthien",
+      "ja": "クルザン・コンポジットハウス・ウォール"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Kompositresidenzmauer",
+      "en": "Highland Mansion Wall (Composite)",
+      "fr": "Mur de villa composite coerthienne",
+      "ja": "クルザン・コンポジットレジデンス・ウォール"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Klassisches Coerthas-Fenster",
+      "en": "Highland Classical Window",
+      "fr": "Fenêtre classique coerthienne",
+      "ja": "クルザン・クラシックウィンドウ"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Wandvertäfelung",
+      "en": "Highland Interior Wall",
+      "fr": "Revêtement mural coerthien",
+      "ja": "クルザン・インナーウォール"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 60,
+    "difficulty": 580,
+    "durability": 70,
+    "level": 150,
+    "maxQuality": 2700,
+    "name": {
+      "de": "Coerthas-Kompositüberdachung",
+      "en": "Highland Composite Awning",
+      "fr": "Auvent composite coerthien",
+      "ja": "クルザン・コンポジットオーニング"
+    },
+    "progressDivider": 70,
+    "progressModifier": 100,
+    "qualityDivider": 50,
+    "qualityModifier": 100,
+    "suggestedControl": 553,
+    "suggestedCraftsmanship": 587
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Efeuvorhang",
+      "en": "Ivy Curtain",
+      "fr": "Rideau de lierre",
+      "ja": "アイビーカーテン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Gartenblumenarrangement",
+      "en": "Planter Set",
+      "fr": "Ensemble de jardinières",
+      "ja": "プランターセット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 74,
+    "difficulty": 1360,
+    "durability": 80,
+    "level": 403,
+    "maxQuality": 4000,
+    "name": {
+      "de": "Rote Byregotia-Halskette",
+      "en": "Red Byregotia Choker",
+      "fr": "Ras de cou byregotia rouge",
+      "ja": "ビエルゴヴァイオレットチョーカー:レッド"
+    },
+    "progressDivider": 104,
+    "progressModifier": 100,
+    "qualityDivider": 84,
+    "qualityModifier": 100,
+    "suggestedControl": 1387,
+    "suggestedCraftsmanship": 1498
+  },
+  {
+    "baseLevel": 74,
+    "difficulty": 1360,
+    "durability": 80,
+    "level": 403,
+    "maxQuality": 4000,
+    "name": {
+      "de": "Blaue Byregotia-Halskette",
+      "en": "Blue Byregotia Choker",
+      "fr": "Ras de cou byregotia bleue",
+      "ja": "ビエルゴヴァイオレットチョーカー:ブルー"
+    },
+    "progressDivider": 104,
+    "progressModifier": 100,
+    "qualityDivider": 84,
+    "qualityModifier": 100,
+    "suggestedControl": 1387,
+    "suggestedCraftsmanship": 1498
+  },
+  {
+    "baseLevel": 74,
+    "difficulty": 1360,
+    "durability": 80,
+    "level": 403,
+    "maxQuality": 4000,
+    "name": {
+      "de": "Gelbe Byregotia-Halskette",
+      "en": "Yellow Byregotia Choker",
+      "fr": "Ras de cou byregotia jaune",
+      "ja": "ビエルゴヴァイオレットチョーカー:イエロー"
+    },
+    "progressDivider": 104,
+    "progressModifier": 100,
+    "qualityDivider": 84,
+    "qualityModifier": 100,
+    "suggestedControl": 1387,
+    "suggestedCraftsmanship": 1498
+  },
+  {
+    "baseLevel": 74,
+    "difficulty": 1360,
+    "durability": 80,
+    "level": 403,
+    "maxQuality": 4000,
+    "name": {
+      "de": "Grüne Byregotia-Halskette",
+      "en": "Green Byregotia Choker",
+      "fr": "Ras de cou byregotia verte",
+      "ja": "ビエルゴヴァイオレットチョーカー:グリーン"
+    },
+    "progressDivider": 104,
+    "progressModifier": 100,
+    "qualityDivider": 84,
+    "qualityModifier": 100,
+    "suggestedControl": 1387,
+    "suggestedCraftsmanship": 1498
+  },
+  {
+    "baseLevel": 74,
+    "difficulty": 1360,
+    "durability": 80,
+    "level": 403,
+    "maxQuality": 4000,
+    "name": {
+      "de": "Orange Byregotia-Halskette",
+      "en": "Orange Byregotia Choker",
+      "fr": "Ras de cou byregotia orange",
+      "ja": "ビエルゴヴァイオレットチョーカー:オレンジ"
+    },
+    "progressDivider": 104,
+    "progressModifier": 100,
+    "qualityDivider": 84,
+    "qualityModifier": 100,
+    "suggestedControl": 1387,
+    "suggestedCraftsmanship": 1498
+  },
+  {
+    "baseLevel": 74,
+    "difficulty": 1360,
+    "durability": 80,
+    "level": 403,
+    "maxQuality": 4000,
+    "name": {
+      "de": "Violette Byregotia-Halskette",
+      "en": "Purple Byregotia Choker",
+      "fr": "Ras de cou byregotia violette",
+      "ja": "ビエルゴヴァイオレットチョーカー:パープル"
+    },
+    "progressDivider": 104,
+    "progressModifier": 100,
+    "qualityDivider": 84,
+    "qualityModifier": 100,
+    "suggestedControl": 1387,
+    "suggestedCraftsmanship": 1498
+  },
+  {
+    "baseLevel": 74,
+    "difficulty": 1360,
+    "durability": 80,
+    "level": 403,
+    "maxQuality": 4000,
+    "name": {
+      "de": "Weiße Byregotia-Halskette",
+      "en": "White Byregotia Choker",
+      "fr": "Ras de cou byregotia blanche",
+      "ja": "ビエルゴヴァイオレットチョーカー:ホワイト"
+    },
+    "progressDivider": 104,
+    "progressModifier": 100,
+    "qualityDivider": 84,
+    "qualityModifier": 100,
+    "suggestedControl": 1387,
+    "suggestedCraftsmanship": 1498
+  },
+  {
+    "baseLevel": 74,
+    "difficulty": 1360,
+    "durability": 80,
+    "level": 403,
+    "maxQuality": 4000,
+    "name": {
+      "de": "Schwarze Byregotia-Halskette",
+      "en": "Black Byregotia Choker",
+      "fr": "Ras de cou byregotia noire",
+      "ja": "ビエルゴヴァイオレットチョーカー:ブラック"
+    },
+    "progressDivider": 104,
+    "progressModifier": 100,
+    "qualityDivider": 84,
+    "qualityModifier": 100,
+    "suggestedControl": 1387,
+    "suggestedCraftsmanship": 1498
+  },
+  {
+    "baseLevel": 74,
+    "difficulty": 1360,
+    "durability": 80,
+    "level": 403,
+    "maxQuality": 4000,
+    "name": {
+      "de": "Mehrfarbige Byregotia-Halskette",
+      "en": "Rainbow Byregotia Choker",
+      "fr": "Ras de cou byregotia multicolore",
+      "ja": "ビエルゴヴァイオレットチョーカー:ブレンド"
+    },
+    "progressDivider": 104,
+    "progressModifier": 100,
+    "qualityDivider": 84,
+    "qualityModifier": 100,
+    "suggestedControl": 1387,
+    "suggestedCraftsmanship": 1498
+  },
+  {
     "baseLevel": 30,
     "difficulty": 51,
     "durability": 70,
@@ -21224,6 +21604,106 @@
     "qualityDivider": 115,
     "qualityModifier": 80,
     "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 70,
+    "difficulty": 1200,
+    "durability": 70,
+    "level": 320,
+    "maxQuality": 4800,
+    "name": {
+      "de": "Grimoire des Meeresgottes",
+      "en": "Susano's Rapturous Grimoire",
+      "fr": "Sûtra de Susano flamboyant",
+      "ja": "須佐之男経典【輝】"
+    },
+    "progressDivider": 90,
+    "progressModifier": 80,
+    "qualityDivider": 70,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1220,
+    "suggestedCraftsmanship": 1320
+  },
+  {
+    "baseLevel": 70,
+    "difficulty": 1200,
+    "durability": 70,
+    "level": 320,
+    "maxQuality": 4800,
+    "name": {
+      "de": "Kodex des Meeresgottes",
+      "en": "Susano's Rapturous Codex",
+      "fr": "Écrit de Susano flamboyant",
+      "ja": "須佐之男文書【輝】"
+    },
+    "progressDivider": 90,
+    "progressModifier": 80,
+    "qualityDivider": 70,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1220,
+    "suggestedCraftsmanship": 1320
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3700,
+    "durability": 80,
+    "level": 570,
+    "maxQuality": 7400,
+    "name": {
+      "de": "Notenrolle von „The Final Day“",
+      "en": "The Final Day Orchestrion Roll",
+      "fr": "Rouleau “The Final Day”",
+      "ja": "オーケストリオン譜:終焉の戦い"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3700,
+    "durability": 80,
+    "level": 570,
+    "maxQuality": 7400,
+    "name": {
+      "de": "Notenrolle von „With Hearts Aligned“",
+      "en": "With Hearts Aligned Orchestrion Roll",
+      "fr": "Rouleau “With Hearts Aligned”",
+      "ja": "オーケストリオン譜:想いが動かす力"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3010,
+    "durability": 35,
+    "level": 590,
+    "maxQuality": 8400,
+    "name": {
+      "de": "Thavnair-Faser",
+      "en": "Hannish Fiber",
+      "fr": "Fibre thavnairoise",
+      "ja": "サベネアンファイバー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
     "suggestedControl": 2703,
     "suggestedCraftsmanship": 2924
   }

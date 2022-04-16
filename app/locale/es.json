@@ -154,6 +154,7 @@
 "MACRO_CROSS_ACTION_SETUP": "Cross-class Action Setup Macro",
 "MACRO_INCLUDE_CLASS": "Include current class' actions in cross-class action activation macro",
 "MACRO_INCLUDE_LOCK": "Include macro lock at the start of each macro",
+"MACRO_NEXTMACRO": "Replace intermediate finish message with '/nextmacro'",
 
 "INITIAL_GUESS": "Initial Guess",
 "WORKING_IN_PROGRESS": "Working...",
@@ -219,6 +220,7 @@
 "SPECIFY_SEED": "Specify Seed",
 "SEED_INFO": "Set this to a specific value to reproduce the exact same conditions in Monte Carlo simulations.",
 "MACRO_LOCK_INFO": "Whether to include a macro lock command at the start of each macro.",
+"NEXT_MACRO_INFO": "When enabled, this will replace the macro end soundeffect with '/nextmacro'. This command requires the Dalamud plugin 'Macro Chain' to work.",
 "SPECIFY_SEED_INFO": "Enable to override the random seed used for Monte Carlo simulations.",
 "DEBUG": "Debug",
 "DEBUG_INFO": "Enable extra information in the simulator and solver logs.",

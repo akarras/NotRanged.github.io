@@ -23,3 +23,9 @@ Note that if you're using Docker on Windows or OS X via VirtualBox, you'll have 
 ### Translations
 
 Localization files can be found in `app/locale`. The `app/locale/en.json` file is purposefully missing because the English strings are used as the translation keys. Strings which require interpolation are defined in app.js so that they can be displayed immediately as a fallback until the actual locale json file finishes loading.
+
+### Updating item and food databases
+
+For the notranged.github.io version of this tool, I have written a new Python scraper that pulls recipe data from xivapi.com. Whenever FFXIV gets updated with new crafting recipes, run main_scraper.py found in scripts/ranged-python-xivapi-extractor/. It will create new .json files for each job in the /out/ folder. Use these to replace the old .json files in app/data/recipedb/
+
+I haven't made this script work for food and medicine buffs yet, though. You will have to use [the old lodestone scraper](https://github.com/doxxx/lodestone-recipe-db-scraper) for that. 
