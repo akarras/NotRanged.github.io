@@ -12,3 +12,5 @@ package-lock.json
 target
 perfdata*
 .parcel-cache/
+.prettierignore
+css/

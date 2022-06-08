@@ -343,9 +343,32 @@
               </label>
             </div>
           </div>
+        </form> 
+      </tab>     
+
+      <tab heading="{{ 'NAV_DISPLAY' | translate }}" active="pageState.options.tabs.display.active">
+        <form name="generalOptionsForm">
+
+          <div class="control-group">
+            <div class="controls">
+              <label class="radio"
+                      tooltip="{{ 'DARK_MODE_INFO' | translate }}"
+                      tooltip-placement="right">
+                <input type="radio" name="darkMode" value="dark" ng-model="sequenceSettings.darkMode"/>
+                {{ 'DARK_MODE' | translate }}
+              </label>
+              <br/>
+              <label class="radio"
+                      tooltip="{{ 'LIGHT_MODE_INFO' | translate }}"
+                      tooltip-placement="right">
+                <input type="radio" name="darkMode" value="light" ng-model="sequenceSettings.darkMode"/>
+                {{ 'LIGHT_MODE' | translate }}
+              </label>
+            </div>
+          </div>
+
         </form>
       </tab>
-      
     </tabset>
   </form>
 </div>

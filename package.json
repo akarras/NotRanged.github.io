@@ -11,12 +11,19 @@
   "engines": {
     "node": "*"
   },
+  "scripts": {
+    "build": "sass app/scss/main.scss app/css/main.css",
+    "watch": "sass --watch app/scss/main.scss app/css/main.css",
+    "start": "concurrently \"npm run watch\" \"node server.js\""
+  },
   "dependencies": {
     "connect": "^3.4.0",
     "morgan": "^1.6.1",
+    "sass": "^1.51.0",
     "serve-static": "^1.10.0"
   },
   "devDependencies": {
-    "browser-sync": "^2.23.6"
+    "browser-sync": "^2.23.6",
+    "concurrently": "^7.1.0"
   }
 }

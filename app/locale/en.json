@@ -20,6 +20,12 @@
   "SOLVE": "Solve...",
   "MONTE_CARLO_SIM": "Monte Carlo Sim",
 
+  "NAV_DISPLAY": "Display",
+  "DARK_MODE": "Dark Mode",
+  "DARK_MODE_INFO": "Enables darker theme.",
+  "LIGHT_MODE": "Light Mode",
+  "LIGHT_MODE_INFO": "Enables lighter theme.",
+
   "LEVEL": "Level",
   "PROGRESS": "Progress",
   "QUALITY": "Quality",

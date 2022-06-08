@@ -6,11 +6,11 @@
 
 .page-title {
   margin-top: 0;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid $borders;
 }
 
 .important {
-  color: red;
+  color: $important;
   font-weight: bold;
   font-style: italic;
 }
@@ -144,13 +144,13 @@ legend small > .light {
 .simulator-status hr {
   margin-top: 5px;
   margin-bottom: 10px;
-  border-top: 1px solid darkgrey;
-  border-bottom: 1px solid white;
+  border-top: 1px solid $borders;
+  border-bottom: 1px solid $borders;
 }
 
 .bonus-stats {
-  background: #f5f5f5;
-  border: 2px solid #e3e3e3;
+  background: $background-accent;
+  border: 2px solid $borders;
   border-radius: 3px;
   padding: 10px;
   overflow: auto;
@@ -207,8 +207,8 @@ legend small > .light {
 }
 
 .synth-status {
-  background: #f5f5f5;
-  border: 2px solid #e3e3e3;
+  background: $background-accent;
+  border: 2px solid $borders;
   border-radius: 3px;
   padding: 10px;
   overflow: auto;
@@ -216,7 +216,7 @@ legend small > .light {
 }
 
 .synth-status .progress {
-  background-image: linear-gradient(to bottom, #D0D0D0, #EAEAEA);
+  background-image: linear-gradient(to bottom, $progress-bar-gradiant-start, $progress-bar-gradiant-end);
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -308,19 +308,19 @@ div[content*="actiontooltip"] div.tooltip-arrow {
   padding: 5px 0;
   margin: 2px 0 0;
   list-style: none;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
+  background-color: $background;
+  border: 1px solid $borders;
   border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
+      -moz-border-radius: 6px;
           border-radius: 6px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
+      -moz-background-clip: padding;
           background-clip: padding-box;
   text-align: left;
 }
@@ -336,8 +336,8 @@ div[content*="actiontooltip"] div.tooltip-arrow {
   margin: 9px 1px;
   *margin: -5px 0 5px;
   overflow: hidden;
-  background-color: #e5e5e5;
-  border-bottom: 1px solid #ffffff;
+  background-color: $dropdown-divider;
+  border-bottom: 1px solid $borders;
 }
 
 .my-dropdown-menu li > a {
@@ -346,19 +346,19 @@ div[content*="actiontooltip"] div.tooltip-arrow {
   clear: both;
   font-weight: normal;
   line-height: 20px;
-  color: #333333;
+  color: $text;
   white-space: nowrap;
   cursor: default;
   text-decoration: none;
 }
 
 .my-dropdown-menu li:hover {
-  background-color: #0081c2;
-  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
-  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
-  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-color: $primary;
+  background-image: -moz-linear-gradient(top, $primary-gradiant-start, $primary-gradiant-end);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($primary-gradiant-start), to($primary-gradiant-end));
+  background-image: -webkit-linear-gradient(top, $primary-gradiant-start, $primary-gradiant-end);
+  background-image: -o-linear-gradient(top, $primary-gradiant-start, $primary-gradiant-end);
+  background-image: linear-gradient(to bottom, $primary-gradiant-start, $primary-gradiant-end);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
 }
@@ -366,32 +366,32 @@ div[content*="actiontooltip"] div.tooltip-arrow {
 .my-dropdown-menu .active,
 .my-dropdown-menu .active:hover,
 .my-dropdown-menu .active:focus {
-  background-color: #0081c2;
-  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
-  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
-  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-color: $primary;
+  background-image: -moz-linear-gradient(top, $primary-gradiant-start, $primary-gradiant-end);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($primary-gradiant-start), to($primary-gradiant-end));
+  background-image: -webkit-linear-gradient(top, $primary-gradiant-start, $primary-gradiant-end);
+  background-image: -o-linear-gradient(top, $primary-gradiant-start, $primary-gradiant-end);
+  background-image: linear-gradient(to bottom, $primary-gradiant-start, $primary-gradiant-end);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
 }
 
 .my-dropdown-menu li > a:hover,
 .my-dropdown-menu li > a:focus {
-  color: #ffffff;
+  color: $dropdown-element-text-active;
 }
 
 .my-dropdown-menu li.active > a,
 .my-dropdown-menu li.active > a:hover,
 .my-dropdown-menu li.active > a:focus {
-  color: #ffffff;
+  color: $dropdown-element-text-active;
   outline: 0;
 }
 
 .my-dropdown-menu .disabled,
 .my-dropdown-menu .disabled:hover,
 .my-dropdown-menu .disabled:focus {
-  color: #999999;
+  color: $dropdown-element-text-disabled;
 }
 
 .my-dropdown-menu .disabled:hover,
@@ -423,13 +423,13 @@ div[content*="actiontooltip"] div.tooltip-arrow {
 
 @media (min-width: 600px) {
   .my-dropdown {
-	  margin-left: 35px;
+      margin-left: 35px;
   }
 }
 
 @media (min-width: 800px) {
   .my-dropdown {
-	  margin-left: 0;
+      margin-left: 0;
   }
 }
 
@@ -838,13 +838,13 @@ legend + .control-group {
 }
 
 .flat-button:hover {
-  border: 1px solid #cccccc;
+  border: 1px solid $flat-button-hover-border;
   border-radius: 3px;
-  background-color: #eeeeee;
+  background-color: $flat-button-hover;
 }
 
 .flat-button:active {
-  background-color: #dddddd;
+  background-color: $flat-button-active;
 }
 
 /* Character Import */
@@ -952,3 +952,4 @@ label.disabled {
     -moz-box-sizing: border-box;    /* For Firefox                          */
     -webkit-box-sizing: border-box; /* For Safari                           */
 }
+

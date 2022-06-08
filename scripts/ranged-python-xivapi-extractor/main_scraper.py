@@ -1,6 +1,7 @@
 import requests
 import json
 import math
+from pathlib import Path
 from collections import defaultdict
 from tqdm import tqdm # funny progress bar :)
 # This script is a mess.
@@ -61,6 +62,9 @@ if __name__ == '__main__':
                 recipes[key].append(constructed_recipe)
 
     # Save the data in recipes to a .json file in the out folder, with a file for every job
+    # Create out directory, ignore error if it already exists
+    path = Path('out')
+    path.mkdir(exist_ok=True)
     keys = recipes.keys()
     for key in tqdm(keys):
         with open(f"out/{key}.json", mode="wt", encoding="utf-8") as db_file:

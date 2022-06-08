@@ -427,7 +427,8 @@
         monteCarloMode: 'advanced',
         useConditions: false,
         conditionalActionHandling: 'skipUnusable',
-        debug: true
+        debug: true,
+        darkMode: 'dark',
       };
 
       $scope.solver = {

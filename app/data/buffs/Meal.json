@@ -206,6 +206,34 @@
     }
   },
   {
+    "cp_percent": 21,
+    "cp_value": 66,
+    "craftsmanship_percent": 4,
+    "craftsmanship_value": 96,
+    "hq": false,
+    "id": "cf193e54034",
+    "name": {
+      "de": "Calamari Ripieni",
+      "en": "Calamari Ripieni",
+      "fr": "Khalamar ripieni",
+      "ja": "カラマリ・リピエーニ"
+    }
+  },
+  {
+    "cp_percent": 26,
+    "cp_value": 82,
+    "craftsmanship_percent": 5,
+    "craftsmanship_value": 120,
+    "hq": true,
+    "id": "cf193e54034",
+    "name": {
+      "de": "Calamari Ripieni",
+      "en": "Calamari Ripieni",
+      "fr": "Khalamar ripieni",
+      "ja": "カラマリ・リピエーニ"
+    }
+  },
+  {
     "cp_percent": 10,
     "cp_value": 24,
     "hq": false,
