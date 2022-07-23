@@ -9,6 +9,7 @@ use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 /// # Arguments
 /// * synth - Synth you want to solve for
 /// * goals - Goals of the synth
+
 pub fn find_solution(synth: &Synth) -> Vec<Action> {
     let state = State::from(synth);
     better_options(state, &synth)
@@ -20,7 +21,7 @@ pub fn find_solution(synth: &Synth) -> Vec<Action> {
         .unwrap_or_default() // default none = no actions were found
 }
 
-#[inline]
+
 fn add_action<'a>(action: Action, state: &State<'a>, synth: &'a Synth) -> Option<(Vec<Action>, State<'a>)> {
     if action == Action::TricksOfTheTrade {
         return None;
@@ -52,7 +53,7 @@ fn add_action<'a>(action: Action, state: &State<'a>, synth: &'a Synth) -> Option
     Some((actions, state))
 }
 
-#[inline]
+
 fn filter_usable(action: Action, state: &State<'_>) -> bool {
     let action = action;
     match action {
@@ -114,6 +115,7 @@ fn filter_usable(action: Action, state: &State<'_>) -> bool {
 
     true
 }
+
 
 fn compare_actions<'r, 's>((a_actions, a_state): &'r (Vec<Action>, State<'_>), (b_actions, b_state): &'s (Vec<Action>, State<'_>)) -> Ordering {
     // assume all states complete progress

@@ -1,13 +1,12 @@
 use crate::actions::Action;
 use serde::Serialize;
 use std::fmt::{Display, Formatter};
-use std::iter::{Filter, FromIterator};
-use std::slice::IterMut;
+use std::iter::FromIterator;
 
 /// Effect tracker is a key value store
 /// Data is a contiguous slice of memory, if we somehow have more than abilities than space, please just increase this and don't look back.
 #[derive(Default, Debug, Serialize, Clone)]
-pub struct EffectData([Option<(Action, i8)>; 5]);
+pub struct EffectData([Option<(Action, i8)>; 4]);
 
 impl EffectData {
     pub(crate) fn get_mut(&mut self, action: Action) -> Option<&mut i8> {
@@ -43,9 +42,7 @@ impl EffectData {
         }
     }
 
-    pub(crate) fn iter_mut(
-        &mut self,
-    ) -> impl Iterator<Item=&mut Option<(Action, i8)>> {
+    pub(crate) fn iter_mut(&mut self) -> impl Iterator<Item = &mut Option<(Action, i8)>> {
         self.0.iter_mut().filter(|m| m.is_some())
     }
 }

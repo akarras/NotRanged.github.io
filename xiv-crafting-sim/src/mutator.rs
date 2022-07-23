@@ -43,61 +43,6 @@ impl<T: Copy> SizeAndValueMutator<T> {
             mutation_percent,
         }
     }
-
-    /// Sets the minimum value that will be used to mutate the genome
-    pub fn set_min_value(&mut self, value: T) -> &mut Self {
-        self.min_value = value;
-        self
-    }
-
-    /// Gets the minimum value to generate values
-    pub fn get_min_value(&self) -> T {
-        self.min_value
-    }
-
-    /// Sets the maximum value that will be used to mutate the genome
-    pub fn set_max_value(&mut self, value: T) -> &mut Self {
-        self.max_value = value;
-        self
-    }
-
-    /// Gets the maximum value used to mutate the genome
-    pub fn get_max_value(&self) -> T {
-        self.max_value
-    }
-
-    /// Sets the maximum length that the container can grow to
-    pub fn set_max_length(&mut self, length: usize) -> &mut Self {
-        self.max_length = length;
-        self
-    }
-
-    /// Gets the maximum length that the container can grow to
-    pub fn get_max_length(&self) -> usize {
-        self.max_length
-    }
-
-    /// Sets the minimum length that the container must be
-    pub fn set_min_length(&mut self, length: usize) -> &mut Self {
-        self.min_length = length;
-        self
-    }
-
-    /// Gets the minimum length that the container must be
-    pub fn get_min_length(&self) -> usize {
-        self.min_length
-    }
-
-    /// Sets the percentage of mutation to occur, ranges from 0 to 1
-    pub fn set_mutation_percentage(&mut self, value: f32) -> &mut Self {
-        self.mutation_percent = value;
-        self
-    }
-
-    /// Gets the percentage of mutation to occur, ranges from 0 to 1
-    pub fn get_mutation_percentage(&self) -> f32 {
-        self.mutation_percent
-    }
 }
 
 impl<T: Clone> GeneticOperator for SizeAndValueMutator<T> {
