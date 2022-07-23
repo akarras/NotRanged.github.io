@@ -3,7 +3,7 @@ use genevo::genetic::FitnessFunction;
 use rand::{Rng, SeedableRng};
 use xiv_crafting_sim::data_oriented_sim::calculate_actions;
 use xiv_crafting_sim::simulator::CrafterActions;
-use xiv_crafting_sim::xiv_model::Synth;
+use xiv_crafting_sim::Synth;
 
 fn f_calc(synth: &Synth, target_actions: &CrafterActions) -> i32 {
     synth.fitness_of(&target_actions)

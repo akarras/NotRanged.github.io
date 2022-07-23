@@ -10,6 +10,7 @@ console.log("loaded wasm worker");
 var state = null;
 var sim = null;
 var is_thread = false;
+let last_run = Date.now();
 async function start_simulator() {
   if (threads === undefined) {
     console.error("Unable to detect platform details");
@@ -62,9 +63,11 @@ self.onmessage = function(e) {
       runWasmGen();
     }
     else if (e.data == 'rungen') {
+      console.log('time since last run ' + (Date.now() - last_run));
       let start = Date.now();
       runWasmGen();
       console.log('took ' + (Date.now() - start) + ' ms to compute');
+      last_run = Date.now();
       // runOneGen();
     }
     else if (e.data == 'finish') {

@@ -394,7 +394,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static RAPIDSYNTHESIS2 : ActionDetails = ActionDetails {
+        static RAPID_SYNTHISIS_2: ActionDetails = ActionDetails {
             short_name: "rapidSynthesis2",
             full_name: "Rapid Synthesis",
             durability_cost: 10,
@@ -712,7 +712,7 @@ impl Action {
             // muscleMemory: new Action(       'muscleMemory',         'Muscle Memory',        10,      6,  1.0, 0.0, 3.0, 'countdown',   5,  'All',          54),
             Action::MuscleMemory => &MUSCLE_MEMORY,
             // rapidSynthesis2: new Action(    'rapidSynthesis2',      'Rapid Synthesis',      10,      0,  0.5, 0.0, 5.0, 'immediate',   1,  'All',          63),
-            Action::RapidSynthesis2 => &RAPIDSYNTHESIS2,
+            Action::RapidSynthesis2 => &RAPID_SYNTHISIS_2,
             // prudentTouch: new Action(       'prudentTouch',         'Prudent Touch',         5,     25,  1.0, 1.0, 0.0, 'immediate',   1,  'All',          66),
             Action::PrudentTouch => &PRUDENTTOUCH,
             // focusedSynthesis: new Action(   'focusedSynthesis',     'Focused Synthesis',    10,      5,  0.5, 0.0, 2.0, 'immediate',   1,  'All',          67),

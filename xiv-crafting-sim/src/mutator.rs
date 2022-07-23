@@ -3,7 +3,7 @@ use genevo::operator::{GeneticOperator, MutationOp};
 use genevo::prelude::Rng;
 use genevo::random::SampleUniform;
 
-pub trait IndexedSizedContainer<T> {
+pub(crate) trait IndexedSizedContainer<T> {
     fn insert(&mut self, index: usize, value: T);
     fn remove(&mut self, index: usize);
     fn replace(&mut self, index: usize, value: T);
@@ -14,7 +14,7 @@ pub trait IndexedSizedContainer<T> {
 /// Will insert, remove, and replace values, weighted towards replace in most cases.
 /// GrowableContainer must be implemented for the Genome type.
 #[derive(Clone, Debug)]
-pub struct SizeAndValueMutator<T> {
+pub(crate) struct SizeAndValueMutator<T> {
     /// Minimum value contained inside the vector
     min_value: T,
     /// Maximum value contained inside the vector
