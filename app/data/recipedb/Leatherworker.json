@@ -23294,7 +23294,7 @@
     "level": 265,
     "maxQuality": 1152,
     "name": {
-      "de": "Komponente eines Gebrauchsgegenstands der M",
+      "de": "Komponente für Jagdbedarf für die M",
       "en": "M Tribe Sundry Component",
       "fr": "Composant de produits du quotidien des M",
       "ja": "メ族の日用品部材"
@@ -24089,7 +24089,7 @@
     "level": 148,
     "maxQuality": 2630,
     "name": {
-      "de": "Buuds-Kochutensilie",
+      "de": "Buuds-Kochutensil",
       "en": "Buuz Cooking Paraphernalia",
       "fr": "Ustensile de cuisine pour buuz",
       "ja": "ボーズ調理用品"
@@ -25108,7 +25108,7 @@
     "level": 282,
     "maxQuality": 2664,
     "name": {
-      "de": "Buuds-Kochutensil",
+      "de": "Klippenhänger-Buuds-Kochutensil",
       "en": "Signature Buuz Cookware",
       "fr": "Composant pour buuz du Bord du gouffre",
       "ja": "崖っぷちボーズ必需品"
@@ -29667,6 +29667,386 @@
     "qualityDivider": 115,
     "qualityModifier": 80,
     "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Armschützer des Schlagens",
+      "en": "Rinascita Armguards of Striking",
+      "fr": "Garde-bras d'agresseur de la rinascita",
+      "ja": "リナシータ・ストライカーアームガード"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Schuhe des Schlagens",
+      "en": "Rinascita Shoes of Striking",
+      "fr": "Chaussures d'agresseur de la rinascita",
+      "ja": "リナシータ・ストライカーシューズ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Handschuhe des Zielens",
+      "en": "Rinascita Gloves of Aiming",
+      "fr": "Gants de pisteur de la rinascita",
+      "ja": "リナシータ・レンジャーグローブ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Armschützer des Spähens",
+      "en": "Rinascita Armguards of Scouting",
+      "fr": "Garde-bras d'éclaireur de la rinascita",
+      "ja": "リナシータ・スカウトアームガード"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Handschuhe der Heilung",
+      "en": "Rinascita Gloves of Healing",
+      "fr": "Gants de soigneur de la rinascita",
+      "ja": "リナシータ・ヒーラーグローブ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Schuhe der Heilung",
+      "en": "Rinascita Shoes of Healing",
+      "fr": "Chaussures de soigneur de la rinascita",
+      "ja": "リナシータ・ヒーラーシューズ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Armschützer der Magie",
+      "en": "Rinascita Armguards of Casting",
+      "fr": "Garde-bras d'incantateur de la rinascita",
+      "ja": "リナシータ・キャスターアームガード"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Schuhe der Magie",
+      "en": "Rinascita Shoes of Casting",
+      "fr": "Chaussures d'incantateur de la rinascita",
+      "ja": "リナシータ・キャスターシューズ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ohrringe der Verteidigung",
+      "en": "Rinascita Earring of Fending",
+      "fr": "Boucle d'oreille de protecteur de la rinascita",
+      "ja": "リナシータ・ディフェンダーイヤリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ohrringe des Schlachtens",
+      "en": "Rinascita Earring of Slaying",
+      "fr": "Boucle d'oreille d'attaquant de la rinascita",
+      "ja": "リナシータ・アタッカーイヤリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ohrringe des Zielens",
+      "en": "Rinascita Earring of Aiming",
+      "fr": "Boucle d'oreille de pisteur de la rinascita",
+      "ja": "リナシータ・レンジャーイヤリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ohrringe der Heilung",
+      "en": "Rinascita Earring of Healing",
+      "fr": "Boucle d'oreille de soigneur de la rinascita",
+      "ja": "リナシータ・ヒーラーイヤリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ohrringe der Magie",
+      "en": "Rinascita Earring of Casting",
+      "fr": "Boucle d'oreille d'incantateur de la rinascita",
+      "ja": "リナシータ・キャスターイヤリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3696,
+    "durability": 35,
+    "level": 610,
+    "maxQuality": 8200,
+    "name": {
+      "de": "Titanoboa-Leder",
+      "en": "Titanoboa Leather",
+      "fr": "Cuir de titanoboa",
+      "ja": "ティタノボアレザー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 7480,
+    "durability": 60,
+    "level": 611,
+    "maxQuality": 13620,
+    "name": {
+      "de": "Otterborn-Bauholz",
+      "en": "Water Otter Fountain Lumber",
+      "fr": "Matériaux pour la fontaine ressourçante",
+      "ja": "ウソウソの泉の建築用部材"
+    },
+    "progressDivider": 180,
+    "progressModifier": 100,
+    "qualityDivider": 180,
+    "qualityModifier": 100,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 8000,
+    "name": {
+      "de": "Inselprisma",
+      "en": "Island Prism",
+      "fr": "Prisme insulaire",
+      "ja": "アイルプリズム"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 8000,
+    "name": {
+      "de": "Barbarizia-Rossharnisch",
+      "en": "Windswept Barding",
+      "fr": "Barde de Barbariccia",
+      "ja": "バルバリシア・バード"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 8000,
+    "name": {
+      "de": " Unordnungshüter-Handschuhe",
+      "en": "Lawless Enforcer's Gloves",
+      "fr": "Gants de tireur hors-la-loi",
+      "ja": "ワイルドエンフォーサー・グローブ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 8000,
+    "name": {
+      "de": "Unordnungshüter-Schuhe",
+      "en": "Lawless Enforcer's Shoes",
+      "fr": "Chaussures de tireur hors-la-loi",
+      "ja": "ワイルドエンフォーサー・シューズ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
     "suggestedControl": 2703,
     "suggestedCraftsmanship": 2924
   }

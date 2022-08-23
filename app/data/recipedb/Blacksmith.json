@@ -13141,10 +13141,10 @@
     "level": 517,
     "maxQuality": 5200,
     "name": {
-      "de": "Edeldurium-Sense",
+      "de": "Edeldurium-Gartensense",
       "en": "High Durium Garden Scythe",
-      "fr": "Faux en durium noble",
-      "ja": "ハイダリウム・サイズ"
+      "fr": "Faux de jardinage en durium noble",
+      "ja": "ハイダリウム・ガーデンサイズ"
     },
     "progressDivider": 121,
     "progressModifier": 100,
@@ -14513,6 +14513,44 @@
       "en": "Garden Gate",
       "fr": "Portail de jardin",
       "ja": "ガーデンゲート"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Leveilleur-Kronleuchter",
+      "en": "Leveilleur Estate Chandelier",
+      "fr": "Lustre des Leveilleur",
+      "ja": "ルヴェユール・シャンデリア"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Wachaufuhr",
+      "en": "Rousing Chronometer",
+      "fr": "Réveille-matin",
+      "ja": "ウェイクアップクロノメーター"
     },
     "progressDivider": 130,
     "progressModifier": 90,
@@ -18343,8 +18381,8 @@
     "level": 110,
     "maxQuality": 2900,
     "name": {
-      "de": "Paladin-Rüstzeug des mächtigen Donners",
-      "en": "Paladin's Levin Arms",
+      "de": "Paladin-Rüstzeug des mächtigen Donners (G.-St. 110)",
+      "en": "Paladin's Mighty Levin Arms",
       "fr": "Attirail du Patriarche pour paladin",
       "ja": "レヴィン・ナイトギア"
     },
@@ -18463,7 +18501,7 @@
     "level": 180,
     "maxQuality": 2900,
     "name": {
-      "de": "Paladin-Rüstzeug der endlosen Weiten",
+      "de": "Paladin-Rüstzeug der endlosen Weiten (G.-St. 180)",
       "en": "Paladin's Endless Expanse Arms",
       "fr": "Attirail du Migrateur pour paladin",
       "ja": "エクスパンス・ナイトギア"
@@ -18763,9 +18801,9 @@
     "level": 180,
     "maxQuality": 2900,
     "name": {
-      "de": "Paladin-Rüstzeug der Kolonie",
+      "de": "Paladin-Rüstzeug der Kolonie (G.-St. 180)",
       "en": "Paladin's Dead Hive Arms",
-      "fr": "Attirail du Maître des lames pour paladin ",
+      "fr": "Attirail du Maître des lames pour paladin",
       "ja": "ハイヴ・ナイトギア"
     },
     "progressDivider": 70,
@@ -18883,9 +18921,9 @@
     "level": 210,
     "maxQuality": 3300,
     "name": {
-      "de": "Rüstzeug der Runde",
+      "de": "Rüstzeug der Runde (G.-St. 180)",
       "en": "Paladin's Arms of the Round",
-      "fr": "Coffre d'arme de chevalier de la Table ronde",
+      "fr": "Attirail de chevalier de la Table ronde pour paladin",
       "ja": "ナイトギア・オブ・ラウンド"
     },
     "progressDivider": 70,
@@ -19003,9 +19041,9 @@
     "level": 210,
     "maxQuality": 3300,
     "name": {
-      "de": "Paladin-Rüstzeug des Baumgottes",
+      "de": "Paladin-Rüstzeug des Baumgottes (G.-St. 180)",
       "en": "Paladin's Fiend Arms",
-      "fr": "Attirail du Fiélon pour paladin ",
+      "fr": "Attirail du Fiélon pour paladin",
       "ja": "ナイトギア・オブ・フィーンド"
     },
     "progressDivider": 70,
@@ -19987,7 +20025,7 @@
     "level": 265,
     "maxQuality": 1152,
     "name": {
-      "de": "Komponente eines Gebrauchsgegenstands der M",
+      "de": "Komponente für Jagdbedarf für die M",
       "en": "M Tribe Sundry Component",
       "fr": "Composant de produits du quotidien des M",
       "ja": "メ族の日用品部材"
@@ -20662,7 +20700,7 @@
     "level": 148,
     "maxQuality": 2630,
     "name": {
-      "de": "Buuds-Kochutensilie",
+      "de": "Buuds-Kochutensil",
       "en": "Buuz Cooking Paraphernalia",
       "fr": "Ustensile de cuisine pour buuz",
       "ja": "ボーズ調理用品"
@@ -21446,9 +21484,9 @@
     "level": 210,
     "maxQuality": 3300,
     "name": {
-      "de": "Paladin-Rüstzeug der Horde",
+      "de": "Paladin-Rüstzeug der Horde (G.-St. 180)",
       "en": "Paladin's Horde Arms",
-      "fr": "Attirail de Dravanien pour paladin ",
+      "fr": "Attirail de Dravanien pour paladin",
       "ja": "ホード・ナイトギア"
     },
     "progressDivider": 70,
@@ -21586,9 +21624,9 @@
     "level": 210,
     "maxQuality": 3300,
     "name": {
-      "de": "Paladin-Rüstzeug der Göttin",
+      "de": "Paladin-Rüstzeug der Göttin (G.-St. 180)",
       "en": "Paladin's Goddess Arms",
-      "fr": "Attirail de la Déesse pour paladin ",
+      "fr": "Attirail de la Déesse pour paladin",
       "ja": "ナイトギア・オブ・ゴッデス"
     },
     "progressDivider": 70,
@@ -21726,9 +21764,9 @@
     "level": 210,
     "maxQuality": 3300,
     "name": {
-      "de": "Paladin-Rüstzeug des Dämons",
+      "de": "Paladin-Rüstzeug des Dämons (G.-St. 180)",
       "en": "Paladin's Demon Arms",
-      "fr": "Attirail du Démon pour paladin ",
+      "fr": "Attirail du Démon pour paladin",
       "ja": "ナイトギア・オブ・デモン"
     },
     "progressDivider": 70,
@@ -21961,7 +21999,7 @@
     "level": 282,
     "maxQuality": 2664,
     "name": {
-      "de": "Buuds-Kochutensil",
+      "de": "Klippenhänger-Buuds-Kochutensil",
       "en": "Signature Buuz Cookware",
       "fr": "Composant pour buuz du Bord du gouffre",
       "ja": "崖っぷちボーズ必需品"
@@ -23055,9 +23093,9 @@
     "level": 320,
     "maxQuality": 4800,
     "name": {
-      "de": "Paladin-Rüstzeug des Drachengottes",
-      "en": "Shinryu's Ephemeral Arms",
-      "fr": "Attirail de Shinryu flamboyant pour paladin ",
+      "de": "Paladin-Rüstzeug des Drachengottes (G.-St. 290)",
+      "en": "Shinryu's Ephemeral Paladin Arms",
+      "fr": "Attirail de Shinryu flamboyant pour paladin",
       "ja": "神龍騎士装具【輝】"
     },
     "progressDivider": 90,
@@ -23870,9 +23908,9 @@
     "level": 320,
     "maxQuality": 4800,
     "name": {
-      "de": "Paladin-Rüstzeug des Mondlichts",
-      "en": "Tsukuyomi's Moonlit Arms",
-      "fr": "Attirail de Tsukuyomi flamboyant pour paladin ",
+      "de": "Paladin-Rüstzeug des Mondlichts (G.-St. 290)",
+      "en": "Tsukuyomi's Moonlit Paladin Arms",
+      "fr": "Attirail de Tsukuyomi flamboyant pour paladin",
       "ja": "月読命騎士装具【輝】"
     },
     "progressDivider": 90,
@@ -24030,9 +24068,9 @@
     "level": 320,
     "maxQuality": 4800,
     "name": {
-      "de": "Paladin-Rüstzeug des Feuervogels",
-      "en": "Suzaku's Flame-kissed Arms",
-      "fr": "Attirail de Suzaku flamboyant pour paladin ",
+      "de": "Paladin-Rüstzeug des Feuervogels (G.-St. 290)",
+      "en": "Suzaku's Flame-kissed Paladin Arms",
+      "fr": "Attirail de Suzaku flamboyant pour paladin",
       "ja": "朱雀騎士装具【輝】"
     },
     "progressDivider": 90,
@@ -24190,9 +24228,9 @@
     "level": 320,
     "maxQuality": 4800,
     "name": {
-      "de": "Paladin-Rüstzeug des Schlangengottes",
-      "en": "Seiryu's Sanctified Arms",
-      "fr": "Attirail de Seiryû flamboyant pour paladin ",
+      "de": "Paladin-Rüstzeug des Schlangengottes (G.-St. 290)",
+      "en": "Seiryu's Sanctified Paladin Arms",
+      "fr": "Attirail de Seiryû flamboyant pour paladin",
       "ja": "青龍騎士装具【輝】"
     },
     "progressDivider": 90,
@@ -25775,8 +25813,8 @@
     "level": 320,
     "maxQuality": 4800,
     "name": {
-      "de": "Paladin-Rüstzeug des weißen Tigers",
-      "en": "Byakko's Enspirited Arms",
+      "de": "Paladin-Rüstzeug des weißen Tigers (G.-St. 290)",
+      "en": "Byakko's Enspirited Paladin Arms",
       "fr": "Attirail de Byakko flamboyant pour paladin",
       "ja": "白虎騎士装具【輝】"
     },
@@ -25915,9 +25953,9 @@
     "level": 450,
     "maxQuality": 7900,
     "name": {
-      "de": "Paladin-Rüstzeug des Hades",
-      "en": "Paladin's Hades Arms",
-      "fr": "Attirail d'Hadès pour paladin ",
+      "de": "Paladin-Rüstzeug des Hades (G.-St. 430)",
+      "en": "Paladin's Augmented Hades Arms",
+      "fr": "Attirail d'Hadès pour paladin",
       "ja": "ハーデス・ナイトギアRE"
     },
     "progressDivider": 110,
@@ -27139,8 +27177,8 @@
     "level": 320,
     "maxQuality": 4800,
     "name": {
-      "de": "Paladin-Rüstzeug des Meeresgottes",
-      "en": "Susano's Rapturous Arms",
+      "de": "Paladin-Rüstzeug des Meeresgottes (G.-St. 290)",
+      "en": "Susano's Rapturous Paladin Arms",
       "fr": "Attirail de Susano flamboyant pour paladin",
       "ja": "須佐之男騎士装具【輝】"
     },
@@ -27169,6 +27207,466 @@
     "qualityDivider": 115,
     "qualityModifier": 80,
     "stars": 1,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Schwert",
+      "en": "Rinascita Sword",
+      "fr": "Épée de la rinascita",
+      "ja": "リナシータ・ソード"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Schlagringe",
+      "en": "Rinascita Knuckles",
+      "fr": "Poings de la rinascita",
+      "ja": "リナシータ・ナックル"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Labrys",
+      "en": "Rinascita Labrys",
+      "fr": "Labrys de la rinascita",
+      "ja": "リナシータ・ラブリュス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Dolche",
+      "en": "Rinascita Daggers",
+      "fr": "Dagues de la rinascita",
+      "ja": "リナシータ・ダガー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Großschwert",
+      "en": "Rinascita Greatsword",
+      "fr": "Grande épée de la rinascita",
+      "ja": "リナシータ・グレートソード"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Karabiner",
+      "en": "Rinascita Culverin",
+      "fr": "Couleuvrine de la rinascita",
+      "ja": "リナシータ・カルバリン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Samuraiklinge",
+      "en": "Rinascita Samurai Blade",
+      "fr": "Lame de samouraï de la rinascita",
+      "ja": "リナシータ・サムライブレード"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Manatrigger",
+      "en": "Rinascita Manatrigger",
+      "fr": "Managâchette de la rinascita",
+      "ja": "リナシータ・マナトリガー"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Wurfringe",
+      "en": "Rinascita War Quoits",
+      "fr": "Quoits de guerre de la rinascita",
+      "ja": "リナシータ・ウォーコイト"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Zaghnal",
+      "en": "Rinascita Zaghnal",
+      "fr": "Zaghnal de la rinascita",
+      "ja": "リナシータ・ザグナル"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3696,
+    "durability": 35,
+    "level": 610,
+    "maxQuality": 8200,
+    "name": {
+      "de": "Ilmenitbarren",
+      "en": "Ilmenite Ingot",
+      "fr": "Lingot d'ilménite",
+      "ja": "イルメナイトインゴット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 7480,
+    "durability": 60,
+    "level": 611,
+    "maxQuality": 13620,
+    "name": {
+      "de": "Otterborn-Metallteile",
+      "en": "Water Otter Fountain Hardware",
+      "fr": "Métaux pour la fontaine ressourçante",
+      "ja": "ウソウソの泉の建築用金属材"
+    },
+    "progressDivider": 180,
+    "progressModifier": 100,
+    "qualityDivider": 180,
+    "qualityModifier": 100,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Klauen",
+      "en": "The Fae's Crown Claws",
+      "fr": "Griffes du Monarque féérique",
+      "ja": "フェアリーキングクロー"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Axt",
+      "en": "The Fae's Crown Axe",
+      "fr": "Hache du Monarque féérique",
+      "ja": "フェアリーキングアクス"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Spalter",
+      "en": "The Fae's Crown Cleavers",
+      "fr": "Couperets du Monarque féérique",
+      "ja": "フェアリーキングクリーバー"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Guillotine",
+      "en": "The Fae's Crown Guillotine",
+      "fr": "Fendoir du Monarque féérique",
+      "ja": "フェアリーキングディバイダー"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Pistole",
+      "en": "The Fae's Crown Handgonne",
+      "fr": "Haquebute du Monarque féérique",
+      "ja": "フェアリーキングハンドゴンネ"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Katana",
+      "en": "The Fae's Crown Katana",
+      "fr": "Katana du Monarque féérique",
+      "ja": "妖精刀【改】"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Manasäge",
+      "en": "The Fae's Crown Manatrigger",
+      "fr": "Managâchette du Monarque féérique",
+      "ja": "フェアリーキングマナトリガー"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Tathlums",
+      "en": "The Fae's Crown Tathlums",
+      "fr": "Tathlums du Monarque féérique",
+      "ja": "フェアリーキングタスラム"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Paladin-Rüstzeug des Feenkönigs (G.-St. 430)",
+      "en": "The Fae's Crown Paladin Arms",
+      "fr": "Attirail du Monarque féérique pour paladin",
+      "ja": "フェアリーキング・ナイトギア"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 8000,
+    "name": {
+      "de": "Inselprisma",
+      "en": "Island Prism",
+      "fr": "Prisme insulaire",
+      "ja": "アイルプリズム"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 8000,
+    "name": {
+      "de": "Barbarizias Schwertständer",
+      "en": "Storm's Crown Sword Stand",
+      "fr": "Présentoir des tempêtes",
+      "ja": "バルバリシア・ソードスタンド"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
     "suggestedControl": 2703,
     "suggestedCraftsmanship": 2924
   }

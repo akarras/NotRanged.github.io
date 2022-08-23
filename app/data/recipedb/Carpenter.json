@@ -11378,10 +11378,10 @@
     "level": 560,
     "maxQuality": 7200,
     "name": {
-      "de": "Ishgarder Fensterimitation",
-      "en": "Imitation Alpine Window",
-      "fr": "Imitation de fenêtre ishgardaise",
-      "ja": "イミテーション・イシュガルディアンウィンドウ"
+      "de": "Coerthas-Fensterimitation",
+      "en": "Imitation Highland Window",
+      "fr": "Imitation de fenêtre coerthienne",
+      "ja": "イミテーション・クルザンウィンドウ"
     },
     "progressDivider": 130,
     "progressModifier": 90,
@@ -11420,6 +11420,101 @@
       "en": "Raised Wooden Deck",
       "fr": "Terrasse en bois surélevée",
       "ja": "レイズド・ウッドデッキ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Wundertürfenster",
+      "en": "Wondrous Windoor",
+      "fr": "Porte à fenêtre en trompe-l'œil",
+      "ja": "フェイクドアウィンドウ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Korpokkur-Chronometer",
+      "en": "Korpokkur Chronometer",
+      "fr": "Horloge korpokkur",
+      "ja": "コロポックルクロノメーター"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Naturholzbalken",
+      "en": "Natural Wooden Beam",
+      "fr": "Poutre en bois naturel",
+      "ja": "ナチュラルウッドビーム"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Bambus-Paravent",
+      "en": "Bamboo Fence",
+      "fr": "Palissade en bambou",
+      "ja": "竹垣"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Campingausstattung",
+      "en": "Camping Furniture",
+      "fr": "Meubles de camping",
+      "ja": "キャンピングセット"
     },
     "progressDivider": 130,
     "progressModifier": 90,
@@ -16081,7 +16176,7 @@
     "level": 265,
     "maxQuality": 1152,
     "name": {
-      "de": "Komponente eines Gebrauchsgegenstands der M",
+      "de": "Komponente für Jagdbedarf für die M",
       "en": "M Tribe Sundry Component",
       "fr": "Composant de produits du quotidien des M",
       "ja": "メ族の日用品部材"
@@ -16936,7 +17031,7 @@
     "level": 148,
     "maxQuality": 2630,
     "name": {
-      "de": "Buuds-Kochutensilie",
+      "de": "Buuds-Kochutensil",
       "en": "Buuz Cooking Paraphernalia",
       "fr": "Ustensile de cuisine pour buuz",
       "ja": "ボーズ調理用品"
@@ -18215,7 +18310,7 @@
     "level": 282,
     "maxQuality": 2664,
     "name": {
-      "de": "Buuds-Kochutensil",
+      "de": "Klippenhänger-Buuds-Kochutensil",
       "en": "Signature Buuz Cookware",
       "fr": "Composant pour buuz du Bord du gouffre",
       "ja": "崖っぷちボーズ必需品"
@@ -21765,5 +21860,405 @@
     "stars": 2,
     "suggestedControl": 1220,
     "suggestedCraftsmanship": 1320
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Speer",
+      "en": "Rinascita Spear",
+      "fr": "Hast de la rinascita",
+      "ja": "リナシータ・スピア"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Kompositbogen",
+      "en": "Rinascita Composite Bow",
+      "fr": "Arc composite de la rinascita",
+      "ja": "リナシータ・コンポジットボウ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Stock",
+      "en": "Rinascita Cane",
+      "fr": "Canne de la rinascita",
+      "ja": "リナシータ・ケーン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Armreif der Verteidigung",
+      "en": "Rinascita Bracelet of Fending",
+      "fr": "Bracelet de protecteur de la rinascita",
+      "ja": "リナシータ・ディフェンダーブレスレット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Armreif des Schlachtens",
+      "en": "Rinascita Bracelet of Slaying",
+      "fr": "Bracelet d'attaquant de la rinascita",
+      "ja": "リナシータ・アタッカーブレスレット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Armreif des Zielens",
+      "en": "Rinascita Bracelet of Aiming",
+      "fr": "Bracelet de pisteur de la rinascita",
+      "ja": "リナシータ・レンジャーブレスレット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Armreif der Heilung",
+      "en": "Rinascita Bracelet of Healing",
+      "fr": "Bracelet de soigneur de la rinascita",
+      "ja": "リナシータ・ヒーラーブレスレット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Armreif der Magie",
+      "en": "Rinascita Bracelet of Casting",
+      "fr": "Bracelet d'incantateur de la rinascita",
+      "ja": "リナシータ・キャスターブレスレット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ring der Verteidigung",
+      "en": "Rinascita Ring of Fending",
+      "fr": "Bague de protecteur de la rinascita",
+      "ja": "リナシータ・ディフェンダーリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ring des Schlachtens",
+      "en": "Rinascita Ring of Slaying",
+      "fr": "Bague d'attaquant de la rinascita",
+      "ja": "リナシータ・アタッカーリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ring des Zielens",
+      "en": "Rinascita Ring of Aiming",
+      "fr": "Bague de pisteur de la rinascita",
+      "ja": "リナシータ・レンジャーリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ring der Heilung",
+      "en": "Rinascita Ring of Healing",
+      "fr": "Bague de soigneur de la rinascita",
+      "ja": "リナシータ・ヒーラーリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5060,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 12628,
+    "name": {
+      "de": "Rinascita-Ring der Magie",
+      "en": "Rinascita Ring of Casting",
+      "fr": "Bague d'incantateur de la rinascita",
+      "ja": "リナシータ・キャスターリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3696,
+    "durability": 35,
+    "level": 610,
+    "maxQuality": 8200,
+    "name": {
+      "de": "Paldao-Bauholz",
+      "en": "Paldao Lumber",
+      "fr": "Madrier de paldao",
+      "ja": "パルダオ材"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 7480,
+    "durability": 60,
+    "level": 611,
+    "maxQuality": 13620,
+    "name": {
+      "de": "Otterborn-Bauholz",
+      "en": "Water Otter Fountain Lumber",
+      "fr": "Matériaux pour la fontaine ressourçante",
+      "ja": "ウソウソの泉の建築用部材"
+    },
+    "progressDivider": 180,
+    "progressModifier": 100,
+    "qualityDivider": 180,
+    "qualityModifier": 100,
+    "stars": 3,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Speer",
+      "en": "The Fae's Crown Spear",
+      "fr": "Hast du Monarque féérique",
+      "ja": "フェアリーキングスピア"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Langbogen",
+      "en": "The Fae's Crown Longbow",
+      "fr": "Arc long du Monarque féérique",
+      "ja": "フェアリーキングロングボウ"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Stock",
+      "en": "The Fae's Crown Cane",
+      "fr": "Canne du Monarque féérique",
+      "ja": "フェアリーキングケーン"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Feenkönig-Stab",
+      "en": "The Fae's Crown Rod",
+      "fr": "Sceptre du Monarque féérique",
+      "ja": "フェアリーキングロッド"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4300,
+    "durability": 70,
+    "level": 590,
+    "maxQuality": 8000,
+    "name": {
+      "de": "Inselprisma",
+      "en": "Island Prism",
+      "fr": "Prisme insulaire",
+      "ja": "アイルプリズム"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 2703,
+    "suggestedCraftsmanship": 2924
   }
 ]
