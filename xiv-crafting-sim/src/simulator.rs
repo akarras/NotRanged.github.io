@@ -13,11 +13,13 @@ use rayon::iter::IntoParallelIterator;
 use rayon::iter::ParallelIterator;
 use serde::{Deserialize, Serialize};
 use std::fmt::Write;
+use smallvec::SmallVec;
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
 
 // genotype, usize where index matches available action
-pub type CrafterActions = Vec<usize>;
+pub type CraftIndex = u8;
+pub type CrafterActions = SmallVec<[u8; 128]>;
 
 pub(crate) trait CalcState {
     fn calculate_final_state<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> State<'a>;
@@ -33,7 +35,7 @@ pub(crate) trait CalcState {
 
 impl IndexedSizedContainer<usize> for CrafterActions {
     fn insert(&mut self, index: usize, value: usize) {
-        self.insert(index, value);
+        self.insert(index as usize, value as u8);
     }
 
     fn remove(&mut self, index: usize) {
@@ -41,6 +43,24 @@ impl IndexedSizedContainer<usize> for CrafterActions {
     }
 
     fn replace(&mut self, index: usize, value: usize) {
+        self[index] = value as u8;
+    }
+
+    fn len(&self) -> usize {
+        self.len()
+    }
+}
+
+impl IndexedSizedContainer<u8> for CrafterActions {
+    fn insert(&mut self, index: usize, value: u8) {
+        self.insert(index as usize, value);
+    }
+
+    fn remove(&mut self, index: usize) {
+        self.remove(index);
+    }
+
+    fn replace(&mut self, index: usize, value: u8) {
         self[index] = value;
     }
 
@@ -58,7 +78,7 @@ impl CalcState for CrafterActions {
         }
         for action in self
             .iter()
-            .flat_map(|m| synth.crafter.actions.get(*m).copied())
+            .flat_map(|m| synth.crafter.actions.get(*m as usize).copied())
         {
             let tmp_state = state.add_action(action, &mut condition);
             if let Some(log) = log {
@@ -82,7 +102,7 @@ impl CalcState for CrafterActions {
 
     fn get_actions_list(&self, synth: &Synth) -> Vec<Action> {
         let actions = &synth.crafter.actions;
-        self.iter().flat_map(|m| actions.get(*m).copied()).collect()
+        self.iter().flat_map(|m| actions.get(*m as usize).copied()).collect()
     }
 
     /// Gives all actions up until the state went invalid
@@ -141,18 +161,7 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
     }
 }
 
-type GeneticSimulator = Simulator<
-    GeneticAlgorithm<
-        CrafterActions,
-        i32,
-        Synth,
-        MaximizeSelector,
-        SinglePointCrossBreeder,
-        SizeAndValueMutator<usize>,
-        ElitistReinserter<CrafterActions, i32, Synth>,
-    >,
-    GenerationLimit,
->;
+type GeneticSimulator = Simulator<GeneticAlgorithm<CrafterActions, i32, Synth, MaximizeSelector, SinglePointCrossBreeder, SizeAndValueMutator<u8>, ElitistReinserter<CrafterActions, i32, Synth>>, GenerationLimit>;
 
 #[wasm_bindgen]
 pub struct CraftSimulator {
@@ -165,7 +174,7 @@ pub struct CraftSimulator {
 
 impl CraftSimulator {
     pub fn new(synth: Synth) -> Self {
-        let number_of_available_actions = synth.crafter.actions.len();
+        let number_of_available_actions = synth.crafter.actions.len() as u8;
         let number_of_generations = synth.solver_vars.generations;
 
         #[cfg(feature = "wasm-thread")]
@@ -351,13 +360,14 @@ mod tests {
     use crate::simulator::{CalcState, CraftSimulator, CrafterActions, SimStep};
     use crate::xiv_model::{Crafter, Recipe, SolverVars, Synth};
     use genevo::genetic::FitnessFunction;
+    use smallvec::SmallVec;
 
     const TEST_STR: &str = r#"{"crafter":{"level":78,"craftsmanship":863,"control":877,"cp":412,"actions":["muscleMemory","reflect","basicSynth2","carefulSynthesis","groundwork","intensiveSynthesis","delicateSynthesis","basicTouch","standardTouch","byregotsBlessing","preciseTouch","prudentTouch","preparatoryTouch","tricksOfTheTrade","mastersMend","wasteNot","wasteNot2","veneration","greatStrides","innovation","finalAppraisal","observe"]},"recipe":{"cls":"Weaver","level":390,"difficulty":1195,"durability":60,"startQuality":0,"safetyMargin":0,"maxQuality":3010,"baseLevel":71,"progressDivider":101,"progressModifier":100,"qualityDivider":81,"qualityModifier":100,"suggestedControl":1220,"suggestedCraftsmanship":1320,"name":"Custom Gathering Tool Components"},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":50,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":12000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":2000},"debug":true}"#;
     const SMOL_ABILITY: &str = r#"{"crafter":{"level":9,"craftsmanship":100,"control":100,"cp":180,"actions":["basicSynth","basicTouch","mastersMend"]},"recipe":{"baseLevel":10,"difficulty":45,"durability":60,"level":10,"maxQuality":250,"progressDivider":50,"progressModifier":100,"qualityDivider":30,"qualityModifier":100,"suggestedControl":29,"suggestedCraftsmanship":59,"name":"Heat Vent Component","cls":"Culinarian","startQuality":0,"safetyMargin":0},"sequence":[],"algorithm":"eaComplex","maxTricksUses":0,"maxMontecarloRuns":400,"reliabilityPercent":100,"useConditions":false,"maxLength":0,"solver":{"algorithm":"eaComplex","penaltyWeight":10000,"population":10000,"subPopulations":10,"solveForCompletion":false,"remainderCPFitnessValue":10,"remainderDurFitnessValue":100,"maxStagnationCounter":25,"generations":1000},"debug":true}"#;
 
     #[test]
     fn valid_crafter_actions() {
-        let valid_rotation: CrafterActions = vec![1, 1, 2, 2, 0, 1, 2, 3, 1];
+        let valid_rotation: CrafterActions = SmallVec::from_slice(&[1, 1, 2, 2, 0, 1, 2, 3, 1]);
         let synth: Synth = serde_json::from_str(&SMOL_ABILITY).unwrap();
         /*let expected_actions = vec![
             Action::BasicSynth,
@@ -375,7 +385,7 @@ mod tests {
 
     #[test]
     fn empty_action_list() {
-        let numbers: CrafterActions = vec![0, 0, 25, 26, 7, 3, 10, 1];
+        let numbers: CrafterActions = SmallVec::from_slice(&[0, 0, 25, 26, 7, 3, 10, 1]);
         let synth: Synth = serde_json::from_str(TEST_STR).unwrap();
         // assert_eq!(numbers.get_actions_list(&synth), vec![]);
         let fitness = synth.fitness_of(&numbers);

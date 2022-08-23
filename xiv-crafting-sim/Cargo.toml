@@ -31,12 +31,13 @@ wasm-genevo = ["genevo/wasm-bindgen"]
 [dependencies]
 wasm-bindgen = {version = "0.2.78", features = ["serde-serialize"]}
 serde = {version = "1", features = ["derive"]}
-genevo = {git = "https://github.com/akarras/genevo", default-features = false, branch = "wasm-threads"}
+genevo = {git = "https://github.com/akarras/genevo", default-features = false, branch = "wasm-threads", features = ["smallvec"]}
 wasm-bindgen-rayon = {version = "1.0.3", features = ["no-bundler"], optional = true}
 rayon = {version  = "1", optional = true}
 console_error_panic_hook = "0.1.7"
 serde_json = "1.0.73"
 itertools = "0.10.3"
+smallvec = "1.9.0"
 
 [dev-dependencies]
 criterion = "0.3"

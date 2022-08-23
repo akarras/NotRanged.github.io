@@ -2,6 +2,8 @@ use crate::xiv_model::Synth;
 use genevo::prelude::{GenomeBuilder, Rng};
 use genevo::random::SampleUniform;
 use std::fmt::Debug;
+use smallvec::SmallVec;
+use crate::simulator::CrafterActions;
 
 /// Constructs a genome of crafter actions in a hopefully intelligent way
 pub struct CraftActionGenomeBuilder<V> {
@@ -33,11 +35,11 @@ impl<V> CraftActionGenomeBuilder<V> {
     }
 }
 
-impl<V> GenomeBuilder<Vec<V>> for CraftActionGenomeBuilder<V>
+impl<V> GenomeBuilder<SmallVec<[V; 128]>> for CraftActionGenomeBuilder<V>
 where
     V: Debug + PartialEq + PartialOrd + SampleUniform + Send + Sync + Copy,
 {
-    fn build_genome<R>(&self, _: usize, rng: &mut R) -> Vec<V>
+    fn build_genome<R>(&self, _: usize, rng: &mut R) -> SmallVec<[V; 128]>
     where
         R: Rng + Sized,
     {
