@@ -459,7 +459,11 @@ function ApplyModifiers(s, action, condition) {
 
     // We can only use Precise Touch when state material condition is Good or Excellent. Default is true for probabilistic method.
     if (isActionEq(action, AllActions.preciseTouch)) {
-        if (condition.checkGoodOrExcellent()) {
+        // Unless we've used Heart and Soul, then the condition check is always good.
+        if (isActionEq(s.action, AllActions.heartAndSoul)) {
+
+        }
+        else if (condition.checkGoodOrExcellent()) {
             bQualityGain *= condition.pGoodOrExcellent();
         } else {
             s.wastedActions += 1;
@@ -493,7 +497,7 @@ function ApplyModifiers(s, action, condition) {
 }
 
 function useConditionalAction (s, condition) {
-    if (s.cpState > 0 && condition.checkGoodOrExcellent()) {
+    if (s.cpState > 0 && (condition.checkGoodOrExcellent() || isActionEq(s.action, AllActions.heartAndSoul))) {
         s.trickUses += 1;
         return true;
     }
@@ -541,6 +545,13 @@ function ApplySpecialActionEffects(s, action, condition) {
 
     if ((action.qualityIncreaseMultiplier > 0) && (AllActions.greatStrides.shortName in s.effects.countDowns)) {
         delete s.effects.countDowns[AllActions.greatStrides.shortName];
+    }
+
+    if (isActionEq(action, AllActions.heartAndSoul)) {
+        if (s.has_used_heart_and_soul === true) {
+            s.wastedActions += 1;
+        }
+        s.has_used_heart_and_soul = true;
     }
 
     // Manage effects with conditional requirements
@@ -1019,13 +1030,14 @@ function MonteCarloSequence(individual, startState, assumeSuccess, conditionalAc
         }
         for (var j = 0; j < actionsArray.length; j++) {
             var action = actionsArray[j];
-
+            var prev_action = s.action;
             // Determine if action is usable
             var usable = action.onExcellent && s.condition === 'Excellent' ||
                         action.onGood && s.condition === 'Good' ||
                         action.onPoor && s.condition === 'Poor' ||
-                        (!action.onExcellent && !action.onGood && !action.onPoor);
-
+                        (!action.onExcellent && !action.onGood && !action.onPoor)
+                || (isActionEq(prev_action, AllActions.heartAndSoul));
+            console.log(prev_action, action);
             if (conditionalActionHandling === 'reposition') {
                 // Manually re-add condition dependent action when conditions are met
                 if (s.condition === 'Excellent' && s.trickUses < maxConditionUses) {

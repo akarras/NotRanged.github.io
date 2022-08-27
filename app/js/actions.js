@@ -89,6 +89,8 @@ var AllActions = {
     advancedTouchCombo: new Action(  'advancedTouchCombo',    'Advanced Touch Combo',  30,     54, 1.0,  3.75, 0.0, 'immediate',   1,  'All',     84,   false,      false,       false,     true,       ['basicTouch', 'standardTouch', 'advancedTouch']),
 
     finalAppraisal: new Action('finalAppraisal', 'Final Appraisal', 0, 1, 1.0, 0.0, 0.0, 'countdown', 5, 'All', 42),
+    carefulObservation: new Action('carefulObservation', "Careful Observation", 0, 0, 1.0, 0.0, 0.0, 'immediate', 1, 'All', 55),
+    heartAndSoul: new Action('heartAndSoul', 'Heart And Soul', 0, 0, 1.0, 0.0, 0.0, 'immediate', 1, "All", 86),
 
     // Special Actions - not selectable
     dummyAction: new Action(        'dummyAction',          '______________',        0,      0,  1.0, 0.0, 0.0, 'immediate',   1,  'All',           1)
