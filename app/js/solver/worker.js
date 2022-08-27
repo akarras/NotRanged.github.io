@@ -1,4 +1,4 @@
-// NEW TEST
+  1// NEW TEST
 
 //import init, {CraftSimulator} from "../../lib/pkg/xiv_crafting_sim";
 

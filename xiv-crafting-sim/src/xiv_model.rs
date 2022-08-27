@@ -3,12 +3,12 @@ use crate::effect_tracker::EffectData;
 use crate::level_table;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
+use crate::Action::{CarefulObservation, HeartAndSoul};
 use crate::level_table::level_table_lookup;
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Crafter {
-    // pub(crate) cls: String,
     pub(crate) craftsmanship: u32,
     pub(crate) control: u32,
     #[serde(rename = "cp")]
@@ -16,6 +16,7 @@ pub struct Crafter {
     pub(crate) level: u32,
     #[serde(default)]
     pub(crate) specialist: bool,
+
     pub actions: Vec<Action>,
 }
 
@@ -146,23 +147,27 @@ pub(crate) struct State<'a> {
     pub synth: &'a Synth,
     pub step: u32,
     pub last_step: u32,
-    pub action: Option<Action>, // Action leading to this state
+    /// Previous action leading to this state
+    pub action: Option<Action>,
     pub durability_state: i32,
     pub cp_state: i32,
     pub bonus_max_cp: i32,
     pub quality_state: i32,
     pub progress_state: i32,
     pub wasted_actions: f32,
+    /// Number of times that trick has been used this craft
     pub trick_uses: i32,
     pub name_of_element_uses: i32,
     pub reliability: i32,
     pub effects: Effects,
     pub condition: Condition,
-
-    // Advancedtouch combo stuff
+    /// AdvancedTouch combo stuff
     pub touch_combo_step: i32,
-
-    // Internal state variables set after each step.
+    /// True if heart and soul has been used
+    pub heart_and_soul_used: bool,
+    /// True if careful observation has been used
+    pub careful_observation_uses: u8,
+    /// Internal state variables set after each step.
     pub iq_cnt: i32,
     pub control: i32,
     pub quality_gain: i32,
@@ -283,6 +288,8 @@ impl<'a> From<&'a Synth> for State<'a> {
             trick_uses: 0,
             condition: Condition::Normal,
             touch_combo_step: 0,
+            heart_and_soul_used: false,
+            careful_observation_uses: 0,
             iq_cnt: 0,
             control: 0,
             quality_gain: 0,
@@ -648,16 +655,6 @@ impl<'a> State<'a> {
         }
     }
 
-    fn use_conditional_action(&mut self, condition: &SimulationCondition) -> bool {
-        if self.cp_state > 0 && condition.check_good_or_excellent(self) {
-            self.trick_uses += 1;
-            true
-        } else {
-            self.wasted_actions += 1.0;
-            false
-        }
-    }
-
     fn apply_special_action_effects(&mut self, action: Action, condition: &SimulationCondition) {
         // STEP_02
         // Effect management
@@ -718,23 +715,38 @@ impl<'a> State<'a> {
         }
 
         // Manage effects with conditional requirements
-        if (action_details.on_excellent || action_details.on_good)
-            && self.use_conditional_action(condition)
-            && action == Action::TricksOfTheTrade
-        {
-            self.cp_state += (20.0 * condition.p_good_or_excellent()) as i32;
+        // Can't use heart and soul or careful observation without being a specialist
+        if !self.synth.crafter.specialist && (action == HeartAndSoul || action == CarefulObservation) {
+            self.wasted_actions += 100.0;
         }
 
-        /*if action == Action::Veneration
-            && self.effects.count_downs.get(Action::Veneration).is_some()
-        {
-            self.wasted_actions += 1.0
+        // Handle double uses of HeartAndSoul
+        if action == HeartAndSoul {
+            if self.heart_and_soul_used {
+                self.wasted_actions += 100.0; // action's already been used.
+            }
+            self.heart_and_soul_used = true;
         }
-        if action == Action::Innovation
-            && self.effects.count_downs.get(Action::Innovation).is_some()
-        {
-            self.wasted_actions += 1.0
-        }*/
+
+        // Handle overuse of careful observation. TBH this is mostly useless for macros.
+        if action == CarefulObservation {
+            if self.careful_observation_uses >= 3 {
+                self.wasted_actions += 10.0;
+            }
+            self.careful_observation_uses += 1;
+        }
+
+        let can_only_use_excellent_or_good = action_details.on_excellent || action_details.on_good;
+        let can_use_on_excellent_or_good = self.action == Some(HeartAndSoul);
+        if can_only_use_excellent_or_good {
+            if can_use_on_excellent_or_good {
+                if action == Action::TricksOfTheTrade {
+                    self.cp_state += (20.0 * condition.p_good_or_excellent()) as i32;
+                }
+            } else {
+                self.wasted_actions += 100.0;
+            }
+        }
     }
 
     #[inline]
@@ -845,7 +857,9 @@ impl<'a> State<'a> {
         sim_condition: &mut SimulationCondition,
     ) -> State<'a> {
         let mut state = self.clone();
-        state.step += 1;
+        if action != CarefulObservation {
+            state.step += 1;
+        }
         // TODO figure out how to handle simulation condition *better*
         let p_good = self.synth.prob_good_for_synth();
         let p_excellent = self.synth.prob_excellent_for_synth();

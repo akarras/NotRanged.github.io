@@ -11,23 +11,33 @@ var state = null;
 var sim = null;
 var is_thread = false;
 let last_run = Date.now();
+async function load_simd_solver() {
+  module = await import('../../lib/xiv-thread-simd/xiv_crafting_sim.js');
+  console.log("Running SIMD solver");
+  await module.default();
+  await module.initThreadPool(navigator.hardwareConcurrency);
+  is_thread = true;
+}
+
+async function load_thread_solver() {
+  console.log("Running threaded solver");
+  module = await import('../../lib/xiv-thread-simulator/xiv_crafting_sim.js');
+  await module.default();
+  await module.initThreadPool(navigator.hardwareConcurrency);
+  is_thread = true;
+}
+
 async function start_simulator() {
   if (threads === undefined) {
-    console.error("Unable to detect platform details");
+    console.warn("Unable to detect platform details. Going to yolo it and try to load the simd solver since most browsers support that anyways");
+    await load_thread_solver();
+    return;
   }
   if (threads !== undefined && await threads()) {
     if (await simd()) {
-      console.log("Running SIMD solver");
-      module = await import('../../lib/xiv-thread-simd/xiv_crafting_sim.js');
-      await module.default();
-      await module.initThreadPool(navigator.hardwareConcurrency);
-      is_thread = true;
+      await load_simd_solver();
     } else {
-      console.log("Running threaded solver");
-      module = await import('../../lib/xiv-thread-simulator/xiv_crafting_sim.js');
-      await module.default();
-      await module.initThreadPool(navigator.hardwareConcurrency);
-      is_thread = true;
+      await load_thread_solver();
     }
   }
   else {

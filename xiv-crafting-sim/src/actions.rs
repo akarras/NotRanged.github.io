@@ -1,3 +1,4 @@
+/// This file is based on
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
@@ -47,6 +48,7 @@ pub enum Action {
     BasicSynth,
     BasicSynth2,
     CarefulSynthesis,
+    CarefulObservation,
     RapidSynthesis,
     BasicTouch,
     StandardTouch,
@@ -81,6 +83,7 @@ pub enum Action {
     FinalAppraisal,
     FocusedTouchCombo,
     FocusedSynthesisCombo,
+    HeartAndSoul,
 }
 
 impl Display for Action {
@@ -150,6 +153,21 @@ impl Action {
             action_type: ActionType::Immediate,
             class: "All",
             level: 62,
+            on_good: false,
+            on_excellent: false,
+            combo: None,
+        };
+        static CAREFUL_OBSERVATION : ActionDetails = ActionDetails {
+            short_name: "carefulObservation",
+            full_name: "Careful Observation",
+            durability_cost: 0,
+            cp_cost: 0,
+            success_probability: 1.0,
+            quality_increase_multiplier: 0.0,
+            progress_increase_multiplier: 0.0,
+            action_type: ActionType::Immediate,
+            class: "All",
+            level: 55,
             on_good: false,
             on_excellent: false,
             combo: None,
@@ -289,7 +307,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static WASTENOT : ActionDetails = ActionDetails {
+        static WASTE_NOT: ActionDetails = ActionDetails {
             short_name: "wasteNot",
             full_name: "Waste Not",
             durability_cost: 0,
@@ -304,7 +322,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static WASTENOT2 : ActionDetails = ActionDetails {
+        static WASTE_NOT_2: ActionDetails = ActionDetails {
             short_name: "wasteNot2",
             full_name: "Waste Not II",
             durability_cost: 0,
@@ -394,7 +412,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static RAPID_SYNTHISIS_2: ActionDetails = ActionDetails {
+        static RAPID_SYNTHESIS_2: ActionDetails = ActionDetails {
             short_name: "rapidSynthesis2",
             full_name: "Rapid Synthesis",
             durability_cost: 10,
@@ -409,7 +427,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static PRUDENTTOUCH : ActionDetails = ActionDetails {
+        static PRUDENT_TOUCH: ActionDetails = ActionDetails {
             short_name: "prudentTouch",
             full_name: "Prudent Touch",
             durability_cost: 5,
@@ -424,7 +442,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static FOCUSEDSYNTHESIS : ActionDetails = ActionDetails {
+        static FOCUSED_SYNTHESIS: ActionDetails = ActionDetails {
             short_name: "focusedSynthesis",
             full_name: "Focused Synthesis",
             durability_cost: 10,
@@ -439,7 +457,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static FOCUSEDTOUCH : ActionDetails = ActionDetails {
+        static FOCUSED_TOUCH: ActionDetails = ActionDetails {
             short_name: "focusedTouch",
             full_name: "Focused Touch",
             durability_cost: 10,
@@ -469,7 +487,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static PREPARATORYTOUCH : ActionDetails = ActionDetails {
+        static PREPARATORY_TOUCH: ActionDetails = ActionDetails {
             short_name: "preparatoryTouch",
             full_name: "Preparatory Touch",
             durability_cost: 20,
@@ -484,7 +502,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static GROUNDWORK : ActionDetails = ActionDetails {
+        static GROUND_WORK: ActionDetails = ActionDetails {
             short_name: "groundwork",
             full_name: "Groundwork",
             durability_cost: 20,
@@ -499,7 +517,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static DELICATESYNTHESIS : ActionDetails = ActionDetails {
+        static DELICATE_SYNTHESIS: ActionDetails = ActionDetails {
             short_name: "delicateSynthesis",
             full_name: "Delicate Synthesis",
             durability_cost: 10,
@@ -514,7 +532,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static INTENSIVESYNTHESIS : ActionDetails = ActionDetails {
+        static INTENSIVE_SYNTHESIS: ActionDetails = ActionDetails {
             short_name: "intensiveSynthesis",
             full_name: "Intensive Synthesis",
             durability_cost: 10,
@@ -529,7 +547,7 @@ impl Action {
             on_excellent: true,
             combo: None,
         };
-        static TRAINEDEYE : ActionDetails = ActionDetails {
+        static TRAINED_EYE: ActionDetails = ActionDetails {
             short_name: "trainedEye",
             full_name: "Trained Eye",
             durability_cost: 10,
@@ -544,7 +562,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static CAREFULSYNTHESIS2 : ActionDetails = ActionDetails {
+        static CAREFUL_SYNTHESIS_2: ActionDetails = ActionDetails {
             short_name: "carefulSynthesis2",
             full_name: "Careful Synthesis",
             durability_cost: 10,
@@ -559,7 +577,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static GROUNDWORK2 : ActionDetails = ActionDetails {
+        static GROUND_WORK_2: ActionDetails = ActionDetails {
             short_name: "groundwork2",
             full_name: "Groundwork",
             durability_cost: 20,
@@ -574,7 +592,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static ADVANCEDTOUCH : ActionDetails = ActionDetails {
+        static ADVANCED_TOUCH: ActionDetails = ActionDetails {
             short_name: "advancedTouch",
             full_name: "Advanced Touch",
             durability_cost: 10,
@@ -589,7 +607,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static PRUDENTSYNTHESIS : ActionDetails = ActionDetails {
+        static PRUDENT_SYNTHESIS: ActionDetails = ActionDetails {
             short_name: "prudentSynthesis",
             full_name: "Prudent Synthesis",
             durability_cost: 5,
@@ -604,7 +622,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static TRAINEDFINESSE : ActionDetails = ActionDetails {
+        static TRAINED_FINESSE: ActionDetails = ActionDetails {
             short_name: "trainedFinesse",
             full_name: "Trained Finesse",
             durability_cost: 0,
@@ -619,7 +637,7 @@ impl Action {
             on_excellent: false,
             combo: None,
         };
-        static FOCUSEDTOUCHCOMBO : ActionDetails = ActionDetails {
+        static FOCUSED_TOUCH_COMBO: ActionDetails = ActionDetails {
             short_name: "focusedTouchCombo",
             full_name: "Focused Touch Combo",
             durability_cost: 10,
@@ -637,7 +655,7 @@ impl Action {
                 action_2: Action::FocusedTouch,
             }),
         };
-        static FOCUSEDSYNTHESISCOMBO : ActionDetails = ActionDetails {
+        static FOCUSED_SYNTHESIS_COMBO: ActionDetails = ActionDetails {
             short_name: "focusedSynthesisCombo",
             full_name: "Focused Synthesis Combo",
             durability_cost: 10,
@@ -655,7 +673,7 @@ impl Action {
                 action_2: Action::FocusedSynthesis,
             }),
         };
-        static FINALAPPRAISAL : ActionDetails = ActionDetails {
+        static FINAL_APPRAISAL: ActionDetails = ActionDetails {
             short_name: "finalAppraisal",
             full_name: "Final Appraisal",
             durability_cost: 0,
@@ -669,6 +687,21 @@ impl Action {
             on_good: false,
             on_excellent: false,
             combo: None,
+        };
+        static HEART_AND_SOUL : ActionDetails = ActionDetails {
+            short_name: "heartAndSoul",
+            full_name: "Heart And Soul",
+            durability_cost: 0,
+            cp_cost: 0,
+            success_probability: 0.0,
+            quality_increase_multiplier: 0.0,
+            progress_increase_multiplier: 0.0,
+            action_type: ActionType::Immediate,
+            class: "All",
+            level: 0,
+            on_good: false,
+            on_excellent: false,
+            combo: None
         };
         match self {
             // observe: new Action(            'observe',              'Observe',               0,      7,  1.0, 0.0, 0.0, 'immediate',   1,  'All',          13),
@@ -698,9 +731,9 @@ impl Action {
             // manipulation: new Action(       'manipulation',         'Manipulation',          0,     96,  1.0, 0.0, 0.0, 'countdown',   8,  'All',          65),
             Action::Manipulation => &MANIPULATION,
             // wasteNot: new Action(           'wasteNot',             'Waste Not',             0,     56,  1.0, 0.0, 0.0, 'countdown',   4,  'All',          15),
-            Action::WasteNot => &WASTENOT,
+            Action::WasteNot => &WASTE_NOT,
             // wasteNot2: new Action(          'wasteNot2',            'Waste Not II',          0,     98,  1.0, 0.0, 0.0, 'countdown',   8,  'All',          47)
-            Action::WasteNot2 => &WASTENOT2,
+            Action::WasteNot2 => &WASTE_NOT_2,
             // veneration: new Action(         'veneration',           'Veneration',            0,     18,  1.0, 0.0, 0.0, 'countdown',   4,  'All',          15),
             Action::Veneration => &VENERATION,
             // innovation: new Action(         'innovation',           'Innovation',            0,     18,  1.0, 0.0, 0.0, 'countdown',   4,  'All',          26),
@@ -712,106 +745,46 @@ impl Action {
             // muscleMemory: new Action(       'muscleMemory',         'Muscle Memory',        10,      6,  1.0, 0.0, 3.0, 'countdown',   5,  'All',          54),
             Action::MuscleMemory => &MUSCLE_MEMORY,
             // rapidSynthesis2: new Action(    'rapidSynthesis2',      'Rapid Synthesis',      10,      0,  0.5, 0.0, 5.0, 'immediate',   1,  'All',          63),
-            Action::RapidSynthesis2 => &RAPID_SYNTHISIS_2,
+            Action::RapidSynthesis2 => &RAPID_SYNTHESIS_2,
             // prudentTouch: new Action(       'prudentTouch',         'Prudent Touch',         5,     25,  1.0, 1.0, 0.0, 'immediate',   1,  'All',          66),
-            Action::PrudentTouch => &PRUDENTTOUCH,
+            Action::PrudentTouch => &PRUDENT_TOUCH,
             // focusedSynthesis: new Action(   'focusedSynthesis',     'Focused Synthesis',    10,      5,  0.5, 0.0, 2.0, 'immediate',   1,  'All',          67),
-            Action::FocusedSynthesis => &FOCUSEDSYNTHESIS,
+            Action::FocusedSynthesis => &FOCUSED_SYNTHESIS,
             // focusedTouch: new Action(       'focusedTouch',         'Focused Touch',        10,     18,  0.5, 1.5, 0.0, 'immediate',   1,  'All',          68),
-            Action::FocusedTouch => &FOCUSEDTOUCH,
+            Action::FocusedTouch => &FOCUSED_TOUCH,
             // reflect: new Action(            'reflect',              'Reflect',              10,     6,  1.0, 1.0, 0.0, 'immediate',   1,  'All',          69),
             Action::Reflect => &REFLECT,
             // preparatoryTouch: new Action(   'preparatoryTouch',     'Preparatory Touch',    20,     40,  1.0, 2.0, 0.0, 'immediate',   1,  'All',          71),
-            Action::PreparatoryTouch => &PREPARATORYTOUCH,
+            Action::PreparatoryTouch => &PREPARATORY_TOUCH,
             // groundwork: new Action(         'groundwork',           'Groundwork',           20,     18,  1.0, 0.0, 3.0, 'immediate',   1,  'All',          72),
-            Action::Groundwork => &GROUNDWORK,
+            Action::Groundwork => &GROUND_WORK,
             // delicateSynthesis: new Action(  'delicateSynthesis',    'Delicate Synthesis',   10,     32,  1.0, 1.0, 1.0, 'immediate',   1,  'All',          76),
-            Action::DelicateSynthesis => &DELICATESYNTHESIS,
+            Action::DelicateSynthesis => &DELICATE_SYNTHESIS,
             // intensiveSynthesis: new Action( 'intensiveSynthesis',   'Intensive Synthesis',  10,      6,  1.0, 0.0, 4.0, 'immediate',   1,  'All',          78,  true,       true),
-            Action::IntensiveSynthesis => &INTENSIVESYNTHESIS,
+            Action::IntensiveSynthesis => &INTENSIVE_SYNTHESIS,
             // trainedEye: new Action(         'trainedEye',           'Trained Eye',          10,    250,  1.0, 0.0, 0.0, 'immediate',   1,  'All',          80),
-            Action::TrainedEye => &TRAINEDEYE,
+            Action::TrainedEye => &TRAINED_EYE,
             // Endwalker
             // carefulSynthesis2: new Action(   'carefulSynthesis2',     'Careful Synthesis',  10,      7,  1.0, 0.0, 1.8, 'immediate',   1,  'All',          82),
-            Action::CarefulSynthesis2 => &CAREFULSYNTHESIS2,
+            Action::CarefulSynthesis2 => &CAREFUL_SYNTHESIS_2,
             // groundwork2: new Action(         'groundwork2',           'Groundwork',         20,     18,  1.0, 0.0, 3.6, 'immediate',   1,  'All',          86),
-            Action::Groundwork2 => &GROUNDWORK2,
+            Action::Groundwork2 => &GROUND_WORK_2,
             // advancedTouch: new Action(       'advancedTouch',        'Advanced Touch',      10,     46,  1.0, 1.5, 0.0, 'immediate',   1,  'All',          84),
-            Action::AdvancedTouch => &ADVANCEDTOUCH,
+            Action::AdvancedTouch => &ADVANCED_TOUCH,
             // prudentSynthesis: new Action(    'prudentSynthesis',     'Prudent Synthesis',   5,      18,  1.0, 0.0, 1.8, 'immediate',   1,  'All',          88),
-            Action::PrudentSynthesis => &PRUDENTSYNTHESIS,
+            Action::PrudentSynthesis => &PRUDENT_SYNTHESIS,
             // trainedFinesse: new Action(       'trainedFinesse',       'Trained Finesse',    0,      32,  1.0, 1.0, 0.0, 'immediate',   1,  'All',          90),
-            Action::TrainedFinesse => &TRAINEDFINESSE,
+            Action::TrainedFinesse => &TRAINED_FINESSE,
             // COMBO!
             // focusedTouchCombo: new Action(  'focusedTouchCombo',    'Focused Touch Combo',  10,     25, 1.0,  1.5, 0.0, 'immediate',   1,  'All',         68,   false,      false,       false,     true,       'observe',      'focusedTouch'),
-            Action::FocusedTouchCombo => &FOCUSEDTOUCHCOMBO,
+            Action::FocusedTouchCombo => &FOCUSED_TOUCH_COMBO,
             // focusedSynthesisCombo: new Action(  'focusedSynthesisCombo',    'Focused Synthesis Combo',  10, 12, 1.0,  0.0, 2.0, 'immediate',   1,  'All',         67,   false,      false,       false,     true,       'observe',      'focusedSynthesis'),
-            Action::FocusedSynthesisCombo => &FOCUSEDSYNTHESISCOMBO,
-            Action::FinalAppraisal => &FINALAPPRAISAL,
+            Action::FocusedSynthesisCombo => &FOCUSED_SYNTHESIS_COMBO,
+            // Not implemented in actions.js
+            Action::HeartAndSoul => &HEART_AND_SOUL,
+            Action::FinalAppraisal => &FINAL_APPRAISAL,
+            Action::CarefulObservation => &CAREFUL_OBSERVATION,
         }
     }
 }
 
-/* TABLE COPIED FROM actions.js
-var AllActions = {
-//                              shortName,              fullName,              dur,     cp, Prob, QIM, PIM, Type,          t,  cls,           lvl,  onGood,     onExcl,      onPoor,    isCombo,    comboName1,     comboName2
-observe: new Action(            'observe',              'Observe',               0,      7,  1.0, 0.0, 0.0, 'immediate',   1,  'All',          13),
-
-basicSynth: new Action(         'basicSynth',           'Basic Synthesis',      10,      0,  1.0, 0.0, 1.0, 'immediate',   1,  'All',           1),
-basicSynth2: new Action(        'basicSynth2',          'Basic Synthesis',      10,      0,  1.0, 0.0, 1.2, 'immediate',   1,  'All',          31),
-carefulSynthesis: new Action(   'carefulSynthesis',     'Careful Synthesis',    10,      7,  1.0, 0.0, 1.5, 'immediate',   1,  'All',          62),
-rapidSynthesis: new Action(     'rapidSynthesis',       'Rapid Synthesis',      10,      0,  0.5, 0.0, 2.5, 'immediate',   1,  'All',           9),
-
-basicTouch: new Action(         'basicTouch',           'Basic Touch',          10,     18,  1.0, 1.0, 0.0, 'immediate',   1,  'All',           5),
-standardTouch: new Action(      'standardTouch',        'Standard Touch',       10,     32,  1.0, 1.25,0.0, 'immediate',   1,  'All',          18),
-hastyTouch: new Action(         'hastyTouch',           'Hasty Touch',          10,      0,  0.6, 1.0, 0.0, 'immediate',   1,  'All',           9),
-byregotsBlessing: new Action(   'byregotsBlessing',     'Byregot\'s Blessing',  10,     24,  1.0, 1.0, 0.0, 'immediate',   1,  'All',          50),
-
-mastersMend: new Action(        'mastersMend',          'Master\'s Mend',        0,     88,  1.0, 0.0, 0.0, 'immediate',   1,  'All',           7),
-tricksOfTheTrade: new Action(   'tricksOfTheTrade',     'Tricks of the Trade',   0,      0,  1.0, 0.0, 0.0, 'immediate',   1,  'All',          13,  true,       true),
-
-innerQuiet: new Action(         'innerQuiet',           'Inner Quiet',           0,     18,  1.0, 0.0, 0.0, 'countup',     1,  'All',          11),
-manipulation: new Action(       'manipulation',         'Manipulation',          0,     96,  1.0, 0.0, 0.0, 'countdown',   8,  'All',          65),
-wasteNot: new Action(           'wasteNot',             'Waste Not',             0,     56,  1.0, 0.0, 0.0, 'countdown',   4,  'All',          15),
-wasteNot2: new Action(          'wasteNot2',            'Waste Not II',          0,     98,  1.0, 0.0, 0.0, 'countdown',   8,  'All',          47),
-veneration: new Action(         'veneration',           'Veneration',            0,     18,  1.0, 0.0, 0.0, 'countdown',   4,  'All',          15),
-innovation: new Action(         'innovation',           'Innovation',            0,     18,  1.0, 0.0, 0.0, 'countdown',   4,  'All',          26),
-greatStrides: new Action(       'greatStrides',         'Great Strides',         0,     32,  1.0, 0.0, 0.0, 'countdown',   3,  'All',          21),
-
-// Heavensward actions
-preciseTouch: new Action(       'preciseTouch',         'Precise Touch',        10,     18,  1.0, 1.5, 0.0, 'immediate',   1,  'All',          53,  true,       true),
-muscleMemory: new Action(       'muscleMemory',         'Muscle Memory',        10,      6,  1.0, 0.0, 3.0, 'countdown',   5,  'All',          54),
-
-// Stormblood actions
-rapidSynthesis2: new Action(    'rapidSynthesis2',      'Rapid Synthesis',      10,      0,  0.5, 0.0, 5.0, 'immediate',   1,  'All',          63),
-prudentTouch: new Action(       'prudentTouch',         'Prudent Touch',         5,     25,  1.0, 1.0, 0.0, 'immediate',   1,  'All',          66),
-focusedSynthesis: new Action(   'focusedSynthesis',     'Focused Synthesis',    10,      5,  0.5, 0.0, 2.0, 'immediate',   1,  'All',          67),
-focusedTouch: new Action(       'focusedTouch',         'Focused Touch',        10,     18,  0.5, 1.5, 0.0, 'immediate',   1,  'All',          68),
-reflect: new Action(            'reflect',              'Reflect',              10,     6,  1.0, 1.0, 0.0, 'immediate',   1,  'All',          69),
-
-// ShadowBringers actions
-preparatoryTouch: new Action(   'preparatoryTouch',     'Preparatory Touch',    20,     40,  1.0, 2.0, 0.0, 'immediate',   1,  'All',          71),
-groundwork: new Action(         'groundwork',           'Groundwork',           20,     18,  1.0, 0.0, 3.0, 'immediate',   1,  'All',          72),
-delicateSynthesis: new Action(  'delicateSynthesis',    'Delicate Synthesis',   10,     32,  1.0, 1.0, 1.0, 'immediate',   1,  'All',          76),
-intensiveSynthesis: new Action( 'intensiveSynthesis',   'Intensive Synthesis',  10,      6,  1.0, 0.0, 4.0, 'immediate',   1,  'All',          78,  true,       true),
-trainedEye: new Action(         'trainedEye',           'Trained Eye',          10,    250,  1.0, 0.0, 0.0, 'immediate',   1,  'All',          80),
-
-// Endwalker
-carefulSynthesis2: new Action(   'carefulSynthesis2',     'Careful Synthesis',  10,      7,  1.0, 0.0, 1.8, 'immediate',   1,  'All',          82),
-groundwork2: new Action(         'groundwork2',           'Groundwork',         20,     18,  1.0, 0.0, 3.6, 'immediate',   1,  'All',          86),
-advancedTouch: new Action(       'advancedTouch',        'Advanced Touch',      10,     46,  1.0, 1.5, 0.0, 'immediate',   1,  'All',          84),
-prudentSynthesis: new Action(    'prudentSynthesis',     'Prudent Synthesis',   5,      18,  1.0, 0.0, 1.8, 'immediate',   1,  'All',          88),
-trainedFinesse: new Action(       'trainedFinesse',       'Trained Finesse',    0,      32,  1.0, 1.0, 0.0, 'immediate',   1,  'All',          90),
-
-// Ranged edit: special combo'd actions that are handled differently
-// Combo Actions. Making new combo actions need an image, extraActionInfo, and some code in getComboAction() in ffxivcraftmodel.js
-// The existence of this breaks the montecarlo simulation but idgaf about that
-//                              shortName,              fullName,              dur,     cp, Prob, QIM, PIM, Type,          t,  cls,           lvl,  onGood,     onExcl,      onPoor,    isCombo,    comboName1,     comboName2
-focusedTouchCombo: new Action(  'focusedTouchCombo',    'Focused Touch Combo',  10,     25, 1.0,  1.5, 0.0, 'immediate',   1,  'All',         68,   false,      false,       false,     true,       'observe',      'focusedTouch'),
-focusedSynthesisCombo: new Action(  'focusedSynthesisCombo',    'Focused Synthesis Combo',  10, 12, 1.0,  0.0, 2.0, 'immediate',   1,  'All',         67,   false,      false,       false,     true,       'observe',      'focusedSynthesis'),
-
-
-// Special Actions - not selectable
-dummyAction: new Action(        'dummyAction',          '______________',        0,      0,  1.0, 0.0, 0.0, 'immediate',   1,  'All',           1)
-};
-*/

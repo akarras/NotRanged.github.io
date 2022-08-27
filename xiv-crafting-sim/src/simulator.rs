@@ -99,14 +99,12 @@ impl CalcState for CrafterActions {
     }
 
     /// Gives all actions
-
     fn get_actions_list(&self, synth: &Synth) -> Vec<Action> {
         let actions = &synth.crafter.actions;
         self.iter().flat_map(|m| actions.get(*m as usize).copied()).collect()
     }
 
-    /// Gives all actions up until the state went invalid
-
+    /// Gives all actions up until the state became invalid
     fn get_final_actions_list<'a>(
         &self,
         synth: &'a Synth,
@@ -131,7 +129,10 @@ impl FitnessFunction<CrafterActions, i32> for Synth {
             state.quality_state.min(self.recipe.max_quality as i32)
         };
         fitness -= penalties;
-        // fitness -= penalties; DISABLED TO TEST NON NEGATIVE FITNESS FUNCTIONS
+        // crafters deliniations cost more, subtract off some to bias towards macros that don't use it even if the user has it selected
+        if state.heart_and_soul_used {
+            fitness -= 1;
+        }
         let safety_margin_factor = 1.0 + self.recipe.safety_margin as f32 * 0.01;
         if violations.progress_ok
             && state.quality_state as f32 >= self.recipe.max_quality as f32 * safety_margin_factor

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>FFXIV Crafting Optimizer</title>
+  <title>FFXIV Crafting Optimizer 🦀</title>
   <!--- coi serverworker only needed because github pages doesn't support COEP & COOP --->
   <!--- if github pages implements COOP&COEP then get rid of coi-service worker --->
   <script src="./coi-serviceworker.js"></script>
@@ -12,11 +12,15 @@
   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.0/angular-busy.min.css"/>
   <link rel="stylesheet" href="css/main.css"/>
-  <script src="https://code.angularjs.org/1.2.32/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.32/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-rc.1/angular-ui-router.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-busy/4.1.0/angular-busy.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.6.1/angular-translate.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.6.1/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 
 <body ng-controller="MainController" ng-cloak ng-class="sequenceSettings.darkMode">
@@ -30,7 +34,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="brand" href="index.html">FFXIV Crafting Optimizer</a>
+        <a class="brand" href="index.html">FFXIV Crafting Optimizer Rust Edition 🦀</a>
         <div class="nav-collapse" collapse="pageState.navBarCollapsed">
           <ul class="nav">
             <li ui-sref-active="active"><a ui-sref="simulator">{{ 'NAV_SIMULATOR' | translate }}</a></li>
