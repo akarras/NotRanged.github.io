@@ -412,7 +412,7 @@ impl SimulationCondition {
 
     fn check_good_or_excellent(&self, _: &State) -> bool {
         match self {
-            SimulationCondition::Simulation { .. } => false,
+            SimulationCondition::Simulation { .. } => true,
         }
     }
 
@@ -653,7 +653,7 @@ impl<'a> State<'a> {
             self.trick_uses += 1;
             true
         } else {
-            self.wasted_actions += 10.0;
+            self.wasted_actions += 1.0;
             false
         }
     }
