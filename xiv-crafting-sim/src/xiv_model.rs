@@ -1,8 +1,10 @@
+use std::collections::HashMap;
 use crate::actions::{Action, ActionType};
 use crate::effect_tracker::EffectData;
 use crate::level_table;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
+use std::sync::{Arc, RwLock};
 use crate::Action::{CarefulObservation, HeartAndSoul};
 use crate::level_table::level_table_lookup;
 
@@ -49,6 +51,17 @@ pub struct SolverVars {
     pub(crate) max_stagnation_counter: i32,
     pub(crate) population: i32,
     pub(crate) generations: i32,
+}
+
+#[derive(Default, Clone, Debug)]
+pub struct ActionCache<'a>(Arc<RwLock<HashMap<(State<'a>, Action), State<'a>>>>);
+
+impl<'a> ActionCache {
+    fn get_cached(&self, current_state: State<'a>, next_action: Action) -> State<'a> {
+        let reader = self.0.read();
+        let action = reader.get((current_state, next_action));
+
+    }
 }
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
@@ -104,7 +117,7 @@ impl Synth {
 
 pub type AbilityMap = EffectData;
 
-#[derive(Debug, Serialize, Clone, Default)]
+#[derive(Hash, Debug, Serialize, Clone, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Effects {
     count_downs: AbilityMap,
@@ -122,7 +135,7 @@ impl Display for Effects {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, Clone, Copy)]
+#[derive(Hash, Debug, Deserialize, Serialize, Clone, Copy)]
 pub(crate) enum Condition {
     Poor,
     Normal,
@@ -141,7 +154,7 @@ impl Display for Condition {
     }
 }
 
-#[derive(Debug, Serialize, Clone)]
+#[derive(Hash, Debug, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct State<'a> {
     pub synth: &'a Synth,
