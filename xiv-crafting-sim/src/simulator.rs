@@ -1,7 +1,7 @@
 use crate::actions::Action;
 use crate::genome::CraftActionGenomeBuilder;
 use crate::mutator::{IndexedSizedContainer, SizeAndValueMutator};
-use crate::xiv_model::{Condition, SimulationCondition, State, Synth, Violations};
+use crate::xiv_model::{Condition, SimulationCondition, State, StateDisplay, Synth, Violations};
 use genevo::ga::genetic_algorithm;
 use genevo::operator::prelude::*;
 use genevo::prelude::*;
@@ -22,7 +22,7 @@ pub type CraftIndex = u8;
 pub type CrafterActions = SmallVec<[u8; 128]>;
 
 pub(crate) trait CalcState {
-    fn calculate_final_state<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> State<'a>;
+    fn calculate_final_state<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> State;
 
     fn get_actions_list(&self, synth: &Synth) -> Vec<Action>;
 
@@ -30,7 +30,7 @@ pub(crate) trait CalcState {
         &self,
         synth: &'a Synth,
         log: &mut Option<String>,
-    ) -> (State<'a>, Vec<Action>);
+    ) -> (State, Vec<Action>);
 }
 
 impl IndexedSizedContainer<usize> for CrafterActions {
@@ -70,30 +70,45 @@ impl IndexedSizedContainer<u8> for CrafterActions {
 }
 
 impl CalcState for CrafterActions {
-    fn calculate_final_state<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> State<'a> {
-        let mut state: State = synth.into();
+    fn calculate_final_state<'a>(&self, synth: &'a Synth, log: &mut Option<String>) -> State {
+        let mut state: State = State::from(synth);
         let mut condition = SimulationCondition::new_sim_condition();
         if let Some(log) = log {
-            let _ = writeln!(log, "{}", state);
+            let _ = writeln!(log, "{}", StateDisplay {
+                synth,
+                state: &state
+            });
         }
         for action in self
             .iter()
             .flat_map(|m| synth.crafter.actions.get(*m as usize).copied())
         {
-            let tmp_state = state.add_action(action, &mut condition);
-            if let Some(log) = log {
-                let _ = writeln!(log, "{}", tmp_state);
+            // check if this state is cached
+            match synth.cache.get_cached(&state, action) {
+                Some(cached_state) => {
+                    state = cached_state
+                }
+                None => {
+                    let tmp_state = state.add_action(action, &synth,&mut condition);
+                    if let Some(log) = log {
+                        let _ = writeln!(log, "{}", StateDisplay {
+                            synth,
+                            state: &state
+                        });
+                    }
+                    if tmp_state.progress_state >= synth.recipe.difficulty as i32 {
+                        return tmp_state;
+                    }
+                    if tmp_state.durability_state <= 0 {
+                        return tmp_state; // bad durability, no point proceeding
+                    }
+                    if tmp_state.cp_state <= 0 {
+                        return state;
+                    }
+                    synth.cache.write_state(&state, action, tmp_state.clone());
+                    state = tmp_state;
+                }
             }
-            if tmp_state.progress_state >= synth.recipe.difficulty as i32 {
-                return tmp_state;
-            }
-            if tmp_state.durability_state <= 0 {
-                return tmp_state; // bad durability, no point proceeding
-            }
-            if tmp_state.cp_state <= 0 {
-                return state;
-            }
-            state = tmp_state;
         }
         state
     }
@@ -105,11 +120,11 @@ impl CalcState for CrafterActions {
     }
 
     /// Gives all actions up until the state became invalid
-    fn get_final_actions_list<'a>(
+    fn get_final_actions_list(
         &self,
-        synth: &'a Synth,
+        synth: &Synth,
         log: &mut Option<String>,
-    ) -> (State<'a>, Vec<Action>) {
+    ) -> (State, Vec<Action>) {
         let actions = self.get_actions_list(synth);
         let state = self.calculate_final_state(synth, log);
         let (first, _) = actions.split_at(state.step as usize);
@@ -120,8 +135,8 @@ impl CalcState for CrafterActions {
 impl FitnessFunction<CrafterActions, i32> for Synth {
     fn fitness_of(&self, actions: &CrafterActions) -> i32 {
         let state = actions.calculate_final_state(self, &mut None);
-        let violations = state.check_violations();
-        let penalties = state.calculate_penalties(10000.0) as i32;
+        let violations = state.check_violations(self);
+        let penalties = state.calculate_penalties(self, 10000.0) as i32;
         let mut fitness = if self.solver_vars.solve_for_completion {
             (state.cp_state * self.solver_vars.remainder_cp_fitness_value)
                 + (state.durability_state * self.solver_vars.remainder_dur_fitness_value)
@@ -243,7 +258,7 @@ impl CraftSimulator {
                         generations_completed: self.generations,
                         max_generations: self.synth.solver_vars.generations as u32,
                         best_sequence,
-                        state: state.into(),
+                        state: StatusState::new(&state, &self.synth),
                     }
                 }
                 SimResult::Final(a, b, c, d) => {
@@ -283,9 +298,9 @@ pub struct StatusState {
     bonus_max_cp: i32,
 }
 
-impl From<State<'_>> for StatusState {
-    fn from(state: State<'_>) -> Self {
-        let violations = state.check_violations();
+impl StatusState {
+    fn new(state: &State, synth: &Synth) -> Self {
+        let violations = state.check_violations(synth);
         Self {
             quality: state.quality_state,
             durability: state.durability_state,
@@ -458,6 +473,7 @@ mod tests {
                 generations: 750,
                 ..Default::default()
             },
+            cache: Default::default()
         };
 
         let mut sim = CraftSimulator::new(synth);

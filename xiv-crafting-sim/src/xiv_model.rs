@@ -1,12 +1,16 @@
-use std::collections::HashMap;
+use std::borrow::Borrow;
 use crate::actions::{Action, ActionType};
 use crate::effect_tracker::EffectData;
 use crate::level_table;
-use serde::{Deserialize, Serialize};
-use std::fmt::{Display, Formatter};
-use std::sync::{Arc, RwLock};
-use crate::Action::{CarefulObservation, HeartAndSoul};
 use crate::level_table::level_table_lookup;
+use crate::Action::{CarefulObservation, HeartAndSoul};
+use serde::{Deserialize, Serialize};
+use std::collections::{BTreeMap, HashMap};
+use std::fmt::{Display, Formatter};
+use std::hash::{Hash, Hasher};
+use std::sync::{Arc, RwLock};
+use dashmap::DashMap;
+use fxhash::{FxBuildHasher, FxHasher};
 
 #[derive(Deserialize, Serialize, Clone, Debug, Default)]
 #[serde(rename_all = "camelCase")]
@@ -54,13 +58,16 @@ pub struct SolverVars {
 }
 
 #[derive(Default, Clone, Debug)]
-pub struct ActionCache<'a>(Arc<RwLock<HashMap<(State<'a>, Action), State<'a>>>>);
+pub(crate) struct ActionCache(Arc<RwLock<BTreeMap<(StateKey, Action), State>>>);
 
-impl<'a> ActionCache {
-    fn get_cached(&self, current_state: State<'a>, next_action: Action) -> State<'a> {
-        let reader = self.0.read();
-        let action = reader.get((current_state, next_action));
+impl ActionCache {
+    pub(crate) fn get_cached(&self, current_state: &State, next_action: Action) -> Option<State> {
+        let key = (StateKey::from(current_state), next_action);
+        self.0.read().unwrap().get(&key).map(|m| m.clone())
+    }
 
+    pub(crate) fn write_state(&self, current_state: &State, next_action: Action, result_state: State) {
+        self.0.write().unwrap().insert((StateKey::from(current_state), next_action), result_state);
     }
 }
 
@@ -75,6 +82,8 @@ pub struct Synth {
     pub(crate) max_length: u32,
     #[serde(rename = "solver")]
     pub(crate) solver_vars: SolverVars,
+    #[serde(skip)]
+    pub(crate) cache: ActionCache
 }
 
 impl Synth {
@@ -87,11 +96,7 @@ impl Synth {
         (base_progress, base_quality)
     }
 
-    fn calculate_base_progress_increase(
-        &self,
-        eff_crafter_level: u32,
-        craftsmanship: u32,
-    ) -> u32 {
+    fn calculate_base_progress_increase(&self, eff_crafter_level: u32, craftsmanship: u32) -> u32 {
         let base_value: f32 = (craftsmanship as f32 * 10.0) / self.recipe.progress_divider + 2.0;
         if eff_crafter_level <= self.recipe.level {
             (base_value * (self.recipe.progress_modifier.unwrap_or(100) as f32) / 100.0) as u32
@@ -100,11 +105,7 @@ impl Synth {
         }
     }
 
-    fn calculate_base_quality_increase(
-        &self,
-        eff_crafter_level: u32,
-        control: u32,
-    ) -> u32 {
+    fn calculate_base_quality_increase(&self, eff_crafter_level: u32, control: u32) -> u32 {
         let base_value: f32 = (control as f32 * 10.0) / self.recipe.quality_divider + 35.0;
         if eff_crafter_level <= self.recipe.level {
             (base_value * (self.recipe.quality_modifier.unwrap_or(100) as f32) / 100.0).floor()
@@ -117,7 +118,7 @@ impl Synth {
 
 pub type AbilityMap = EffectData;
 
-#[derive(Hash, Debug, Serialize, Clone, Default)]
+#[derive(Hash, Eq, PartialEq, Ord, PartialOrd, Debug, Serialize, Clone, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Effects {
     count_downs: AbilityMap,
@@ -135,7 +136,7 @@ impl Display for Effects {
     }
 }
 
-#[derive(Hash, Debug, Deserialize, Serialize, Clone, Copy)]
+#[derive(Hash, Eq, PartialEq, Ord, PartialOrd, Debug, Deserialize, Serialize, Clone, Copy)]
 pub(crate) enum Condition {
     Poor,
     Normal,
@@ -154,10 +155,9 @@ impl Display for Condition {
     }
 }
 
-#[derive(Hash, Debug, Serialize, Clone)]
+#[derive(Debug, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct State<'a> {
-    pub synth: &'a Synth,
+pub(crate) struct State {
     pub step: u32,
     pub last_step: u32,
     /// Previous action leading to this state
@@ -189,18 +189,78 @@ pub(crate) struct State<'a> {
     pub success: bool,
 }
 
+#[derive(Hash, Debug, Eq, PartialEq, Ord, PartialOrd)]
+pub(crate) struct StateKey {
+    pub step: u32,
+    pub last_step: u32,
+    pub action: Option<Action>,
+    pub durability_state: i32,
+    pub cp_state: i32,
+    pub bonus_max_cp: i32,
+    pub quality_state: i32,
+    pub progress_state: i32,
+    pub trick_uses: i32,
+    pub name_of_element_uses: i32,
+    pub reliability: i32,
+    pub effects: Effects,
+    pub condition: Condition,
+    pub touch_combo_step: i32,
+    pub heart_and_soul_used: bool,
+    pub careful_observation_uses: u8,
+    pub iq_cnt: i32,
+    pub control: i32,
+    pub quality_gain: i32,
+    pub base_progress_gain: u32,
+    pub base_quality_gain: u32,
+    pub success: bool,
+}
+
+impl From<&State> for StateKey {
+    fn from(state: &State) -> Self {
+        Self {
+            step: state.step,
+            last_step: state.last_step,
+            action: state.action,
+            durability_state: state.durability_state,
+            cp_state: state.cp_state,
+            bonus_max_cp: state.bonus_max_cp,
+            quality_state: state.quality_state,
+            progress_state: state.progress_state,
+            trick_uses: state.trick_uses,
+            name_of_element_uses: state.name_of_element_uses,
+            reliability: state.reliability,
+            effects: state.effects.clone(),
+            condition: state.condition,
+            touch_combo_step: state.touch_combo_step,
+            heart_and_soul_used: state.heart_and_soul_used,
+            careful_observation_uses: state.careful_observation_uses,
+            iq_cnt: state.iq_cnt,
+            control: state.control,
+            quality_gain: state.quality_gain,
+            base_progress_gain: state.base_progress_gain,
+            base_quality_gain: state.base_quality_gain,
+            success: state.success
+        }
+    }
+}
+
 impl Default for Condition {
     fn default() -> Self {
         Self::Normal
     }
 }
 
-impl Display for State<'_> {
+pub(crate) struct StateDisplay<'a> {
+    pub(crate) state: &'a State,
+    pub(crate) synth: &'a Synth
+}
+
+impl<'a> Display for StateDisplay<'a> {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "#{:>2} {:>4}/{:>4} qual: {:>4}/{:>4} dur: {:>3}/{:>3} cp: {:>4}/{:>4} BP: {:>4} BQ: {:>4} action: {:?} effects: {} cond: {}", self.step,
-               self.progress_state, self.synth.recipe.difficulty,
-               self.quality_state, self.synth.recipe.max_quality,
-               self.durability_state, self.synth.recipe.durability, self.cp_state, self.synth.crafter.craft_points, self.base_progress_gain, self.base_quality_gain, self.action, self.effects, self.condition)
+        write!(f, "#{:>2} {:>4}/{:>4} qual: {:>4}/{:>4} dur: {:>3}/{:>3} cp: {:>4}/{:>4} BP: {:>4} BQ: {:>4} action: {:?} effects: {} cond: {}", self.state.step,
+               self.state.progress_state, self.synth.recipe.difficulty,
+               self.state.quality_state, self.synth.recipe.max_quality,
+               self.state.durability_state, self.synth.recipe.durability, self.state.cp_state, self.synth.crafter.craft_points, self.state.base_progress_gain, self.state.base_quality_gain, self.state.action, self.state.effects, self.state.condition)
     }
 }
 
@@ -220,9 +280,9 @@ impl Violations {
     }
 }
 
-impl State<'_> {
-    pub(crate) fn check_violations(&self) -> Violations {
-        let progress_ok = self.progress_state >= self.synth.recipe.difficulty as i32;
+impl State {
+    pub(crate) fn check_violations(&self, synth: &Synth) -> Violations {
+        let progress_ok = self.progress_state >= synth.recipe.difficulty as i32;
         let cp_ok = self.cp_state >= 0;
         let mut durability_ok = false;
         if self.durability_state >= -5
@@ -240,8 +300,8 @@ impl State<'_> {
             }
         }
 
-        let trick_ok = self.trick_uses <= self.synth.max_trick_uses;
-        let reliability_ok = self.reliability > self.synth.reliability_percent as i32 / 100;
+        let trick_ok = self.trick_uses <= synth.max_trick_uses;
+        let reliability_ok = self.reliability > synth.reliability_percent as i32 / 100;
         Violations {
             progress_ok,
             cp_ok,
@@ -253,8 +313,8 @@ impl State<'_> {
 
     /// Returns an int with a penality
 
-    pub fn calculate_penalties(&self, penality_weight: f32) -> f32 {
-        let violations = self.check_violations();
+    pub fn calculate_penalties(&self, synth: &Synth, penality_weight: f32) -> f32 {
+        let violations = self.check_violations(synth);
         let mut penalties = self.wasted_actions / 20.0;
 
         if !violations.durability_ok {
@@ -262,29 +322,28 @@ impl State<'_> {
         }
 
         if !violations.progress_ok {
-            penalties += (self.synth.recipe.difficulty as i32 - self.progress_state).abs() as f32
+            penalties += (synth.recipe.difficulty as i32 - self.progress_state).abs() as f32
         }
 
         if !violations.cp_ok {
             penalties += self.cp_state.abs() as f32
         }
 
-        if self.trick_uses > self.synth.max_trick_uses {
-            penalties += (self.trick_uses - self.synth.max_trick_uses).abs() as f32
+        if self.trick_uses > synth.max_trick_uses {
+            penalties += (self.trick_uses - synth.max_trick_uses).abs() as f32
         }
 
-        if self.reliability < (self.synth.reliability_percent / 100) as i32 {
-            penalties += ((self.synth.reliability_percent / 100) as i32 - self.reliability) as f32
+        if self.reliability < (synth.reliability_percent / 100) as i32 {
+            penalties += ((synth.reliability_percent / 100) as i32 - self.reliability) as f32
         }
 
         penalties * penality_weight
     }
 }
 
-impl<'a> From<&'a Synth> for State<'a> {
-    fn from(synth: &'a Synth) -> Self {
+impl From<&Synth> for State {
+    fn from(synth: &Synth) -> Self {
         State {
-            synth, // TODO this could be a parent ref, PhantomData stuff.
             step: 0,
             last_step: 0,
             action: None,
@@ -454,24 +513,25 @@ impl SimulationCondition {
     }
 }
 
-impl<'a> State<'a> {
+impl State {
     fn apply_modifiers(
         &mut self,
         action: Action,
+        synth: &Synth,
         condition: &SimulationCondition,
     ) -> ModifierResult {
-        let craftsmanship = self.synth.crafter.craftsmanship;
-        let mut control = self.synth.crafter.control;
+        let craftsmanship = synth.crafter.craftsmanship;
+        let mut control = synth.crafter.control;
         let action_details = action.details();
         let mut cp_cost = action_details.cp_cost;
 
         // Effects modifying level difference
-        let eff_crafter_level = self.synth.get_effective_crafter_level();
-        let eff_recipe_level = self.synth.recipe.level;
+        let eff_crafter_level = synth.get_effective_crafter_level();
+        let eff_recipe_level = synth.recipe.level;
         let level_difference = eff_crafter_level as i32 - eff_recipe_level as i32;
         // let original_level_difference = eff_crafter_level - eff_recipe_level;
         let pure_level_difference =
-            self.synth.crafter.level as i32 - self.synth.recipe.base_level as i32;
+            synth.crafter.level as i32 - synth.recipe.base_level as i32;
         // let recipe_level = eff_recipe_level;
 
         // Effects modifying probability
@@ -508,7 +568,7 @@ impl<'a> State<'a> {
         // Penalize use of WasteNot during solveforcompletion runs
 
         if (action == Action::WasteNot || action == Action::WasteNot2)
-            && self.synth.solver_vars.solve_for_completion
+            && synth.solver_vars.solve_for_completion
         {
             self.wasted_actions += 50.0;
         }
@@ -568,8 +628,7 @@ impl<'a> State<'a> {
         }
 
         // Calculate base and modified progress gain
-        let mut progress_gain = self
-            .synth
+        let mut progress_gain = synth
             .calculate_base_progress_increase(eff_crafter_level, craftsmanship);
 
         progress_gain = (progress_gain as f32
@@ -577,8 +636,7 @@ impl<'a> State<'a> {
             * progress_increase_multiplier) as u32;
 
         // Calculate base and modified quality gain
-        let mut quality_gain = self
-            .synth
+        let mut quality_gain = synth
             .calculate_base_quality_increase(eff_crafter_level, control);
         // conversion back to u32 from f32 is equivalent to .floor().
         quality_gain = (quality_gain as f32
@@ -626,8 +684,8 @@ impl<'a> State<'a> {
 
         // Effects modifying quality gain directly
         if action.eq(&Action::TrainedEye) {
-            if self.step == 1 && pure_level_difference >= 10 && self.synth.recipe.stars.is_none() {
-                quality_gain = self.synth.recipe.max_quality;
+            if self.step == 1 && pure_level_difference >= 10 && synth.recipe.stars.is_none() {
+                quality_gain = synth.recipe.max_quality;
             } else {
                 self.wasted_actions += 1.0;
                 quality_gain = 0;
@@ -668,14 +726,14 @@ impl<'a> State<'a> {
         }
     }
 
-    fn apply_special_action_effects(&mut self, action: Action, condition: &SimulationCondition) {
+    fn apply_special_action_effects(&mut self, action: Action, synth: &Synth, condition: &SimulationCondition) {
         // STEP_02
         // Effect management
         //==================================
         // Special Effect Actions
         if action == Action::MastersMend {
             self.durability_state += 30;
-            if self.synth.solver_vars.solve_for_completion {
+            if synth.solver_vars.solve_for_completion {
                 self.wasted_actions += 50.0; // Bad code, but it works. We don't want dur increase in solveforcompletion.
             }
         }
@@ -685,7 +743,7 @@ impl<'a> State<'a> {
             && action != Action::Manipulation
         {
             self.durability_state += 5;
-            if self.synth.solver_vars.solve_for_completion {
+            if synth.solver_vars.solve_for_completion {
                 self.wasted_actions += 50.0; // Bad code, but it works. We don't want dur increase in solveforcompletion.
             }
         }
@@ -713,9 +771,9 @@ impl<'a> State<'a> {
         if let Some((_, count)) = self.effects.count_downs.get(Action::FinalAppraisal) {
             self.progress_state = self
                 .progress_state
-                .min(self.synth.recipe.difficulty as i32 - 1);
+                .min(synth.recipe.difficulty as i32 - 1);
             // If we're on the last turn of final appraisal, and we didn't actually max out the craft, it's a waste
-            if *count <= 1 && self.progress_state != self.synth.recipe.difficulty as i32 - 1 {
+            if *count <= 1 && self.progress_state != synth.recipe.difficulty as i32 - 1 {
                 self.wasted_actions += 10.0;
             }
         }
@@ -729,7 +787,9 @@ impl<'a> State<'a> {
 
         // Manage effects with conditional requirements
         // Can't use heart and soul or careful observation without being a specialist
-        if !self.synth.crafter.specialist && (action == HeartAndSoul || action == CarefulObservation) {
+        if !synth.crafter.specialist
+            && (action == HeartAndSoul || action == CarefulObservation)
+        {
             self.wasted_actions += 100.0;
         }
 
@@ -834,6 +894,7 @@ impl<'a> State<'a> {
     fn update_state(
         &mut self,
         action: Action,
+        synth: &Synth,
         progress_gain: i32,
         quality_gain: i32,
         durability_cost: i32,
@@ -847,7 +908,7 @@ impl<'a> State<'a> {
         self.durability_state -= durability_cost;
         self.cp_state -= cp_cost;
         self.last_step += 1;
-        self.apply_special_action_effects(action, condition);
+        self.apply_special_action_effects(action, synth, condition);
         self.update_effects_counters(action, condition, success_probability);
 
         // Sanity checks for state variables
@@ -858,24 +919,25 @@ impl<'a> State<'a> {
         */
         self.durability_state = self
             .durability_state
-            .min(self.synth.recipe.durability as i32);
+            .min(synth.recipe.durability as i32);
         self.cp_state = self
             .cp_state
-            .min(self.synth.crafter.craft_points as i32 + self.bonus_max_cp);
+            .min(synth.crafter.craft_points as i32 + self.bonus_max_cp);
     }
 
     pub(crate) fn add_action(
         &self,
         action: Action,
+        synth: &Synth,
         sim_condition: &mut SimulationCondition,
-    ) -> State<'a> {
+    ) -> State {
         let mut state = self.clone();
         if action != CarefulObservation {
             state.step += 1;
         }
         // TODO figure out how to handle simulation condition *better*
-        let p_good = self.synth.prob_good_for_synth();
-        let p_excellent = self.synth.prob_excellent_for_synth();
+        let p_good = synth.prob_good_for_synth();
+        let p_excellent = synth.prob_excellent_for_synth();
 
         let mut condition_quality_increase_multiplier = 1.0;
         match sim_condition {
@@ -891,14 +953,14 @@ impl<'a> State<'a> {
                         + 1.5
                             * *pp_good
                             * (1.0 - (*pp_good + p_good) / 2.0)
-                                .powf(state.synth.max_trick_uses as f32)
+                                .powf(synth.max_trick_uses as f32)
                         + 4.0 * *pp_excellent
                         + 0.5 * *pp_poor;
                 }
             }
         }
 
-        let result = state.apply_modifiers(action, sim_condition);
+        let result = state.apply_modifiers(action, synth, sim_condition);
         state.base_quality_gain = result.quality_gain;
         state.base_progress_gain = result.progress_gain;
         // Calculate final gains / losses
@@ -916,6 +978,7 @@ impl<'a> State<'a> {
 
         state.update_state(
             action,
+            synth,
             progress_gain as i32,
             quality_gain as i32,
             result.durability_cost as i32,
@@ -947,13 +1010,10 @@ mod test {
             pp_good: 0.0,
             pp_excellent: 0.0,
         };
-        let mut state: State = (&synth).into();
-        state = state.add_action(Action::MuscleMemory, &mut simulation_condition);
-        let quality_touch = state.add_action(Action::StandardTouch, &mut simulation_condition);
+        let mut state: State = State::default();
+        state = state.add_action(Action::MuscleMemory, &synth, &mut simulation_condition);
+        let quality_touch = state.add_action(Action::StandardTouch, &synth, &mut simulation_condition);
         println!("q touch state {}", quality_touch);
-        //assert_eq!(quality_touch.quality_gain, 140);
-        //assert_eq!(quality_touch.quality_state, 147);
-        let progress_touch = state.add_action(Action::BasicSynth, &mut simulation_condition);
-        //assert_eq!(progress_touch.progress_state, 177);
+        let progress_touch = state.add_action(Action::BasicSynth, &synth, &mut simulation_condition);
     }
 }

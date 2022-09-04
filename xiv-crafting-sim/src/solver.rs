@@ -54,7 +54,7 @@ fn add_action<'a>(action: Action, state: &State<'a>, synth: &'a Synth) -> Option
 }
 
 
-fn filter_usable(action: Action, state: &State<'_>) -> bool {
+fn filter_usable(action: Action, state: &State) -> bool {
     let action = action;
     match action {
         Action::Observe => return false,
@@ -117,7 +117,7 @@ fn filter_usable(action: Action, state: &State<'_>) -> bool {
 }
 
 
-fn compare_actions<'r, 's>((a_actions, a_state): &'r (Vec<Action>, State<'_>), (b_actions, b_state): &'s (Vec<Action>, State<'_>)) -> Ordering {
+fn compare_actions<'r, 's>((a_actions, a_state): &'r (Vec<Action>, State), (b_actions, b_state): &'s (Vec<Action>, State)) -> Ordering {
     // assume all states complete progress
     if a_state.quality_state >= a_state.synth.recipe.max_quality as i32
         && b_state.quality_state >= a_state.synth.recipe.max_quality as i32

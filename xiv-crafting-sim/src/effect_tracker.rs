@@ -5,7 +5,7 @@ use std::iter::FromIterator;
 
 /// Effect tracker is a key value store
 /// Data is a contiguous slice of memory, if we somehow have more than abilities than space, please just increase this and don't look back.
-#[derive(Default, Debug, Serialize, Clone)]
+#[derive(Hash, Eq, PartialEq, Ord, PartialOrd, Default, Debug, Serialize, Clone)]
 pub struct EffectData([Option<(Action, i8)>; 4]);
 
 impl EffectData {
