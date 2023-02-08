@@ -8,6 +8,8 @@ from tqdm import tqdm # funny progress bar :)
 # This is genuinely the first time I've ever made an API scraping script, or worked with .json objects!
 # Feel free to suggest improvements and criticize and such.
 
+# RE: Scraping Food & Medicine: read bottom README.md or on the github repo readme
+
 def construct_recipe_json(original_recipe):
     # Returns a recipe dictionary in the format desired by the ffxiv crafting solver
     # Rewriting how it handles all the data is a monumental task so instead I'm just going to do this

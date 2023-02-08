@@ -44,18 +44,31 @@
     return promise;
   };
 
+  TooltipsService.prototype.getActionMaterialConditions = function (action) {
+    var T = this.$translate.instant;
+    var materialConditions = [];
+    if (action.onGood) materialConditions.push(T("MATERIAL_CONDITION_GOOD"));
+    if (action.onExcellent) materialConditions.push(T("MATERIAL_CONDITION_EXCELLENT"));
+    if (action.onPoor) materialConditions.push(T("MATERIAL_CONDITION_POOR"));
+
+    return materialConditions;
+  }
+
   TooltipsService.prototype.renderTooltip = function (action) {
     var T = this.$translate.instant;
     var efficiency = (action.qualityIncreaseMultiplier > 0 ? action.qualityIncreaseMultiplier : action.progressIncreaseMultiplier) * 100;
     var successRate = action.successProbability * 100;
+    var actionMaterialConditions = this.getActionMaterialConditions(action);
+
     return "<!--actiontooltip-->"
-           + "<div class='action-tooltip-title'>" + T(action.name) + " (" + T("LEVEL") + " " + action.level + ")</div>\n"
-           + "<div class='action-tooltip-fields'>"
-           + "<span class='action-tooltip-field-name'>" + T("CP_COST") + ":</span>&emsp;<span class='action-tooltip-field-value'>" + action.cpCost + "</span><br/>\n"
-           + "<span class='action-tooltip-field-name'>" + T("DURABILITY_COST") + ":</span>&emsp;<span class='action-tooltip-field-value'>" + action.durabilityCost + "</span><br/>\n"
-           + "<span class='action-tooltip-field-name'>" + T("EFFICIENCY") + ":</span>&emsp;<span class='action-tooltip-field-value'>" + efficiency + "%</span><br/>\n"
-           + "<span class='action-tooltip-field-name'>" + T("SUCCESS_RATE") + ":</span>&emsp;<span class='action-tooltip-field-value'>" + successRate + "%</span><br/>\n"
-           + "</div>"
+      + "<div class='action-tooltip-title'>" + T(action.name) + " (" + T("LEVEL") + " " + action.level + ")</div>\n"
+      + "<div class='action-tooltip-fields'>"
+      + "<span class='action-tooltip-field-name'>" + T("CP_COST") + ":</span>&emsp;<span class='action-tooltip-field-value'>" + action.cpCost + "</span><br/>\n"
+      + "<span class='action-tooltip-field-name'>" + T("DURABILITY_COST") + ":</span>&emsp;<span class='action-tooltip-field-value'>" + action.durabilityCost + "</span><br/>\n"
+      + "<span class='action-tooltip-field-name'>" + T("EFFICIENCY") + ":</span>&emsp;<span class='action-tooltip-field-value'>" + efficiency + "%</span><br/>\n"
+      + "<span class='action-tooltip-field-name'>" + T("SUCCESS_RATE") + ":</span>&emsp;<span class='action-tooltip-field-value'>" + successRate + "%</span><br/>\n"
+      + (actionMaterialConditions.length ? `<span class='action-tooltip-field-name'>${T("REQUIRED_MATERIAL_CONDITION")}:</span>&emsp;<span class='action-tooltip-field-value'>${actionMaterialConditions.join(", ")}</span><br/>` : "")
+      + "</div>"
   };
 
 })();

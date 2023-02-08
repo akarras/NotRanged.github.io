@@ -30,7 +30,7 @@
     $scope.tabs = [];
     for (var i = 0; i < _allClasses.length; i++) {
       var cls = _allClasses[i];
-      $scope.tabs.push({name: cls, active: cls === $scope.recipe.cls});
+      $scope.tabs.push({ name: cls, active: cls === $scope.recipe.cls });
     }
 
     $scope.$on('profile.loaded', onProfileLoaded);
@@ -133,12 +133,12 @@
     function selectActionsByLevel(cls) {
       selectActions(cls, false);
     }
-    
+
     function selectActionsGuaranteed(cls) {
       selectActions(cls, true);
     }
 
-    function selectActions(cls, bySuccessRate) {
+    function selectActions(cls, guaranteed) {
       var stats = $scope.crafter.stats[cls];
       var selectedActions = [];
 
@@ -155,9 +155,9 @@
 
           // If we care about level and the action's level is too high, skip it.
           if (action.level > $scope.crafter.stats[actionClass].level) continue;
-          
-          // If we care about successRate and the successRate is too low, skip it.
-          if (bySuccessRate && action.successProbability < 1) continue;
+
+          // If we only want guaranteed action and the successRate is too low, or it is material condition dependent, skip it.
+          if (guaranteed && (action.successProbability < 1 || action.conditionalAction())) continue;
 
           // Some actions are upgraded versions of others.  
           // If this is one of the base versions and our level is high enough to use the upgraded version, skip it.

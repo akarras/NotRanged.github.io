@@ -2,6 +2,17 @@
 
 This project contains the source for the [FFXIV Crafting Optimizer Website](http://ffxiv.lokyst.net/). It uses [AngularJS](http://angularjs.org/), [AngularUI Bootstrap](http://angular-ui.github.io/bootstrap/), and [Bootstrap](http://getbootstrap.com/).
 
+# Updating item and food databases
+
+For the notranged.github.io version of this tool, I have written a new Python scraper that pulls recipe data from xivapi.com. Whenever FFXIV gets updated with new crafting recpes, run main_scraper.py found in scripts/ranged-python-xivapi-extractor/. It will create new .json files for each job in the /out/ folder. Use these to replace the old .json files in app/data/recipedb/
+
+### Food and Medicine
+I haven't made this script work for food and medicine buffs yet, though. You will have to use [the old lodestone scraper](https://github.com/doxxx/lodestone-recipe-db-scraper) for that. Run it with argument --buffs, e.g. 'python main.py --buffs'
+
+At some point I made an [updated version of that script](https://github.com/NotRanged/ranged-lodestone-recipe-db-scraper) but idk what i changed about it anymore i forgor 💀
+
+# Development (old readme)
+
 ### Running the app during development
 
 You can pick one of these options:
@@ -24,8 +35,4 @@ Note that if you're using Docker on Windows or OS X via VirtualBox, you'll have 
 
 Localization files can be found in `app/locale`. The `app/locale/en.json` file is purposefully missing because the English strings are used as the translation keys. Strings which require interpolation are defined in app.js so that they can be displayed immediately as a fallback until the actual locale json file finishes loading.
 
-### Updating item and food databases
 
-For the notranged.github.io version of this tool, I have written a new Python scraper that pulls recipe data from xivapi.com. Whenever FFXIV gets updated with new crafting recipes, run main_scraper.py found in scripts/ranged-python-xivapi-extractor/. It will create new .json files for each job in the /out/ folder. Use these to replace the old .json files in app/data/recipedb/
-
-I haven't made this script work for food and medicine buffs yet, though. You will have to use [the old lodestone scraper](https://github.com/doxxx/lodestone-recipe-db-scraper) for that. 

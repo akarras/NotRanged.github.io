@@ -11524,6 +11524,63 @@
     "suggestedCraftsmanship": 2805
   },
   {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Feentürchen",
+      "en": "Faerie Door",
+      "fr": "Porte féérique",
+      "ja": "フェアリードア"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Tropisches Sofa",
+      "en": "Rattan Sofa",
+      "fr": "Canapé tropical",
+      "ja": "トロピカルソファ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Feen-Rundtisch",
+      "en": "Faerie Round Table",
+      "fr": "Table ronde féérique",
+      "ja": "フェアリーラウンドテーブル"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
     "baseLevel": 30,
     "difficulty": 51,
     "durability": 70,
@@ -21443,8 +21500,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21463,8 +21520,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21483,8 +21540,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21503,8 +21560,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21523,8 +21580,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21543,8 +21600,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21563,8 +21620,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21583,8 +21640,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21603,8 +21660,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21623,8 +21680,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21758,8 +21815,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21778,8 +21835,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21798,8 +21855,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 70,
@@ -21878,8 +21935,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -21898,8 +21955,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -21918,8 +21975,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -21938,8 +21995,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -21958,8 +22015,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -21978,8 +22035,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -21998,8 +22055,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22018,8 +22075,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22038,8 +22095,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22058,8 +22115,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22078,8 +22135,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22098,8 +22155,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22118,8 +22175,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22138,8 +22195,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22158,8 +22215,8 @@
     "qualityDivider": 180,
     "qualityModifier": 100,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 80,
@@ -22258,7 +22315,342 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
+  },
+  {
+    "baseLevel": 81,
+    "difficulty": 2000,
+    "durability": 60,
+    "level": 517,
+    "maxQuality": 4160,
+    "name": {
+      "de": "Hirten-Werkzeug",
+      "en": "Sheep Equipment",
+      "fr": "Outils de berger",
+      "ja": "羊のお世話道具"
+    },
+    "progressDivider": 121,
+    "progressModifier": 100,
+    "qualityDivider": 105,
+    "qualityModifier": 100,
+    "suggestedControl": 2136,
+    "suggestedCraftsmanship": 2234
+  },
+  {
+    "baseLevel": 82,
+    "difficulty": 2300,
+    "durability": 60,
+    "level": 520,
+    "maxQuality": 4560,
+    "name": {
+      "de": "Kälteschutzmütze",
+      "en": "Mountain Garb",
+      "fr": "Chapka",
+      "ja": "山岳部の防寒用品"
+    },
+    "progressDivider": 122,
+    "progressModifier": 100,
+    "qualityDivider": 106,
+    "qualityModifier": 100,
+    "suggestedControl": 2238,
+    "suggestedCraftsmanship": 2336
+  },
+  {
+    "baseLevel": 83,
+    "difficulty": 2600,
+    "durability": 60,
+    "level": 525,
+    "maxQuality": 4960,
+    "name": {
+      "de": "Voeburtische Spezialität",
+      "en": "Classic Voeburtite Cuisine",
+      "fr": "Plat de Voeburt",
+      "ja": "フッブート風の郷土料理"
+    },
+    "progressDivider": 123,
+    "progressModifier": 100,
+    "qualityDivider": 107,
+    "qualityModifier": 100,
+    "suggestedControl": 2340,
+    "suggestedCraftsmanship": 2438
+  },
+  {
+    "baseLevel": 84,
+    "difficulty": 2900,
+    "durability": 60,
+    "level": 530,
+    "maxQuality": 5280,
+    "name": {
+      "de": "Voeburtisches Kunsthandwerk",
+      "en": "Traditional Voeburtite Handicraft",
+      "fr": "Mouton fait-main",
+      "ja": "フッブート風の工芸品"
+    },
+    "progressDivider": 124,
+    "progressModifier": 100,
+    "qualityDivider": 108,
+    "qualityModifier": 100,
+    "suggestedControl": 2388,
+    "suggestedCraftsmanship": 2507
+  },
+  {
+    "baseLevel": 85,
+    "difficulty": 3000,
+    "durability": 60,
+    "level": 535,
+    "maxQuality": 5360,
+    "name": {
+      "de": "Dankesgeschenk",
+      "en": "Lovely Box of Pretty Things",
+      "fr": "Boîte de jolis cadeaux",
+      "ja": "かわいらしい返礼品"
+    },
+    "progressDivider": 125,
+    "progressModifier": 100,
+    "qualityDivider": 109,
+    "qualityModifier": 100,
+    "suggestedControl": 2418,
+    "suggestedCraftsmanship": 2549
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5720,
+    "durability": 70,
+    "level": 620,
+    "maxQuality": 12900,
+    "name": {
+      "de": "Ermittler-Angelrute",
+      "en": "Indagator's Fishing Rod",
+      "fr": "Canne à pêche d'indagator",
+      "ja": "インダガトル・フィッシングロッド"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5720,
+    "durability": 70,
+    "level": 620,
+    "maxQuality": 12900,
+    "name": {
+      "de": "Ermittler-Schleifrad",
+      "en": "Indagator's Grinding Wheel",
+      "fr": "Meule d'indagator",
+      "ja": "インダガトル・グラインディングホイール"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5720,
+    "durability": 70,
+    "level": 620,
+    "maxQuality": 12900,
+    "name": {
+      "de": "Ermittler-Spinnrad",
+      "en": "Indagator's Spinning Wheel",
+      "fr": "Rouet d'indagator",
+      "ja": "インダガトル・スピニングホイール"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5720,
+    "durability": 70,
+    "level": 620,
+    "maxQuality": 12900,
+    "name": {
+      "de": "Ermittler-Ohrringe des Handwerks",
+      "en": "Indagator's Earrings of Crafting",
+      "fr": "Boucles d'oreilles des créations d'indagator",
+      "ja": "インダガトル・クラフターイヤリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5720,
+    "durability": 70,
+    "level": 620,
+    "maxQuality": 12900,
+    "name": {
+      "de": "Ermittler-Halsband des Handwerks",
+      "en": "Indagator's Necklace of Crafting",
+      "fr": "Collier des créations d'indagator",
+      "ja": "インダガトル・クラフターネックレス"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5720,
+    "durability": 70,
+    "level": 620,
+    "maxQuality": 12900,
+    "name": {
+      "de": "Ermittler-Armreif des Handwerks",
+      "en": "Indagator's Bracelet of Crafting",
+      "fr": "Bracelet des créations d'indagator",
+      "ja": "インダガトル・クラフターブレスレット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5720,
+    "durability": 70,
+    "level": 620,
+    "maxQuality": 12900,
+    "name": {
+      "de": "Ermittler-Ring des Handwerks",
+      "en": "Indagator's Ring of Crafting",
+      "fr": "Bague des créations d'indagator",
+      "ja": "インダガトル・クラフターリング"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Lupercus-Partisane",
+      "en": "Rubellux Partisan",
+      "fr": "Pertuisane Rubeus",
+      "ja": "ルベルクス・パルチザン"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Lupercus-Bogen",
+      "en": "Rubellux Bow",
+      "fr": "Arc Rubeus",
+      "ja": "ルベルクス・ボウ"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Lupercus-Stock",
+      "en": "Rubellux Cane",
+      "fr": "Canne Rubeus",
+      "ja": "ルベルクス・ケーン"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Lupercus-Stab",
+      "en": "Rubellux Rod",
+      "fr": "Sceptre Rubeus",
+      "ja": "ルベルクス・ロッド"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 7920,
+    "durability": 60,
+    "level": 621,
+    "maxQuality": 17240,
+    "name": {
+      "de": "Material für einen Garten-Otterborn",
+      "en": "Smaller Water Otter Fountain Lumber",
+      "fr": "Matériaux pour fontaine ressourçante de jardin",
+      "ja": "家庭用ウソウソの泉の部材"
+    },
+    "progressDivider": 180,
+    "progressModifier": 100,
+    "qualityDivider": 180,
+    "qualityModifier": 100,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   }
 ]

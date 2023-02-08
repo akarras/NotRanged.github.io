@@ -280,5 +280,10 @@
   "ERROR_SYNTH_INVALID": "오류: 코드가 형식에 맞지 않습니다.",
   "SYNTH_SEQUENCE_CODE": "코드:",
 
+  "REQUIRED_MATERIAL_CONDITION": "Req. Material Conditions",
+  "MATERIAL_CONDITION_GOOD": "Good",
+  "MATERIAL_CONDITION_EXCELLENT": "Excellent",
+  "MATERIAL_CONDITION_POOR": "Poor",
+
   "UNNAMED": "이름 없는 매크로"
 }

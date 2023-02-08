@@ -10792,6 +10792,234 @@
     "suggestedCraftsmanship": 2805
   },
   {
+    "baseLevel": 77,
+    "difficulty": 1570,
+    "durability": 80,
+    "level": 412,
+    "maxQuality": 4300,
+    "name": {
+      "de": "Rote Trichterwinden-Haarspange",
+      "en": "Red Morning Glory Corsage",
+      "fr": "Barrette belles-de-jour rouges",
+      "ja": "モーニンググローリーオーナメント:レッド"
+    },
+    "progressDivider": 107,
+    "progressModifier": 100,
+    "qualityDivider": 87,
+    "qualityModifier": 100,
+    "suggestedControl": 1502,
+    "suggestedCraftsmanship": 1621
+  },
+  {
+    "baseLevel": 77,
+    "difficulty": 1570,
+    "durability": 80,
+    "level": 412,
+    "maxQuality": 4300,
+    "name": {
+      "de": "Blaue Trichterwinden-Haarspange",
+      "en": "Blue Morning Glory Corsage",
+      "fr": "Barrette belles-de-jour bleues",
+      "ja": "モーニンググローリーオーナメント:ブルー"
+    },
+    "progressDivider": 107,
+    "progressModifier": 100,
+    "qualityDivider": 87,
+    "qualityModifier": 100,
+    "suggestedControl": 1502,
+    "suggestedCraftsmanship": 1621
+  },
+  {
+    "baseLevel": 77,
+    "difficulty": 1570,
+    "durability": 80,
+    "level": 412,
+    "maxQuality": 4300,
+    "name": {
+      "de": "Gelbe Trichterwinden-Haarspange",
+      "en": "Yellow Morning Glory Corsage",
+      "fr": "Barrette belles-de-jour jaunes",
+      "ja": "モーニンググローリーオーナメント:イエロー"
+    },
+    "progressDivider": 107,
+    "progressModifier": 100,
+    "qualityDivider": 87,
+    "qualityModifier": 100,
+    "suggestedControl": 1502,
+    "suggestedCraftsmanship": 1621
+  },
+  {
+    "baseLevel": 77,
+    "difficulty": 1570,
+    "durability": 80,
+    "level": 412,
+    "maxQuality": 4300,
+    "name": {
+      "de": "Grüne Trichterwinden-Haarspange",
+      "en": "Green Morning Glory Corsage",
+      "fr": "Barrette belles-de-jour vertes",
+      "ja": "モーニンググローリーオーナメント:グリーン"
+    },
+    "progressDivider": 107,
+    "progressModifier": 100,
+    "qualityDivider": 87,
+    "qualityModifier": 100,
+    "suggestedControl": 1502,
+    "suggestedCraftsmanship": 1621
+  },
+  {
+    "baseLevel": 77,
+    "difficulty": 1570,
+    "durability": 80,
+    "level": 412,
+    "maxQuality": 4300,
+    "name": {
+      "de": "Orange Trichterwinden-Haarspange",
+      "en": "Orange Morning Glory Corsage",
+      "fr": "Barrette belles-de-jour oranges",
+      "ja": "モーニンググローリーオーナメント:オレンジ"
+    },
+    "progressDivider": 107,
+    "progressModifier": 100,
+    "qualityDivider": 87,
+    "qualityModifier": 100,
+    "suggestedControl": 1502,
+    "suggestedCraftsmanship": 1621
+  },
+  {
+    "baseLevel": 77,
+    "difficulty": 1570,
+    "durability": 80,
+    "level": 412,
+    "maxQuality": 4300,
+    "name": {
+      "de": "Violette Trichterwinden-Haarspange",
+      "en": "Purple Morning Glory Corsage",
+      "fr": "Barrette belles-de-jour violettes",
+      "ja": "モーニンググローリーオーナメント:パープル"
+    },
+    "progressDivider": 107,
+    "progressModifier": 100,
+    "qualityDivider": 87,
+    "qualityModifier": 100,
+    "suggestedControl": 1502,
+    "suggestedCraftsmanship": 1621
+  },
+  {
+    "baseLevel": 77,
+    "difficulty": 1570,
+    "durability": 80,
+    "level": 412,
+    "maxQuality": 4300,
+    "name": {
+      "de": "Weiße Trichterwinden-Haarspange",
+      "en": "White Morning Glory Corsage",
+      "fr": "Barrette belles-de-jour blanches",
+      "ja": "モーニンググローリーオーナメント:ホワイト"
+    },
+    "progressDivider": 107,
+    "progressModifier": 100,
+    "qualityDivider": 87,
+    "qualityModifier": 100,
+    "suggestedControl": 1502,
+    "suggestedCraftsmanship": 1621
+  },
+  {
+    "baseLevel": 77,
+    "difficulty": 1570,
+    "durability": 80,
+    "level": 412,
+    "maxQuality": 4300,
+    "name": {
+      "de": "Schwarze Trichterwinden-Haarspange",
+      "en": "Black Morning Glory Corsage",
+      "fr": "Barrette belles-de-jour noires",
+      "ja": "モーニンググローリーオーナメント:ブラック"
+    },
+    "progressDivider": 107,
+    "progressModifier": 100,
+    "qualityDivider": 87,
+    "qualityModifier": 100,
+    "suggestedControl": 1502,
+    "suggestedCraftsmanship": 1621
+  },
+  {
+    "baseLevel": 77,
+    "difficulty": 1570,
+    "durability": 80,
+    "level": 412,
+    "maxQuality": 4300,
+    "name": {
+      "de": "Mehrfarbige Trichterwinden-Haarspange",
+      "en": "Rainbow Morning Glory Corsage",
+      "fr": "Barrette belles-de-jour multicolores",
+      "ja": "モーニンググローリーオーナメント:ブレンド"
+    },
+    "progressDivider": 107,
+    "progressModifier": 100,
+    "qualityDivider": 87,
+    "qualityModifier": 100,
+    "suggestedControl": 1502,
+    "suggestedCraftsmanship": 1621
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Hypertrank",
+      "en": "Hyper-potion",
+      "fr": "Hyper potion",
+      "ja": "ハイパーポーション"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Blumiger Vogelkäfig",
+      "en": "Flower Boucage",
+      "fr": "Cage ornée de fleurs",
+      "ja": "フラワーアレンジドケージ"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Antikes Thaumaturgenset",
+      "en": "Timeworn Thaumaturgic Array",
+      "fr": "Matériel d'occultisme ancien",
+      "ja": "古めいた呪術道具"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
     "baseLevel": 30,
     "difficulty": 51,
     "durability": 70,
@@ -21515,8 +21743,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21535,8 +21763,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21555,8 +21783,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21575,8 +21803,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21595,8 +21823,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21615,8 +21843,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21635,8 +21863,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21655,8 +21883,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21675,8 +21903,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21695,8 +21923,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21715,8 +21943,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21735,8 +21963,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -21990,8 +22218,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -22010,8 +22238,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22030,8 +22258,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22050,8 +22278,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22070,8 +22298,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22090,8 +22318,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22110,8 +22338,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22130,8 +22358,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22150,8 +22378,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22170,8 +22398,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22190,8 +22418,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22210,8 +22438,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22230,8 +22458,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 90,
@@ -22250,8 +22478,8 @@
     "qualityDivider": 180,
     "qualityModifier": 100,
     "stars": 3,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   },
   {
     "baseLevel": 80,
@@ -22310,8 +22538,8 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
   },
   {
     "baseLevel": 90,
@@ -22330,7 +22558,202 @@
     "qualityDivider": 115,
     "qualityModifier": 70,
     "stars": 2,
-    "suggestedControl": 2703,
-    "suggestedCraftsmanship": 2924
+    "suggestedControl": 3080,
+    "suggestedCraftsmanship": 3180
+  },
+  {
+    "baseLevel": 81,
+    "difficulty": 2000,
+    "durability": 60,
+    "level": 517,
+    "maxQuality": 4160,
+    "name": {
+      "de": "Hirten-Werkzeug",
+      "en": "Sheep Equipment",
+      "fr": "Outils de berger",
+      "ja": "羊のお世話道具"
+    },
+    "progressDivider": 121,
+    "progressModifier": 100,
+    "qualityDivider": 105,
+    "qualityModifier": 100,
+    "suggestedControl": 2136,
+    "suggestedCraftsmanship": 2234
+  },
+  {
+    "baseLevel": 82,
+    "difficulty": 2300,
+    "durability": 60,
+    "level": 520,
+    "maxQuality": 4560,
+    "name": {
+      "de": "Kälteschutzmütze",
+      "en": "Mountain Garb",
+      "fr": "Chapka",
+      "ja": "山岳部の防寒用品"
+    },
+    "progressDivider": 122,
+    "progressModifier": 100,
+    "qualityDivider": 106,
+    "qualityModifier": 100,
+    "suggestedControl": 2238,
+    "suggestedCraftsmanship": 2336
+  },
+  {
+    "baseLevel": 83,
+    "difficulty": 2600,
+    "durability": 60,
+    "level": 525,
+    "maxQuality": 4960,
+    "name": {
+      "de": "Voeburtische Spezialität",
+      "en": "Classic Voeburtite Cuisine",
+      "fr": "Plat de Voeburt",
+      "ja": "フッブート風の郷土料理"
+    },
+    "progressDivider": 123,
+    "progressModifier": 100,
+    "qualityDivider": 107,
+    "qualityModifier": 100,
+    "suggestedControl": 2340,
+    "suggestedCraftsmanship": 2438
+  },
+  {
+    "baseLevel": 84,
+    "difficulty": 2900,
+    "durability": 60,
+    "level": 530,
+    "maxQuality": 5280,
+    "name": {
+      "de": "Voeburtisches Kunsthandwerk",
+      "en": "Traditional Voeburtite Handicraft",
+      "fr": "Mouton fait-main",
+      "ja": "フッブート風の工芸品"
+    },
+    "progressDivider": 124,
+    "progressModifier": 100,
+    "qualityDivider": 108,
+    "qualityModifier": 100,
+    "suggestedControl": 2388,
+    "suggestedCraftsmanship": 2507
+  },
+  {
+    "baseLevel": 85,
+    "difficulty": 3000,
+    "durability": 60,
+    "level": 535,
+    "maxQuality": 5360,
+    "name": {
+      "de": "Dankesgeschenk",
+      "en": "Lovely Box of Pretty Things",
+      "fr": "Boîte de jolis cadeaux",
+      "ja": "かわいらしい返礼品"
+    },
+    "progressDivider": 125,
+    "progressModifier": 100,
+    "qualityDivider": 109,
+    "qualityModifier": 100,
+    "suggestedControl": 2418,
+    "suggestedCraftsmanship": 2549
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 3696,
+    "durability": 35,
+    "level": 620,
+    "maxQuality": 8600,
+    "name": {
+      "de": "Visionslösung des Handwerks",
+      "en": "Craftsman's Alkahest",
+      "fr": "Eau chimérique de savoir-faire",
+      "ja": "匠の幻水"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Lupercus-Index",
+      "en": "Rubellux Index",
+      "fr": "Index Rubeus",
+      "ja": "ルベルクス・インデックス"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 80,
+    "difficulty": 2050,
+    "durability": 70,
+    "level": 450,
+    "maxQuality": 7900,
+    "name": {
+      "de": "Lupercus-Kodex",
+      "en": "Rubellux Codex",
+      "fr": "Codex Rubeus",
+      "ja": "ルベルクス・コーデックス"
+    },
+    "progressDivider": 110,
+    "progressModifier": 80,
+    "qualityDivider": 90,
+    "qualityModifier": 70,
+    "stars": 2,
+    "suggestedControl": 1990,
+    "suggestedCraftsmanship": 2140
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 4400,
+    "durability": 70,
+    "level": 610,
+    "maxQuality": 8200,
+    "name": {
+      "de": "Notenrolle von „Forged in Crimson“",
+      "en": "Forged in Crimson Orchestrion Roll",
+      "fr": "Rouleau “Forged in Crimson”",
+      "ja": "オーケストリオン譜:Forged in Crimson"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 7920,
+    "durability": 60,
+    "level": 621,
+    "maxQuality": 17240,
+    "name": {
+      "de": "Garten-Otterborn-Kunstharz",
+      "en": "Smaller Water Otter Fountain Resin",
+      "fr": "Résine synthétique pour fontaine ressourçante de jardin",
+      "ja": "家庭用ウソウソの泉の合成樹脂"
+    },
+    "progressDivider": 180,
+    "progressModifier": 100,
+    "qualityDivider": 180,
+    "qualityModifier": 100,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
   }
 ]

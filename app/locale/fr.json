@@ -283,5 +283,10 @@
   "ERROR_SYNTH_INVALID": "Erreur : séquence de synthèse invalide.",
   "SYNTH_SEQUENCE_CODE": "Séquence de synthèse : ",
 
+  "REQUIRED_MATERIAL_CONDITION": "Req. Material Conditions",
+  "MATERIAL_CONDITION_GOOD": "Good",
+  "MATERIAL_CONDITION_EXCELLENT": "Excellent",
+  "MATERIAL_CONDITION_POOR": "Poor",
+
   "UNNAMED": "non renseigné"
 }

@@ -224,5 +224,10 @@
   "ERROR_SYNTH_INVALID": "Error: Invalid synth sequence.",
   "SYNTH_SEQUENCE_CODE": "Synth sequence code: ",
 
+  "REQUIRED_MATERIAL_CONDITION": "Req. Material Conditions",
+  "MATERIAL_CONDITION_GOOD": "Good",
+  "MATERIAL_CONDITION_EXCELLENT": "Excellent",
+  "MATERIAL_CONDITION_POOR": "Poor",
+
   "UNNAMED": "unnamed"
 }

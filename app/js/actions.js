@@ -24,6 +24,7 @@ function Action(shortName, name, durabilityCost, cpCost, successProbability, qua
     this.isCombo = isCombo;
     this.comboActions = comboActions;
 
+    this.conditionalAction = () => this.onGood || this.onExcellent || this.onPoor;
 }
 
 // Actions Table

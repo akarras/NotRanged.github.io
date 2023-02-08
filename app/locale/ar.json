@@ -216,6 +216,11 @@
     "ERROR_SYNTH_EMPTY": "خطأ: تسلسل موالفة فارغ.",
     "ERROR_SYNTH_INVALID": "خطأ: تسلسل موالفة غير صالح.",
     "SYNTH_SEQUENCE_CODE": "كود تسلسل التوليف:",
+
+    "REQUIRED_MATERIAL_CONDITION": "Req. Material Conditions",
+    "MATERIAL_CONDITION_GOOD": "Good",
+    "MATERIAL_CONDITION_EXCELLENT": "Excellent",
+    "MATERIAL_CONDITION_POOR": "Poor",
   
     "UNNAMED": "غير مسمى"
   }
