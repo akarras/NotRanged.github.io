@@ -230,15 +230,15 @@ impl CraftSimulator {
                     let mut work_log = Some(String::new());
                     let (state, best_sequence) =
                         genome.get_final_actions_list(&self.synth, &mut work_log);
-                    #[cfg(target_arch = "wasm32")]
-                    log(&format!(
-                        "gen: {} {}, best fitness {} actions {:?}\n worklog:\n{}",
-                        self.generations,
-                        a.processing_time,
-                        a.result.best_solution.solution.fitness,
-                        best_sequence,
-                        work_log.unwrap()
-                    ));
+                    // #[cfg(target_arch = "wasm32")]
+                    // log(&format!(
+                    //     "gen: {} {}, best fitness {} actions {:?}\n worklog:\n{}",
+                    //     self.generations,
+                    //     a.processing_time,
+                    //     a.result.best_solution.solution.fitness,
+                    //     best_sequence,
+                    //     work_log.unwrap()
+                    // ));
                     SimStep::Progress {
                         generations_completed: self.generations,
                         max_generations: self.synth.solver_vars.generations as u32,
@@ -329,16 +329,16 @@ extern "C" {
 
 #[wasm_bindgen]
 impl CraftSimulator {
-    pub fn new_wasm(synth: &JsValue) -> Self {
+    pub fn new_wasm(synth: JsValue) -> Self {
         console_error_panic_hook::set_once();
         log(&format!("RUST SEES OBJECT {:?}", synth));
-        let synth = synth.into_serde().unwrap();
+        let synth = serde_wasm_bindgen::from_value(synth).unwrap();
         log(&format!("Loaded synth {:?}", &synth));
         Self::new(synth)
     }
 
     pub fn next_wasm(&mut self) -> JsValue {
-        JsValue::from_serde(&self.next_generation()).unwrap()
+        serde_wasm_bindgen::to_value(&self.next_generation()).unwrap()
     }
 
     pub fn pause_wasm(&mut self) -> JsValue {

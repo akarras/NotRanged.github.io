@@ -73,11 +73,11 @@ self.onmessage = function(e) {
       runWasmGen();
     }
     else if (e.data == 'rungen') {
-      console.log('time since last run ' + (Date.now() - last_run));
+      // console.log('time since last run ' + (Date.now() - last_run));
       let start = Date.now();
       runWasmGen();
       console.log('took ' + (Date.now() - start) + ' ms to compute');
-      last_run = Date.now();
+      
       // runOneGen();
     }
     else if (e.data == 'finish') {
