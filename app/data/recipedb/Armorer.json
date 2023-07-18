@@ -9879,6 +9879,25 @@
     "suggestedCraftsmanship": 2805
   },
   {
+    "baseLevel": 90,
+    "difficulty": 3500,
+    "durability": 80,
+    "level": 560,
+    "maxQuality": 7200,
+    "name": {
+      "de": "Tresor-Imitation",
+      "en": "Imitation Vault",
+      "fr": "Imitation de coffre fort",
+      "ja": "イミテーションボールト"
+    },
+    "progressDivider": 130,
+    "progressModifier": 90,
+    "qualityDivider": 115,
+    "qualityModifier": 80,
+    "suggestedControl": 2635,
+    "suggestedCraftsmanship": 2805
+  },
+  {
     "baseLevel": 30,
     "difficulty": 51,
     "durability": 70,
@@ -21889,6 +21908,46 @@
   },
   {
     "baseLevel": 90,
+    "difficulty": 4620,
+    "durability": 60,
+    "level": 620,
+    "maxQuality": 12040,
+    "name": {
+      "de": "Sammler-Aquarium",
+      "en": "Connoisseur's Aquarium",
+      "fr": "Aquarium de dilettante",
+      "ja": "好事家向けのアクアリウム"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5280,
+    "durability": 60,
+    "level": 625,
+    "maxQuality": 13050,
+    "name": {
+      "de": "Sammler-Wappenschild",
+      "en": "Connoisseur's Escutcheon",
+      "fr": "Escuchon de dilettante",
+      "ja": "好事家向けのエスカッシャン"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
     "difficulty": 8800,
     "durability": 60,
     "level": 641,
@@ -21914,7 +21973,7 @@
     "level": 610,
     "maxQuality": 8200,
     "name": {
-      "de": "Harnisch des Schwarzen Ritters",
+      "de": "Golbez-Harnisch",
       "en": "Voidcast Barding",
       "fr": "Barde de Golbez",
       "ja": "ゴルベーザ・バード"
@@ -21934,7 +21993,7 @@
     "level": 610,
     "maxQuality": 8200,
     "name": {
-      "de": "Statue des Fluten-Elementarfürst",
+      "de": "Statue des Fluten-Elementarfürsten",
       "en": "Drowned King Sculpture",
       "fr": "Statuette du maître de l'eau",
       "ja": "水禍の四天王像"

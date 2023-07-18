@@ -30140,6 +30140,46 @@
   },
   {
     "baseLevel": 90,
+    "difficulty": 4620,
+    "durability": 60,
+    "level": 620,
+    "maxQuality": 12040,
+    "name": {
+      "de": "Sammler-Gartenschirm",
+      "en": "Connoisseur's Linen Parasol",
+      "fr": "Parasol de jardin de dilettante",
+      "ja": "好事家向けのガーデンパラソル"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
+    "difficulty": 5280,
+    "durability": 60,
+    "level": 625,
+    "maxQuality": 13050,
+    "name": {
+      "de": "Sammler-Jacke",
+      "en": "Connoisseur's Jacket",
+      "fr": "Veste de dilettante",
+      "ja": "好事家向けのジャケット"
+    },
+    "progressDivider": 130,
+    "progressModifier": 80,
+    "qualityDivider": 115,
+    "qualityModifier": 70,
+    "stars": 3,
+    "suggestedControl": 3280,
+    "suggestedCraftsmanship": 3700
+  },
+  {
+    "baseLevel": 90,
     "difficulty": 8800,
     "durability": 60,
     "level": 641,
